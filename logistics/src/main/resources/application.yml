@@ -1,4 +1,6 @@
 server:
+  servlet:
+    context-path: /Logistics
   port: 9000
 spring:
   datasource:
