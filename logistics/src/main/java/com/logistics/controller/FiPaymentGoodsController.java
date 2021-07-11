@@ -36,4 +36,9 @@ public class FiPaymentGoodsController {
         return new Result(ResultCode.SUCCESS,this.fiPaymentGoodsService.queryById(id));
     }
 
+    @GetMapping("/selectAll")
+    public Result selectAll(@RequestBody FiPaymentGoods fiPaymentGoods) {
+        return new Result(ResultCode.SUCCESS,this.fiPaymentGoodsService.queryAll(fiPaymentGoods));
+    }
+
 }

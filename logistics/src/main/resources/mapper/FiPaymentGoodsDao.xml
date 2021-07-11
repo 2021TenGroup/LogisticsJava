@@ -182,5 +182,10 @@
         delete from lms.fi_payment_goods where pg_id = #{pgId}
     </delete>
 
+<!--    根据运单ID查询-->
+    <select id="queryByWaybillId">
+        select * from lms.fi_payment_goods where waybill_id = #{waybill_id}
+    </select>
+
 </mapper>
 

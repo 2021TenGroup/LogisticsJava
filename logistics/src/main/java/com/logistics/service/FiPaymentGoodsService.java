@@ -12,6 +12,8 @@ import java.util.List;
  */
 public interface FiPaymentGoodsService {
 
+    List<FiPaymentGoods> queryAll(FiPaymentGoods fiPaymentGoods);
+
     /**
      * 通过ID查询单条数据
      *
@@ -52,5 +54,12 @@ public interface FiPaymentGoodsService {
      * @return 是否成功
      */
     boolean deleteById(Integer pgId);
+
+    /**
+     * 运单签收之后，添加员工
+     * @param dsSignEntity      运单录入Entity
+     * @return
+     */
+//    int updateEmpId(DsSignEntity dsSignEntity);
 
 }

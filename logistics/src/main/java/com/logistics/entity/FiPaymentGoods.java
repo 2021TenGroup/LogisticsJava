@@ -24,7 +24,7 @@ public class FiPaymentGoods implements Serializable {
 
     private Double outletsId1;
 
-    private Double empId;
+    private Integer empId;
 
     private Double outletsId2;
 
@@ -91,11 +91,11 @@ public class FiPaymentGoods implements Serializable {
         this.outletsId1 = outletsId1;
     }
 
-    public Double getEmpId() {
+    public Integer getEmpId() {
         return empId;
     }
 
-    public void setEmpId(Double empId) {
+    public void setEmpId(Integer empId) {
         this.empId = empId;
     }
 

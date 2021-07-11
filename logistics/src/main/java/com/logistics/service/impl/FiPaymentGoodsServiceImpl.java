@@ -19,6 +19,11 @@ public class FiPaymentGoodsServiceImpl implements FiPaymentGoodsService {
     @Resource
     private FiPaymentGoodsDao fiPaymentGoodsDao;
 
+    @Override
+    public List<FiPaymentGoods> queryAll(FiPaymentGoods fiPaymentGoods){
+        return fiPaymentGoodsDao.queryAll(fiPaymentGoods);
+    }
+
     /**
      * 通过ID查询单条数据
      *
@@ -76,4 +81,23 @@ public class FiPaymentGoodsServiceImpl implements FiPaymentGoodsService {
     public boolean deleteById(Integer pgId) {
         return this.fiPaymentGoodsDao.deleteById(pgId) > 0;
     }
+
+    /**
+     * 运单签收之后，添加员工
+     * @param dsSignEntity      运单录入Entity
+     * @return
+     */
+/*    @Override
+    public int updateEmpId(DsSignEntity dsSignEntity) {
+        Integer waybillId = dsSignEntity.getWaybillId();    //获取 运单签收表 运单ID
+        FiPaymentGoods fiPaymentGoods = fiPaymentGoodsDao.queryByWaybillId(waybillId);      //根据运单ID查询代收货款表
+        if(fiPaymentGoods != null){
+            Integer empID = dsSignEntity.getEmpId();    //获取 运单签收表 员工ID
+            fiPaymentGoods.setEmpId(empID);
+            return fiPaymentGoodsDao.update(fiPaymentGoods);
+        }
+        return 0;
+    }*/
+
+
 }

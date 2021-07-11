@@ -81,5 +81,10 @@ public interface FiPaymentGoodsDao {
      */
     int deleteById(Integer pgId);
 
+    /**
+     * 根据运单ID查询
+     */
+    FiPaymentGoods queryByWaybillId(Integer waybillId);
+
 }
 
