@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.logistics.dao.DsWaybillEntrtDao">
+
+    <resultMap id="BaseResultMap" type="com.logistics.entity.DsWaybillEntrt">
+        <!--@Table ds_waybill_entrt-->
+        <result property="waybillId" column="waybill_id" jdbcType="INTEGER"/>
+        <result property="ordersId" column="orders_id" jdbcType="INTEGER"/>
+        <result property="empId" column="Emp_Id" jdbcType="INTEGER"/>
+        <result property="waybillNumber" column="waybill_number" jdbcType="VARCHAR"/>
+        <result property="outletsId1" column="Outlets_Id1" jdbcType="VARCHAR"/>
+        <result property="expressType" column="express_type" jdbcType="INTEGER"/>
+        <result property="outletsId" column="Outlets_Id" jdbcType="INTEGER"/>
+        <result property="notes" column="notes" jdbcType="VARCHAR"/>
+        <result property="serviceCharge" column="service_charge" jdbcType="NUMERIC"/>
+        <result property="paymentGoods" column="payment_goods" jdbcType="NUMERIC"/>
+        <result property="ratesS" column="rates_s" jdbcType="NUMERIC"/>
+        <result property="totalRates" column="total_rates" jdbcType="NUMERIC"/>
+        <result property="addname" column="AddName" jdbcType="VARCHAR"/>
+        <result property="addtime" column="ADDTIME" jdbcType="TIMESTAMP"/>
+        <result property="updatename" column="UpdateName" jdbcType="VARCHAR"/>
+        <result property="updatetime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+        <result property="deletename" column="DeleteName" jdbcType="VARCHAR"/>
+        <result property="deletetime" column="DeleteTime" jdbcType="TIMESTAMP"/>
+        <result property="timeliness" column="TimeLiness" jdbcType="INTEGER"/>
+        <association property="Orders" javaType="com.logistics.entity.Orders">
+            <id property="ordersId" column="orders_id"/>
+            <result property="customerId" column="customer_id" jdbcType="INTEGER"/>
+            <result property="customerId1" column="customer_id1" jdbcType="VARCHAR"/>
+            <result property="postcode" column="postcode" jdbcType="VARCHAR"/>
+            <result property="province" column="province" jdbcType="VARCHAR"/>
+            <result property="city" column="city" jdbcType="VARCHAR"/>
+            <result property="senderPhone" column="sender_phone" jdbcType="VARCHAR"/>
+            <result property="region" column="region" jdbcType="VARCHAR"/>
+            <result property="mailingAddress" column="mailing_address" jdbcType="VARCHAR"/>
+            <result property="aPhone" column="a_phone" jdbcType="VARCHAR"/>
+            <result property="addressee" column="addressee" jdbcType="VARCHAR"/>
+            <result property="receivingCode" column="receiving_code" jdbcType="VARCHAR"/>
+            <result property="receivingAddress" column="receiving_address" jdbcType="VARCHAR"/>
+            <result property="orderSource" column="order_source" jdbcType="VARCHAR"/>
+            <result property="state" column="state" jdbcType="VARCHAR"/>
+            <result property="" column="" jdbcType=""/>
+        </association>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          waybill_id, orders_id, Emp_Id, waybill_number, Outlets_Id1, express_type, Outlets_Id, notes, service_charge, payment_goods, rates_s, total_rates, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+        from lms.ds_waybill_entrt
+        where waybill_id = #{waybillId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          waybill_id, orders_id, Emp_Id, waybill_number, Outlets_Id1, express_type, Outlets_Id, notes, service_charge, payment_goods, rates_s, total_rates, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+        from lms.ds_waybill_entrt
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          waybill_id, orders_id, Emp_Id, waybill_number, Outlets_Id1, express_type, Outlets_Id, notes, service_charge, payment_goods, rates_s, total_rates, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+        from lms.ds_waybill_entrt
+        <where>
+            <if test="waybillId != null">
+                and waybill_id = #{waybillId}
+            </if>
+            <if test="ordersId != null">
+                and orders_id = #{ordersId}
+            </if>
+            <if test="empId != null">
+                and Emp_Id = #{empId}
+            </if>
+            <if test="waybillNumber != null and waybillNumber != ''">
+                and waybill_number = #{waybillNumber}
+            </if>
+            <if test="outletsId1 != null and outletsId1 != ''">
+                and Outlets_Id1 = #{outletsId1}
+            </if>
+            <if test="expressType != null">
+                and express_type = #{expressType}
+            </if>
+            <if test="outletsId != null">
+                and Outlets_Id = #{outletsId}
+            </if>
+            <if test="notes != null and notes != ''">
+                and notes = #{notes}
+            </if>
+            <if test="serviceCharge != null">
+                and service_charge = #{serviceCharge}
+            </if>
+            <if test="paymentGoods != null">
+                and payment_goods = #{paymentGoods}
+            </if>
+            <if test="ratesS != null">
+                and rates_s = #{ratesS}
+            </if>
+            <if test="totalRates != null">
+                and total_rates = #{totalRates}
+            </if>
+            <if test="addname != null and addname != ''">
+                and AddName = #{addname}
+            </if>
+            <if test="addtime != null">
+                and ADDTIME = #{addtime}
+            </if>
+            <if test="updatename != null and updatename != ''">
+                and UpdateName = #{updatename}
+            </if>
+            <if test="updatetime != null">
+                and UpdateTime = #{updatetime}
+            </if>
+            <if test="deletename != null and deletename != ''">
+                and DeleteName = #{deletename}
+            </if>
+            <if test="deletetime != null">
+                and DeleteTime = #{deletetime}
+            </if>
+            <if test="timeliness != null">
+                and TimeLiness = #{timeliness}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="waybillId" useGeneratedKeys="true">
+        insert into lms.ds_waybill_entrt(orders_id, Emp_Id, waybill_number, Outlets_Id1, express_type, Outlets_Id, notes, service_charge, payment_goods, rates_s, total_rates, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        values (#{ordersId}, #{empId}, #{waybillNumber}, #{outletsId1}, #{expressType}, #{outletsId}, #{notes}, #{serviceCharge}, #{paymentGoods}, #{ratesS}, #{totalRates}, #{addname}, #{addtime}, #{updatename}, #{updatetime}, #{deletename}, #{deletetime}, #{timeliness})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update lms.ds_waybill_entrt
+        <set>
+            <if test="ordersId != null">
+                orders_id = #{ordersId},
+            </if>
+            <if test="empId != null">
+                Emp_Id = #{empId},
+            </if>
+            <if test="waybillNumber != null and waybillNumber != ''">
+                waybill_number = #{waybillNumber},
+            </if>
+            <if test="outletsId1 != null and outletsId1 != ''">
+                Outlets_Id1 = #{outletsId1},
+            </if>
+            <if test="expressType != null">
+                express_type = #{expressType},
+            </if>
+            <if test="outletsId != null">
+                Outlets_Id = #{outletsId},
+            </if>
+            <if test="notes != null and notes != ''">
+                notes = #{notes},
+            </if>
+            <if test="serviceCharge != null">
+                service_charge = #{serviceCharge},
+            </if>
+            <if test="paymentGoods != null">
+                payment_goods = #{paymentGoods},
+            </if>
+            <if test="ratesS != null">
+                rates_s = #{ratesS},
+            </if>
+            <if test="totalRates != null">
+                total_rates = #{totalRates},
+            </if>
+            <if test="addname != null and addname != ''">
+                AddName = #{addname},
+            </if>
+            <if test="addtime != null">
+                ADDTIME = #{addtime},
+            </if>
+            <if test="updatename != null and updatename != ''">
+                UpdateName = #{updatename},
+            </if>
+            <if test="updatetime != null">
+                UpdateTime = #{updatetime},
+            </if>
+            <if test="deletename != null and deletename != ''">
+                DeleteName = #{deletename},
+            </if>
+            <if test="deletetime != null">
+                DeleteTime = #{deletetime},
+            </if>
+            <if test="timeliness != null">
+                TimeLiness = #{timeliness},
+            </if>
+        </set>
+        where waybill_id = #{waybillId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from lms.ds_waybill_entrt where waybill_id = #{waybillId}
+    </delete>
+
+</mapper>
