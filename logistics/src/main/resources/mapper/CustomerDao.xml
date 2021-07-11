@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.logistics.dao.CustomerDao">
+    <resultMap type="com.logistics.vo.CustomerVo" id="CustomerMap">
+        <id property="customerId" column="Customer_Id" jdbcType="INTEGER"/>
+        <result property="outletsId" column="Outlets_Id" jdbcType="INTEGER"/>
+        <result property="customerNumber" column="Customer_Number" jdbcType="VARCHAR"/>
+        <result property="customerName" column="Customer_Name" jdbcType="VARCHAR"/>
+        <result property="customerSettlement" column="Customer_Settlement" jdbcType="INTEGER"/>
+        <result property="customerUser" column="Customer_User" jdbcType="VARCHAR"/>
+        <result property="customerPhone" column="Customer_Phone" jdbcType="VARCHAR"/>
+        <result property="customerProvince" column="Customer_Province" jdbcType="VARCHAR"/>
+        <result property="customerCity" column="Customer_City" jdbcType="VARCHAR"/>
+        <result property="customerRegion" column="Customer_Region" jdbcType="VARCHAR"/>
+        <result property="customerAddress" column="Customer_Address" jdbcType="VARCHAR"/>
+        <result property="addname" column="AddName" jdbcType="VARCHAR"/>
+        <result property="addtime" column="AddTime" jdbcType="TIMESTAMP"/>
+        <result property="updatename" column="UpdateName" jdbcType="VARCHAR"/>
+        <result property="updatetime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+        <result property="deletename" column="DeleteName" jdbcType="VARCHAR"/>
+        <result property="deletetime" column="DeleteTime" jdbcType="TIMESTAMP"/>
+        <result property="timeliness" column="TimeLiness" jdbcType="INTEGER"/>
+        <association property="outletsVo" javaType="com.logistics.vo.OutletsVo">
+            <id property="outletsId" column="Outlets_Id" jdbcType="INTEGER"/>
+            <result property="outletsNumber" column="Outlets_Number" jdbcType="VARCHAR"/>
+            <result property="outletsName" column="Outlets_Name" jdbcType="VARCHAR"/>
+            <result property="outletsBelonging" column="Outlets_Belonging" jdbcType="INTEGER"/>
+            <result property="outletsPerson" column="Outlets_Person" jdbcType="VARCHAR"/>
+            <result property="outletsPhone" column="Outlets_Phone" jdbcType="INTEGER"/>
+            <result property="outletsProvince" column="Outlets_Province" jdbcType="VARCHAR"/>
+            <result property="outletsCity" column="Outlets_City" jdbcType="VARCHAR"/>
+            <result property="outletsRegion" column="Outlets_Region" jdbcType="VARCHAR"/>
+            <result property="outletsAddress" column="Outlets_Address" jdbcType="VARCHAR"/>
+            <result property="outletsRemarks" column="Outlets_Remarks" jdbcType="VARCHAR"/>
+            <result property="addname" column="AddName" jdbcType="VARCHAR"/>
+            <result property="addtime" column="AddTime" jdbcType="TIMESTAMP"/>
+            <result property="updatename" column="UpdateName" jdbcType="VARCHAR"/>
+            <result property="updatetime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+            <result property="deletename" column="DeleteName" jdbcType="VARCHAR"/>
+            <result property="deletetime" column="DeleteTime" jdbcType="TIMESTAMP"/>
+            <result property="timeliness" column="TimeLiness" jdbcType="INTEGER"/>
+        </association>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+          c.Customer_Id, c.Outlets_Id, c.Customer_Number, c.Customer_Name, c.Customer_Settlement,
+           c.Customer_User, c.Customer_Phone, c.Customer_Province, c.Customer_City,
+           c.Customer_Region, c.Customer_Address, c.AddName, c.AddTime, c.UpdateName, c.UpdateTime,
+            c.DeleteName, c.DeleteTime, c.TimeLiness
+    </sql>
+
+    <sql id="Base_Outlets_List">
+          o.Outlets_Id, o.Outlets_Number, o.Outlets_Name, o.Outlets_Belonging, o.Outlets_Person,
+           o.Outlets_Phone, o.Outlets_Province, o.Outlets_City, o.Outlets_Region, o.Outlets_Address,
+            o.Outlets_Remarks, o.AddName, o.AddTime, o.UpdateName, o.UpdateTime, o.DeleteName,
+             o.DeleteTime, o.TimeLiness
+    </sql>
+
+    <!--查询所有[分页]-->
+    <select id="selectAllCustomer" resultMap="CustomerMap">
+        select
+        <include refid="Base_Column_List" />,
+        <include refid="Base_Outlets_List" />
+        inner join outlets o on c.outletsId = o.outletsId
+        from customer c
+        where TimeLiness = 0
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="CustomerMap">
+        select
+          Customer_Id, Outlets_Id, Customer_Number, Customer_Name, Customer_Settlement, Customer_User, Customer_Phone, Customer_Province, Customer_City, Customer_Region, Customer_Address, AddName, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+        from lms.customer
+        where Customer_Id = #{customerId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="CustomerMap">
+        select
+          Customer_Id, Outlets_Id, Customer_Number, Customer_Name, Customer_Settlement, Customer_User, Customer_Phone, Customer_Province, Customer_City, Customer_Region, Customer_Address, AddName, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+        from lms.customer
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="CustomerMap">
+        select
+        Customer_Id, Outlets_Id, Customer_Number, Customer_Name, Customer_Settlement, Customer_User, Customer_Phone,
+        Customer_Province, Customer_City, Customer_Region, Customer_Address, AddName, AddTime, UpdateName, UpdateTime,
+        DeleteName, DeleteTime, TimeLiness
+        from lms.customer
+        <where>
+            <if test="customerId != null">
+                and Customer_Id = #{customerId}
+            </if>
+            <if test="outletsId != null">
+                and Outlets_Id = #{outletsId}
+            </if>
+            <if test="customerNumber != null and customerNumber != ''">
+                and Customer_Number = #{customerNumber}
+            </if>
+            <if test="customerName != null and customerName != ''">
+                and Customer_Name = #{customerName}
+            </if>
+            <if test="customerSettlement != null">
+                and Customer_Settlement = #{customerSettlement}
+            </if>
+            <if test="customerUser != null and customerUser != ''">
+                and Customer_User = #{customerUser}
+            </if>
+            <if test="customerPhone != null and customerPhone != ''">
+                and Customer_Phone = #{customerPhone}
+            </if>
+            <if test="customerProvince != null and customerProvince != ''">
+                and Customer_Province = #{customerProvince}
+            </if>
+            <if test="customerCity != null and customerCity != ''">
+                and Customer_City = #{customerCity}
+            </if>
+            <if test="customerRegion != null and customerRegion != ''">
+                and Customer_Region = #{customerRegion}
+            </if>
+            <if test="customerAddress != null and customerAddress != ''">
+                and Customer_Address = #{customerAddress}
+            </if>
+            <if test="addname != null and addname != ''">
+                and AddName = #{addname}
+            </if>
+            <if test="addtime != null">
+                and AddTime = #{addtime}
+            </if>
+            <if test="updatename != null and updatename != ''">
+                and UpdateName = #{updatename}
+            </if>
+            <if test="updatetime != null">
+                and UpdateTime = #{updatetime}
+            </if>
+            <if test="deletename != null and deletename != ''">
+                and DeleteName = #{deletename}
+            </if>
+            <if test="deletetime != null">
+                and DeleteTime = #{deletetime}
+            </if>
+            <if test="timeliness != null">
+                and TimeLiness = #{timeliness}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="customerId" useGeneratedKeys="true">
+        insert into lms.customer(Outlets_Id, Customer_Number, Customer_Name, Customer_Settlement, Customer_User, Customer_Phone, Customer_Province, Customer_City, Customer_Region, Customer_Address, AddName, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        values (#{outletsId}, #{customerNumber}, #{customerName}, #{customerSettlement}, #{customerUser}, #{customerPhone}, #{customerProvince}, #{customerCity}, #{customerRegion}, #{customerAddress}, #{addname}, #{addtime}, #{updatename}, #{updatetime}, #{deletename}, #{deletetime}, #{timeliness})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="customerId" useGeneratedKeys="true">
+        insert into lms.customer(Outlets_Id, Customer_Number, Customer_Name, Customer_Settlement, Customer_User,
+        Customer_Phone, Customer_Province, Customer_City, Customer_Region, Customer_Address, AddName, AddTime,
+        UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.outletsId}, #{entity.customerNumber}, #{entity.customerName}, #{entity.customerSettlement},
+            #{entity.customerUser}, #{entity.customerPhone}, #{entity.customerProvince}, #{entity.customerCity},
+            #{entity.customerRegion}, #{entity.customerAddress}, #{entity.addname}, #{entity.addtime},
+            #{entity.updatename}, #{entity.updatetime}, #{entity.deletename}, #{entity.deletetime},
+            #{entity.timeliness})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="customerId" useGeneratedKeys="true">
+        insert into lms.customer(Outlets_Id, Customer_Number, Customer_Name, Customer_Settlement, Customer_User,
+        Customer_Phone, Customer_Province, Customer_City, Customer_Region, Customer_Address, AddName, AddTime,
+        UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.outletsId}, #{entity.customerNumber}, #{entity.customerName}, #{entity.customerSettlement},
+            #{entity.customerUser}, #{entity.customerPhone}, #{entity.customerProvince}, #{entity.customerCity},
+            #{entity.customerRegion}, #{entity.customerAddress}, #{entity.addname}, #{entity.addtime},
+            #{entity.updatename}, #{entity.updatetime}, #{entity.deletename}, #{entity.deletetime},
+            #{entity.timeliness})
+        </foreach>
+        on duplicate key update
+        Outlets_Id = values(Outlets_Id) , Customer_Number = values(Customer_Number) , Customer_Name =
+        values(Customer_Name) , Customer_Settlement = values(Customer_Settlement) , Customer_User =
+        values(Customer_User) , Customer_Phone = values(Customer_Phone) , Customer_Province = values(Customer_Province)
+        , Customer_City = values(Customer_City) , Customer_Region = values(Customer_Region) , Customer_Address =
+        values(Customer_Address) , AddName = values(AddName) , AddTime = values(AddTime) , UpdateName =
+        values(UpdateName) , UpdateTime = values(UpdateTime) , DeleteName = values(DeleteName) , DeleteTime =
+        values(DeleteTime) , TimeLiness = values(TimeLiness)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update lms.customer
+        <set>
+            <if test="outletsId != null">
+                Outlets_Id = #{outletsId},
+            </if>
+            <if test="customerNumber != null and customerNumber != ''">
+                Customer_Number = #{customerNumber},
+            </if>
+            <if test="customerName != null and customerName != ''">
+                Customer_Name = #{customerName},
+            </if>
+            <if test="customerSettlement != null">
+                Customer_Settlement = #{customerSettlement},
+            </if>
+            <if test="customerUser != null and customerUser != ''">
+                Customer_User = #{customerUser},
+            </if>
+            <if test="customerPhone != null and customerPhone != ''">
+                Customer_Phone = #{customerPhone},
+            </if>
+            <if test="customerProvince != null and customerProvince != ''">
+                Customer_Province = #{customerProvince},
+            </if>
+            <if test="customerCity != null and customerCity != ''">
+                Customer_City = #{customerCity},
+            </if>
+            <if test="customerRegion != null and customerRegion != ''">
+                Customer_Region = #{customerRegion},
+            </if>
+            <if test="customerAddress != null and customerAddress != ''">
+                Customer_Address = #{customerAddress},
+            </if>
+            <if test="addname != null and addname != ''">
+                AddName = #{addname},
+            </if>
+            <if test="addtime != null">
+                AddTime = #{addtime},
+            </if>
+            <if test="updatename != null and updatename != ''">
+                UpdateName = #{updatename},
+            </if>
+            <if test="updatetime != null">
+                UpdateTime = #{updatetime},
+            </if>
+            <if test="deletename != null and deletename != ''">
+                DeleteName = #{deletename},
+            </if>
+            <if test="deletetime != null">
+                DeleteTime = #{deletetime},
+            </if>
+            <if test="timeliness != null">
+                TimeLiness = #{timeliness},
+            </if>
+        </set>
+        where Customer_Id = #{customerId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from lms.customer where Customer_Id = #{customerId}
+    </delete>
+
+    <!--修改删除人与时效性-->
+    <update id="deleteByCustomer" parameterType="com.logistics.entity.Customer">
+        update customer
+        set
+          DeleteName = #{deletename},
+          DeleteTime = #{deletetime},
+          TimeLiness = #{timeliness}
+        where Customer_Id = #{customerId}
+    </update>
+
+</mapper>
+
