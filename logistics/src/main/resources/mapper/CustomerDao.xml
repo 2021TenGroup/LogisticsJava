@@ -61,8 +61,8 @@
         select
         <include refid="Base_Column_List" />,
         <include refid="Base_Outlets_List" />
-        inner join outlets o on c.outletsId = o.outletsId
         from customer c
+        inner join outlets o on c.outletsId = o.outletsId
         where TimeLiness = 0
     </select>
 

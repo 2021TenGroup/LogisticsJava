@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.logistics.dao.EmpDao">
-
-    <resultMap type="com.logistics.entity.Emp" id="EmpMap">
-        <result property="empId" column="Emp_Id" jdbcType="INTEGER"/>
+    <resultMap type="com.logistics.vo.EmpVo" id="EmpMap">
+        <id property="empId" column="Emp_Id" jdbcType="INTEGER"/>
         <result property="positionId" column="Position_Id" jdbcType="INTEGER"/>
         <result property="outletsId" column="Outlets_Id" jdbcType="INTEGER"/>
         <result property="empNumber" column="Emp_number" jdbcType="VARCHAR"/>
@@ -21,7 +20,55 @@
         <result property="deletename" column="DeleteName" jdbcType="VARCHAR"/>
         <result property="deletetime" column="DeleteTime" jdbcType="TIMESTAMP"/>
         <result property="timeliness" column="TimeLiness" jdbcType="INTEGER"/>
+        <association property="outletsVo" javaType="com.logistics.vo.OutletsVo">
+            <id property="outletsId" column="Outlets_Id" jdbcType="INTEGER"/>
+            <result property="outletsNumber" column="Outlets_Number" jdbcType="VARCHAR"/>
+            <result property="outletsName" column="Outlets_Name" jdbcType="VARCHAR"/>
+            <result property="outletsBelonging" column="Outlets_Belonging" jdbcType="INTEGER"/>
+            <result property="outletsPerson" column="Outlets_Person" jdbcType="VARCHAR"/>
+            <result property="outletsPhone" column="Outlets_Phone" jdbcType="INTEGER"/>
+            <result property="outletsProvince" column="Outlets_Province" jdbcType="VARCHAR"/>
+            <result property="outletsCity" column="Outlets_City" jdbcType="VARCHAR"/>
+            <result property="outletsRegion" column="Outlets_Region" jdbcType="VARCHAR"/>
+            <result property="outletsAddress" column="Outlets_Address" jdbcType="VARCHAR"/>
+            <result property="outletsRemarks" column="Outlets_Remarks" jdbcType="VARCHAR"/>
+            <result property="addname" column="AddName" jdbcType="VARCHAR"/>
+            <result property="addtime" column="AddTime" jdbcType="TIMESTAMP"/>
+            <result property="updatename" column="UpdateName" jdbcType="VARCHAR"/>
+            <result property="updatetime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+            <result property="deletename" column="DeleteName" jdbcType="VARCHAR"/>
+            <result property="deletetime" column="DeleteTime" jdbcType="TIMESTAMP"/>
+            <result property="timeliness" column="TimeLiness" jdbcType="INTEGER"/>
+        </association>
+        <association property="perPositionVo" javaType="com.logistics.vo.PerPositionVo">
+            <id property="positionId" column="Position_Id" jdbcType="INTEGER"/>
+            <result property="positionName" column="Position_Name" jdbcType="VARCHAR"/>
+            <result property="outletsId" column="Outlets_Id" jdbcType="INTEGER"/>
+            <result property="addtime" column="AddTime" jdbcType="TIMESTAMP"/>
+            <result property="updatename" column="UpdateName" jdbcType="VARCHAR"/>
+            <result property="updatetime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+            <result property="deletename" column="DeleteName" jdbcType="VARCHAR"/>
+            <result property="deletetime" column="DeleteTime" jdbcType="TIMESTAMP"/>
+            <result property="timeliness" column="TimeLiness" jdbcType="INTEGER"/>
+        </association>
     </resultMap>
+
+    <sql id="Base_Column_List">
+          e.Emp_Id, e.Position_Id, e.Outlets_Id, e.Emp_number, e.User_Name,
+           e.Pass_word, e.Phone, e.Identity_cards, e.Address, e.Z_photographs,
+            e.F_photographs, e.Emp_Name, e.AddTime, e.UpdateName, e.UpdateTime, e.DeleteName,
+             e.DeleteTime, e.TimeLiness
+    </sql>
+
+    <!--查询所有[分页]-->
+    <select id="selectAllEmps" resultMap="EmpMap">
+        select
+        <include refid="Base_Column_List" />
+        from emp e
+        inner join outlets o on e.Outlets_Id=o.Outlets_Id
+        inner join per_position p on e.Position_Id=p.Position_Id
+        where TimeLiness = 0
+    </select>
 
     <!--查询单个-->
     <select id="queryById" resultMap="EmpMap">
@@ -203,6 +250,16 @@
     <delete id="deleteById">
         delete from lms.emp where Emp_Id = #{empId}
     </delete>
+
+    <!--修改删除人与时效性-->
+    <update id="deleteByEmps" parameterType="com.logistics.entity.Emp">
+        update emp
+        set
+          DeleteName = #{deletename},
+          DeleteTime = #{deletetime},
+          TimeLiness = #{timeliness}
+        where Emp_Id = #{empId}
+    </update>
 
 </mapper>
 
