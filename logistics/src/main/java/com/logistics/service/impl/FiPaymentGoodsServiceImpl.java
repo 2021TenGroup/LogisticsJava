@@ -1,7 +1,7 @@
 package com.logistics.service.impl;
 
-import com.logistics.entity.FiPaymentGoods;
 import com.logistics.dao.FiPaymentGoodsDao;
+import com.logistics.entity.FiPaymentGoods;
 import com.logistics.service.FiPaymentGoodsService;
 import org.springframework.stereotype.Service;
 
@@ -53,11 +53,39 @@ public class FiPaymentGoodsServiceImpl implements FiPaymentGoodsService {
      * @param fiPaymentGoods 实例对象
      * @return 实例对象
      */
-    @Override
-    public FiPaymentGoods insert(FiPaymentGoods fiPaymentGoods) {
-        this.fiPaymentGoodsDao.insert(fiPaymentGoods);
-        return fiPaymentGoods;
-    }
+//    @Override
+//    public FiPaymentGoods insert(DsWaybillEntrtEntity dsWaybillEntrtEntity) {
+//        FiPaymentGoods fiPaymentGoods = new FiPaymentGoods();
+//        String waybillId = DsWaybillEntrtEntity.getWaybillNumber();    //获取 运单录入表 运单ID
+//        fiPaymentGoods.setWaybillId(waybillId);
+//
+//        Double paymentGoods = dsWaybillEntrtEntity.getPaymentGoods();     //获取 运单录入表 代收货款
+//        fiPaymentGoods.setPgPayment(paymentGoods);
+//
+//        Double serviceMoney = paymentGoods*0.03;    //服务费： 总金额*0.03
+//        fiPaymentGoods.setPgServiceMoney(serviceMoney);
+//
+//        fiPaymentGoods.setPgActualMoney(paymentGoods-serviceMoney);//实发给客户的金额
+//
+//        fiPaymentGoods.setOutletsId1(dsWaybillEntrtEntity.getMailingOutlets());//首网点
+//
+//        fiPaymentGoods.setOutletsId2(dsWaybillEntrtEntity.getObjective());//末网点
+//
+//        Integer oId = dsWaybillEntrtEntity.getOId(); //根据运单编号 获取订单编号
+//
+//        OrderEntity orderEntity = OrderService.queryById(oId);//根据oId查询订单表数据
+//
+//        Integer customerId = orderEntity.getCustomerId();   //获取寄件客户ID
+//
+//        CustomerEntity customerEntity = CustomerService.queryById(customerId);  //根据客户ID查询客户信息
+//
+//        fiPaymentGoods.setSender(customerEntity.getCustomerName());   //获取寄件人姓名
+//
+//        fiPaymentGoods.setSenderPhone(customerEntity.getCustomerPhone());   //获取寄件人电话号码
+//
+//        this.fiPaymentGoodsDao.insert(fiPaymentGoods);
+//        return fiPaymentGoods;
+//    }
 
     /**
      * 修改数据

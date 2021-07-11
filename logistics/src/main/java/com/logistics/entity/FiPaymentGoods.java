@@ -1,5 +1,10 @@
 package com.logistics.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.util.Date;
 import java.io.Serializable;
 
@@ -9,12 +14,16 @@ import java.io.Serializable;
  * @author makejava
  * @since 2021-07-11 16:42:59
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class FiPaymentGoods implements Serializable {
-    private static final long serialVersionUID = -42225034148706096L;
+    private static final long serialVersionUID = -98430115607432827L;
 
     private Integer pgId;
 
-    private Integer waybillId;
+    private String waybillId;
 
     private Double pgPayment;
 
@@ -24,9 +33,13 @@ public class FiPaymentGoods implements Serializable {
 
     private Double outletsId1;
 
-    private Integer empId;
+    private Double empId;
 
     private Double outletsId2;
+
+    private String sender;
+
+    private String senderPhone;
 
     private String addname;
 
@@ -41,126 +54,5 @@ public class FiPaymentGoods implements Serializable {
     private Date deletetime;
 
     private Integer timeliness;
-
-
-    public Integer getPgId() {
-        return pgId;
-    }
-
-    public void setPgId(Integer pgId) {
-        this.pgId = pgId;
-    }
-
-    public Integer getWaybillId() {
-        return waybillId;
-    }
-
-    public void setWaybillId(Integer waybillId) {
-        this.waybillId = waybillId;
-    }
-
-    public Double getPgPayment() {
-        return pgPayment;
-    }
-
-    public void setPgPayment(Double pgPayment) {
-        this.pgPayment = pgPayment;
-    }
-
-    public Double getPgServiceMoney() {
-        return pgServiceMoney;
-    }
-
-    public void setPgServiceMoney(Double pgServiceMoney) {
-        this.pgServiceMoney = pgServiceMoney;
-    }
-
-    public Double getPgActualMoney() {
-        return pgActualMoney;
-    }
-
-    public void setPgActualMoney(Double pgActualMoney) {
-        this.pgActualMoney = pgActualMoney;
-    }
-
-    public Double getOutletsId1() {
-        return outletsId1;
-    }
-
-    public void setOutletsId1(Double outletsId1) {
-        this.outletsId1 = outletsId1;
-    }
-
-    public Integer getEmpId() {
-        return empId;
-    }
-
-    public void setEmpId(Integer empId) {
-        this.empId = empId;
-    }
-
-    public Double getOutletsId2() {
-        return outletsId2;
-    }
-
-    public void setOutletsId2(Double outletsId2) {
-        this.outletsId2 = outletsId2;
-    }
-
-    public String getAddname() {
-        return addname;
-    }
-
-    public void setAddname(String addname) {
-        this.addname = addname;
-    }
-
-    public Date getAddtime() {
-        return addtime;
-    }
-
-    public void setAddtime(Date addtime) {
-        this.addtime = addtime;
-    }
-
-    public String getUpdatename() {
-        return updatename;
-    }
-
-    public void setUpdatename(String updatename) {
-        this.updatename = updatename;
-    }
-
-    public Date getUpdatetime() {
-        return updatetime;
-    }
-
-    public void setUpdatetime(Date updatetime) {
-        this.updatetime = updatetime;
-    }
-
-    public String getDeletename() {
-        return deletename;
-    }
-
-    public void setDeletename(String deletename) {
-        this.deletename = deletename;
-    }
-
-    public Date getDeletetime() {
-        return deletetime;
-    }
-
-    public void setDeletetime(Date deletetime) {
-        this.deletetime = deletetime;
-    }
-
-    public Integer getTimeliness() {
-        return timeliness;
-    }
-
-    public void setTimeliness(Integer timeliness) {
-        this.timeliness = timeliness;
-    }
 
 }

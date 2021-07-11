@@ -33,11 +33,11 @@ public interface FiPaymentGoodsService {
 
     /**
      * 新增数据
-     *
-     * @param fiPaymentGoods 实例对象
+     * 当运单录入时，有代收货款，则新增代收货款记录
+     * @param DsWaybillEntrtEntity 实例对象
      * @return 实例对象
      */
-    FiPaymentGoods insert(FiPaymentGoods fiPaymentGoods);
+//    FiPaymentGoods insert(DsWaybillEntrtEntity dsWaybillEntrtEntity);
 
     /**
      * 修改数据
