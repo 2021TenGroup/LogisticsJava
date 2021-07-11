@@ -3,6 +3,7 @@ package com.logistics.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -13,6 +14,7 @@ import java.io.Serializable;
  * @since 2021-07-11 19:37:23
  */
 @Data
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class DsSign implements Serializable {
