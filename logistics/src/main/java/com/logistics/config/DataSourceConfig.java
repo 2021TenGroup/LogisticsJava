@@ -34,7 +34,7 @@ public class DataSourceConfig {
         //servletRegistrationBean.addInitParameter("deny", "127.0.0.1");
         // 添加控制台管理用户
         servletRegistrationBean.addInitParameter("loginUsername", "root");
-        servletRegistrationBean.addInitParameter("loginPassword", "123456");
+        servletRegistrationBean.addInitParameter("loginPassword", "123");
         // 是否能够重置数据
         servletRegistrationBean.addInitParameter("resetEnable", "false");
         return servletRegistrationBean;
