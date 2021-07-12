@@ -39,9 +39,9 @@ public class CustomerController {
     }
 
     @GetMapping("/selectAllCustomerList")
-    public List<CustomerVo> selectAllCustomerList(){
+    public AjaxResponse selectAllCustomerList(){
         List<CustomerVo> list = customerService.selectAllCustomer();
-        return list;
+        return AjaxResponse.success(list);
     }
 
     @PostMapping("/addCustomer")

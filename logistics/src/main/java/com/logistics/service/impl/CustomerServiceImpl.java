@@ -46,7 +46,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<CustomerVo> selectAllCustomer() {
-        return null;
+        return customerDao.selectAllCustomer();
     }
 
     @Override
