@@ -119,29 +119,30 @@ public class FiPaymentGoodsServiceImpl implements FiPaymentGoodsService {
 
     /**
      * 运单签收之后，添加员工,有员工则已签收
-     * @param dsSignEntity      运单录入Entity
+     * @param dsWaybillEntrtEntity      运单录入Entity
      * @return
      */
-    @Override
-    public int updateEmpId(DsSign dsSignEntity) {
-        Integer waybillId = dsSignEntity.getWaybillId();    //获取 运单签收表 运单ID
-        FiPaymentGoods fiPaymentGoods = fiPaymentGoodsDao.queryByWaybillId(waybillId);      //根据运单ID查询代收货款表
-        if(fiPaymentGoods != null){
-            Integer empID = dsSignEntity.getEmpId();    //获取 运单签收表 员工ID
-            fiPaymentGoods.setEmpId(empID);
-            return fiPaymentGoodsDao.update(fiPaymentGoods);
-        }
-        return 0;
-    }
+//    @Override
+//    public int updateEmpId(DsWaybillEntrt dsWaybillEntrtEntity) {
+//        Integer waybillId = dsSignEntity.getWaybillId();    //获取 运单签收表 运单ID
+//        FiPaymentGoods fiPaymentGoods = fiPaymentGoodsDao.queryByWaybillId(waybillId);      //根据运单ID查询代收货款表
+//        if(fiPaymentGoods != null){
+//            Integer oId = dsWaybillEntrtEntity.getOId();//获取 运单签收表 订单ID
+//            Oreders oreders = dsWaybillService.queryByOId(oId);
+//            Integer empID = oreders.getEmpId();    //获取 运单签收表 员工ID
+//            fiPaymentGoods.setEmpId(empID);
+//            return fiPaymentGoodsDao.update(fiPaymentGoods);
+//        }
+//        return 0;
+//    }
 
     /**
      * 点击发放
      * 改变时效性，1则不可以再发放
      */
     @Override
-    public int updateTimeLiness(FiPaymentGoods fiCashBill){
-        fiCashBill.setTimeliness(1);
-        return fiPaymentGoodsDao.update(fiCashBill);
+    public int updateTimeLiness(FiPaymentGoods fiPaymentGoods){
+        return fiPaymentGoodsDao.updateTimeliness(fiPaymentGoods.getPgId());
     }
 
 }

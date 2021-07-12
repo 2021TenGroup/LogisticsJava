@@ -191,6 +191,10 @@
         where pg_id = #{pgId}
     </update>
 
+    <update id="updateTimeliness">
+         update lms.fi_payment_goods set TimeLiness = 1 where pg_id = #{PgId}
+    </update>
+
     <!--通过主键删除-->
     <delete id="deleteById">
         delete from lms.fi_payment_goods where pg_id = #{pgId}

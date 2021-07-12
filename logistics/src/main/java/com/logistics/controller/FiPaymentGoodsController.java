@@ -42,4 +42,13 @@ public class FiPaymentGoodsController {
         return new Result(ResultCode.SUCCESS, fiPaymentGoodsService.queryAll(fiPaymentGoods));
     }
 
+    /**
+     * 点击发放
+     * 改变时效性，1则不可以再发放
+     */
+    @PutMapping("/grant")
+    public Result grant(@RequestBody FiPaymentGoods fiPaymentGoods){
+        return new Result(ResultCode.SUCCESS,fiPaymentGoodsService.updateTimeLiness(fiPaymentGoods));
+    }
+
 }

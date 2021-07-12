@@ -86,5 +86,11 @@ public interface FiPaymentGoodsDao {
      */
     FiPaymentGoods queryByWaybillId(Integer waybillId);
 
+    /**
+     * 点击发放
+     * 改变时效性，1则不可以再发放
+     */
+    int updateTimeliness(@Param("PgId") Integer PgId);
+
 }
 

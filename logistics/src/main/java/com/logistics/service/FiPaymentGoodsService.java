@@ -66,12 +66,12 @@ public interface FiPaymentGoodsService {
      * @param dsSign      运单录入Entity
      * @return
      */
-    int updateEmpId(DsSign dsSign);
+//    int updateEmpId(DsWaybillEntrt dsWaybillEntrtEntity);
 
     /**
      * 点击发放
      * 改变时效性，1则不可以再发放
      */
-    int updateTimeLiness(FiPaymentGoods fiCashBill);
+    int updateTimeLiness(FiPaymentGoods fiPaymentGoods);
 
 }
