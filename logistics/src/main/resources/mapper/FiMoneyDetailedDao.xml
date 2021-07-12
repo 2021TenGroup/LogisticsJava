@@ -10,7 +10,7 @@
         <result property="mdCollectMoney" column="md_collect_money" jdbcType="NUMERIC"/>
         <result property="mdType" column="md_type" jdbcType="INTEGER"/>
         <result property="mdBalance" column="md_balance" jdbcType="NUMERIC"/>
-        <result property="mdDetails" column="md_details" jdbcType="NUMERIC"/>
+        <result property="mdDetails" column="md_details" jdbcType="VARCHAR"/>
         <result property="addname" column="AddName" jdbcType="VARCHAR"/>
         <result property="addtime" column="ADDTIME" jdbcType="TIMESTAMP"/>
         <result property="updatename" column="UpdateName" jdbcType="VARCHAR"/>

@@ -7,18 +7,18 @@ import java.io.Serializable;
  * 预付款表(FiAdvancCharge)实体类
  *
  * @author makejava
- * @since 2021-07-12 15:34:14
+ * @since 2021-07-12 17:45:06
  */
 public class FiAdvancCharge implements Serializable {
-    private static final long serialVersionUID = -20992184431539366L;
+    private static final long serialVersionUID = -34653296559950736L;
     /**
      * 预付款ID
      */
     private Integer acId;
     /**
-     * 网点名称
+     * 网点ID
      */
-    private String outletsName;
+    private Integer outletsId;
     /**
      * 当前余额
      */
@@ -73,12 +73,12 @@ public class FiAdvancCharge implements Serializable {
         this.acId = acId;
     }
 
-    public String getOutletsName() {
-        return outletsName;
+    public Integer getOutletsId() {
+        return outletsId;
     }
 
-    public void setOutletsName(String outletsName) {
-        this.outletsName = outletsName;
+    public void setOutletsId(Integer outletsId) {
+        this.outletsId = outletsId;
     }
 
     public Double getAcBalance() {

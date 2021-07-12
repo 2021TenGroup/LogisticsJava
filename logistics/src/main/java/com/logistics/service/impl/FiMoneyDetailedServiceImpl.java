@@ -1,7 +1,9 @@
 package com.logistics.service.impl;
 
 import com.logistics.dao.FiMoneyDetailedDao;
+import com.logistics.entity.FiAdvancCharge;
 import com.logistics.entity.FiMoneyDetailed;
+import com.logistics.service.FiAdvancChargeService;
 import com.logistics.service.FiMoneyDetailedService;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,8 @@ import java.util.List;
 public class FiMoneyDetailedServiceImpl implements FiMoneyDetailedService {
     @Resource
     private FiMoneyDetailedDao fiMoneyDetailedDao;
+    @Resource
+    private FiAdvancChargeService fiAdvancChargeService;
 
     /**
      * 通过ID查询单条数据
@@ -80,32 +84,49 @@ public class FiMoneyDetailedServiceImpl implements FiMoneyDetailedService {
     /**
      * 当运单进行录入、入库、出库、签收操作时，新增记录
      *
-     * 运单表Entity , 网点名称 , 类型（0：录入 1：入库）
+     * 运单表Entity , 网点名称 , 操作人员名称 , 类型（0：录入 1：入库）
      */
-//    @Override
-//    public FiMoneyDetailed addFiMD(DsWaybillEntrt dsWaybillEntrtEntity , String outletsName , String userName , int type){
-//
-//        FiMoneyDetailed fiMoneyDetailed = new FiMoneyDetailed();
-//
-//        String waybillNumber = dsWaybillEntrtEntity.getWaybillNumber(); //获取运单编号
-//        fiMoneyDetailed.setWaybillNumber(waybillNumber);
-//
-//        fiMoneyDetailed.setOutletsName(outletsName);        //网点名称
-//
-//        fiMoneyDetailed.setUserName(userName);      //操作人员
-//
-//        double money = 0;
-//        //（0：录入 1：入库）
-//        if(type == 0){
-//            Type type_ = TypeService.queryByTypeName("录入");
-//            money -= type.getMoney();    //获取其收取的金额
-//        }else if(type == 1){
-//            Outlets outlets = OutletsService.queryByOutletsName(outletsName);       //根据员工名称 获取员工表
-//            Commission commission = CommissionSerivce.queryById(outlets.getOuletsId);   //根据员工名称 获取
-//            double ratio = commission.getCommissionRatio();        //提成比例
-//
-//        }
-//    }
+/*    @Override
+    public int addFiMD(DsWaybillEntrt dsWaybillEntrtEntity , String outletsName , String userName , int type){
+
+        FiMoneyDetailed fiMoneyDetailed = new FiMoneyDetailed();
+
+        String waybillNumber = dsWaybillEntrtEntity.getWaybillNumber(); //获取运单编号
+        fiMoneyDetailed.setWaybillNumber(waybillNumber);     //插入运单编号
+
+        fiMoneyDetailed.setOutletsName(outletsName);        //插入网点名称
+
+        fiMoneyDetailed.setUserName(userName);      //插入操作人员
+
+        Outlets outlets = OutletsService.queryByOutletsName(outletsName);       //根据网点名称 获取网点信息
+        Integer outletsId = outlets.getOuletsId();
+        double money = 0;
+        //（0：录入 1：入库）
+        if(type == 0){
+            Type type_ = TypeService.queryByTypeName("入库");
+            money -= type.getMoney();    //获取其收取的金额
+            fiMoneyDetailed.setMdType(0);       //插入类型
+            fiMoneyDetailed.setMdDetails("收取维护费");
+        }else if(type == 1){
+            Commission commission = CommissionSerivce.queryByOutletsId(outletsId);   //根据网点ID 获取提成表信息
+            double ratio = commission.getCommissionRatio();        //提成比例
+            ratio /= 100;
+            money *= ratio;
+            fiMoneyDetailed.setMdType(1);       //插入类型
+            fiMoneyDetailed.setMdDetails("收取提成费");
+        }
+        fiMoneyDetailed.setMdCollectMoney(money);   //插入维护金额
+
+        FiAdvancCharge fiAdvancCharge = fiAdvancChargeService.queryByOutletsId(outletsId);       //根据网点ID 获取预付款表信息
+        double oldMoney = fiAdvancCharge.getAcBalance();
+        double newMoney = oldMoney-money;
+        fiAdvancChargeService.updateAcBalance(fiAdvancCharge.getOutletsId() , newMoney);
+
+        fiMoneyDetailed.setMdBalance(newMoney);
+
+        return fiMoneyDetailedDao.insert(fiMoneyDetailed);
+
+    }*/
 
 
 }

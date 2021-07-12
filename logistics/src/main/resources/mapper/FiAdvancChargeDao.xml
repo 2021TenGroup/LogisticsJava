@@ -4,7 +4,7 @@
 
     <resultMap type="com.logistics.entity.FiAdvancCharge" id="FiAdvancChargeMap">
         <result property="acId" column="ac_id" jdbcType="INTEGER"/>
-        <result property="outletsName" column="Outlets_Name" jdbcType="VARCHAR"/>
+        <result property="outletsId" column="Outlets_Id" jdbcType="INTEGER"/>
         <result property="acBalance" column="ac_balance" jdbcType="NUMERIC"/>
         <result property="acAlertBalance" column="ac_alert_balance" jdbcType="NUMERIC"/>
         <result property="acCloseBalance" column="ac_close_balance" jdbcType="NUMERIC"/>
@@ -21,7 +21,7 @@
     <!--查询单个-->
     <select id="queryById" resultMap="FiAdvancChargeMap">
         select
-          ac_id, Outlets_Name, ac_balance, ac_alert_balance, ac_close_balance, ac_state, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+          ac_id, Outlets_Id, ac_balance, ac_alert_balance, ac_close_balance, ac_state, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
         from lms.fi_advanc_charge
         where ac_id = #{acId}
     </select>
@@ -29,7 +29,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="FiAdvancChargeMap">
         select
-          ac_id, Outlets_Name, ac_balance, ac_alert_balance, ac_close_balance, ac_state, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+          ac_id, Outlets_Id, ac_balance, ac_alert_balance, ac_close_balance, ac_state, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
         from lms.fi_advanc_charge
         limit #{offset}, #{limit}
     </select>
@@ -37,15 +37,15 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="FiAdvancChargeMap">
         select
-        ac_id, Outlets_Name, ac_balance, ac_alert_balance, ac_close_balance, ac_state, AddName, ADDTIME, UpdateName,
+        ac_id, Outlets_Id, ac_balance, ac_alert_balance, ac_close_balance, ac_state, AddName, ADDTIME, UpdateName,
         UpdateTime, DeleteName, DeleteTime, TimeLiness
         from lms.fi_advanc_charge
         <where>
             <if test="acId != null">
                 and ac_id = #{acId}
             </if>
-            <if test="outletsName != null and outletsName != ''">
-                and Outlets_Name = #{outletsName}
+            <if test="outletsId != null">
+                and Outlets_Id = #{outletsId}
             </if>
             <if test="acBalance != null">
                 and ac_balance = #{acBalance}
@@ -85,43 +85,43 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="acId" useGeneratedKeys="true">
-        insert into lms.fi_advanc_charge(Outlets_Name, ac_balance, ac_alert_balance, ac_close_balance, ac_state, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
-        values (#{outletsName}, #{acBalance}, #{acAlertBalance}, #{acCloseBalance}, #{acState}, #{addname}, #{addtime}, #{updatename}, #{updatetime}, #{deletename}, #{deletetime}, #{timeliness})
+        insert into lms.fi_advanc_charge(Outlets_Id, ac_balance, ac_alert_balance, ac_close_balance, ac_state, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        values (#{outletsId}, #{acBalance}, #{acAlertBalance}, #{acCloseBalance}, #{acState}, #{addname}, #{addtime}, #{updatename}, #{updatetime}, #{deletename}, #{deletetime}, #{timeliness})
     </insert>
 
     <insert id="insertBatch" keyProperty="acId" useGeneratedKeys="true">
-        insert into lms.fi_advanc_charge(Outlets_Name, ac_balance, ac_alert_balance, ac_close_balance, ac_state,
-        AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        insert into lms.fi_advanc_charge(Outlets_Id, ac_balance, ac_alert_balance, ac_close_balance, ac_state, AddName,
+        ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.outletsName}, #{entity.acBalance}, #{entity.acAlertBalance}, #{entity.acCloseBalance},
+            (#{entity.outletsId}, #{entity.acBalance}, #{entity.acAlertBalance}, #{entity.acCloseBalance},
             #{entity.acState}, #{entity.addname}, #{entity.addtime}, #{entity.updatename}, #{entity.updatetime},
             #{entity.deletename}, #{entity.deletetime}, #{entity.timeliness})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="acId" useGeneratedKeys="true">
-        insert into lms.fi_advanc_charge(Outlets_Name, ac_balance, ac_alert_balance, ac_close_balance, ac_state,
-        AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        insert into lms.fi_advanc_charge(Outlets_Id, ac_balance, ac_alert_balance, ac_close_balance, ac_state, AddName,
+        ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.outletsName}, #{entity.acBalance}, #{entity.acAlertBalance}, #{entity.acCloseBalance},
+            (#{entity.outletsId}, #{entity.acBalance}, #{entity.acAlertBalance}, #{entity.acCloseBalance},
             #{entity.acState}, #{entity.addname}, #{entity.addtime}, #{entity.updatename}, #{entity.updatetime},
             #{entity.deletename}, #{entity.deletetime}, #{entity.timeliness})
         </foreach>
         on duplicate key update
-        Outlets_Name = values(Outlets_Name) , ac_balance = values(ac_balance) , ac_alert_balance =
-        values(ac_alert_balance) , ac_close_balance = values(ac_close_balance) , ac_state = values(ac_state) , AddName =
-        values(AddName) , ADDTIME = values(ADDTIME) , UpdateName = values(UpdateName) , UpdateTime = values(UpdateTime)
-        , DeleteName = values(DeleteName) , DeleteTime = values(DeleteTime) , TimeLiness = values(TimeLiness)
+        Outlets_Id = values(Outlets_Id) , ac_balance = values(ac_balance) , ac_alert_balance = values(ac_alert_balance)
+        , ac_close_balance = values(ac_close_balance) , ac_state = values(ac_state) , AddName = values(AddName) ,
+        ADDTIME = values(ADDTIME) , UpdateName = values(UpdateName) , UpdateTime = values(UpdateTime) , DeleteName =
+        values(DeleteName) , DeleteTime = values(DeleteTime) , TimeLiness = values(TimeLiness)
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
         update lms.fi_advanc_charge
         <set>
-            <if test="outletsName != null and outletsName != ''">
-                Outlets_Name = #{outletsName},
+            <if test="outletsId != null">
+                Outlets_Id = #{outletsId},
             </if>
             <if test="acBalance != null">
                 ac_balance = #{acBalance},
