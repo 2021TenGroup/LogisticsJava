@@ -1,9 +1,11 @@
 package com.logistics.service.impl;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.logistics.entity.FiAdvancCharge;
 import com.logistics.dao.FiAdvancChargeDao;
 import com.logistics.service.FiAdvancChargeService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -14,7 +16,9 @@ import java.util.List;
  * @author makejava
  * @since 2021-07-12 17:45:06
  */
+@Transactional
 @Service("fiAdvancChargeService")
+@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 public class FiAdvancChargeServiceImpl implements FiAdvancChargeService {
     @Resource
     private FiAdvancChargeDao fiAdvancChargeDao;

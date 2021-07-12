@@ -53,6 +53,8 @@ public interface FiMoneyDetailedService {
      */
     boolean deleteById(Integer mdId);
 
+    List<FiMoneyDetailed> queryAll();
+
     /**
      * 当运单进行录入、入库、出库、签收操作时，新增记录
      */

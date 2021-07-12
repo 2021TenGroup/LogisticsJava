@@ -1,13 +1,16 @@
 package com.logistics.service.impl;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.logistics.dao.FiMoneyDetailedDao;
 import com.logistics.entity.FiAdvancCharge;
 import com.logistics.entity.FiMoneyDetailed;
 import com.logistics.service.FiAdvancChargeService;
 import com.logistics.service.FiMoneyDetailedService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,7 +19,9 @@ import java.util.List;
  * @author makejava
  * @since 2021-07-12 11:46:56
  */
+@Transactional
 @Service("fiMoneyDetailedService")
+@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 public class FiMoneyDetailedServiceImpl implements FiMoneyDetailedService {
     @Resource
     private FiMoneyDetailedDao fiMoneyDetailedDao;
@@ -82,11 +87,21 @@ public class FiMoneyDetailedServiceImpl implements FiMoneyDetailedService {
     }
 
     /**
+     * 查询全部
+     * @return
+     */
+    @Override
+    public List<FiMoneyDetailed> queryAll(){
+        return fiMoneyDetailedDao.queryAll(null);
+    }
+
+    /**
      * 当运单进行录入、入库、出库、签收操作时，新增记录
      *
      * 运单表Entity , 网点名称 , 操作人员名称 , 类型（0：录入 1：入库）
      */
-/*    @Override
+/*
+    @Override
     public int addFiMD(DsWaybillEntrt dsWaybillEntrtEntity , String outletsName , String userName , int type){
 
         FiMoneyDetailed fiMoneyDetailed = new FiMoneyDetailed();
@@ -120,13 +135,16 @@ public class FiMoneyDetailedServiceImpl implements FiMoneyDetailedService {
         FiAdvancCharge fiAdvancCharge = fiAdvancChargeService.queryByOutletsId(outletsId);       //根据网点ID 获取预付款表信息
         double oldMoney = fiAdvancCharge.getAcBalance();
         double newMoney = oldMoney-money;
-        fiAdvancChargeService.updateAcBalance(fiAdvancCharge.getOutletsId() , newMoney);
+        fiAdvancChargeService.updateAcBalance(fiAdvancCharge.getOutletsId() , newMoney);    //修改预付款表中的余额
 
-        fiMoneyDetailed.setMdBalance(newMoney);
+        fiMoneyDetailed.setMdBalance(newMoney);     //插入余额
+
+        fiMoneyDetailed.setAddtime(new Date());//插入时间
 
         return fiMoneyDetailedDao.insert(fiMoneyDetailed);
 
-    }*/
+    }
+*/
 
 
 }

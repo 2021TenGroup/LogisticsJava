@@ -1,5 +1,7 @@
 package com.logistics.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.logistics.entity.FiPaymentGoods;
 import com.logistics.entity.result.Result;
 import com.logistics.entity.result.ResultCode;
@@ -7,6 +9,7 @@ import com.logistics.service.FiPaymentGoodsService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (FiPaymentGoods)表控制层
@@ -38,8 +41,11 @@ public class FiPaymentGoodsController {
      * 查询全部
      */
     @GetMapping("/selectAll")
-    public Result selectAll(@RequestBody FiPaymentGoods fiPaymentGoods){
-        return new Result(ResultCode.SUCCESS, fiPaymentGoodsService.queryAll(fiPaymentGoods));
+    public PageInfo<FiPaymentGoods> selectAll(@RequestParam("currentPage")int currentPage, @RequestParam("pagesize")int pageSize){
+        PageHelper.startPage(currentPage,pageSize);
+        List<FiPaymentGoods> list = fiPaymentGoodsService.queryAll(null);
+        PageInfo<FiPaymentGoods> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 
     /**

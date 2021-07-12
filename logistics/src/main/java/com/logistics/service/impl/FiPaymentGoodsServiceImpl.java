@@ -1,11 +1,14 @@
 package com.logistics.service.impl;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.logistics.dao.FiPaymentGoodsDao;
 import com.logistics.entity.FiPaymentGoods;
 import com.logistics.service.FiPaymentGoodsService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,7 +17,9 @@ import java.util.List;
  * @author makejava
  * @since 2021-07-12 02:32:09
  */
+@Transactional
 @Service("fiPaymentGoodsService")
+@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 public class FiPaymentGoodsServiceImpl implements FiPaymentGoodsService {
     @Resource
     private FiPaymentGoodsDao fiPaymentGoodsDao;
@@ -128,6 +133,7 @@ public class FiPaymentGoodsServiceImpl implements FiPaymentGoodsService {
 //            Oreders oreders = dsWaybillService.queryByOId(oId);
 //            Integer empID = oreders.getEmpId();    //获取 运单签收表 员工ID
 //            fiPaymentGoods.setEmpId(empID);
+//            fiPaymentGoods.setAddtime(new Date());
 //            return fiPaymentGoodsDao.update(fiPaymentGoods);
 //        }
 //        return 0;

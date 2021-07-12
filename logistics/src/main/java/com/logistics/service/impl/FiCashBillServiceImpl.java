@@ -1,9 +1,11 @@
 package com.logistics.service.impl;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.logistics.dao.FiCashBillDao;
 import com.logistics.entity.FiCashBill;
 import com.logistics.service.FiCashBillService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -15,7 +17,9 @@ import java.util.List;
  * @author makejava
  * @since 2021-07-12 02:51:53
  */
+@Transactional
 @Service("fiCashBillService")
+@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 public class FiCashBillServiceImpl implements FiCashBillService {
     @Resource
     private FiCashBillDao fiCashBillDao;

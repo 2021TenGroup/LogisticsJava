@@ -1,12 +1,16 @@
 package com.logistics.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.logistics.entity.FiCashBill;
+import com.logistics.entity.FiPaymentGoods;
 import com.logistics.entity.result.Result;
 import com.logistics.entity.result.ResultCode;
 import com.logistics.service.FiCashBillService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (FiCashBill)表控制层
@@ -38,8 +42,11 @@ public class FiCashBillController {
      * 查询全部
      */
     @GetMapping("/selectAll")
-    public Result selectAll(@RequestBody FiCashBill fiCashBill){
-        return new Result(ResultCode.SUCCESS, fiCashBillService.queryAll(fiCashBill));
+    public PageInfo<FiCashBill> selectAll(@RequestParam("currentPage")int currentPage, @RequestParam("pagesize")int pageSize){
+        PageHelper.startPage(currentPage,pageSize);
+        List<FiCashBill> list = fiCashBillService.queryAll(null);
+        PageInfo<FiCashBill> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 
 }
