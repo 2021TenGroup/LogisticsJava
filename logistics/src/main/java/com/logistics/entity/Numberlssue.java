@@ -21,7 +21,7 @@ public class Numberlssue implements Serializable {
 
     private Integer outletsId;
 
-    private Integer numberlssueOrder;
+    private String numberlssueOrder;
 
     private Integer numberlssueNumber;
 

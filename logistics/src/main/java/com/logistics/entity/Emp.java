@@ -43,6 +43,8 @@ public class Emp implements Serializable {
 
     private String empName;
 
+    private String addname;
+
     private Date addtime;
 
     private String updatename;

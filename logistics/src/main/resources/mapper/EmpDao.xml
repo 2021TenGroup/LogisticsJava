@@ -14,6 +14,7 @@
         <result property="zPhotographs" column="Z_photographs" jdbcType="VARCHAR"/>
         <result property="fPhotographs" column="F_photographs" jdbcType="VARCHAR"/>
         <result property="empName" column="Emp_Name" jdbcType="VARCHAR"/>
+        <result property="addname" column="AddName" jdbcType="VARCHAR"/>
         <result property="addtime" column="AddTime" jdbcType="TIMESTAMP"/>
         <result property="updatename" column="UpdateName" jdbcType="VARCHAR"/>
         <result property="updatetime" column="UpdateTime" jdbcType="TIMESTAMP"/>
@@ -63,11 +64,12 @@
     <!--查询所有[分页]-->
     <select id="selectAllEmps" resultMap="EmpMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List" />,
+        o.Outlets_Name,o.Outlets_Id,p.Position_Name,p.Position_Id
         from emp e
         inner join outlets o on e.Outlets_Id=o.Outlets_Id
-        inner join per_position p on e.Position_Id=p.Position_Id
-        where TimeLiness = 0
+        left join per_position p on e.Position_Id=p.Position_Id
+        where e.TimeLiness = 0
     </select>
 
     <!--查询单个-->

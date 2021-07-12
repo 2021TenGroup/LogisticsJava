@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.logistics.dao.NumberlssueDao">
-    <resultMap type="com.logistics.entity.Numberlssue" id="NumberlssueMap">
+    <resultMap type="com.logistics.vo.NumberlssueVo" id="NumberlssueMap">
         <id property="numberlssueId" column="NumberLssue_Id" jdbcType="INTEGER"/>
         <result property="outletsId" column="Outlets_Id" jdbcType="INTEGER"/>
-        <result property="numberlssueOrder" column="NumberLssue_Order" jdbcType="INTEGER"/>
+        <result property="numberlssueOrder" column="NumberLssue_Order" jdbcType="VARCHAR"/>
         <result property="numberlssueNumber" column="NumberLssue_Number" jdbcType="INTEGER"/>
         <result property="numberlssueEnd" column="NumberLssue_End" jdbcType="VARCHAR"/>
         <result property="numberlssueUp" column="NumberLssue_Up" jdbcType="INTEGER"/>
@@ -16,17 +16,48 @@
         <result property="deletename" column="DeleteName" jdbcType="VARCHAR"/>
         <result property="deletetime" column="DeleteTime" jdbcType="TIMESTAMP"/>
         <result property="timeliness" column="TimeLiness" jdbcType="INTEGER"/>
+        <association property="outletsVo" javaType="com.logistics.vo.OutletsVo">
+            <id property="outletsId" column="Outlets_Id" jdbcType="INTEGER"/>
+            <result property="outletsNumber" column="Outlets_Number" jdbcType="VARCHAR"/>
+            <result property="outletsName" column="Outlets_Name" jdbcType="VARCHAR"/>
+            <result property="outletsBelonging" column="Outlets_Belonging" jdbcType="INTEGER"/>
+            <result property="outletsPerson" column="Outlets_Person" jdbcType="VARCHAR"/>
+            <result property="outletsPhone" column="Outlets_Phone" jdbcType="INTEGER"/>
+            <result property="outletsProvince" column="Outlets_Province" jdbcType="VARCHAR"/>
+            <result property="outletsCity" column="Outlets_City" jdbcType="VARCHAR"/>
+            <result property="outletsRegion" column="Outlets_Region" jdbcType="VARCHAR"/>
+            <result property="outletsAddress" column="Outlets_Address" jdbcType="VARCHAR"/>
+            <result property="outletsRemarks" column="Outlets_Remarks" jdbcType="VARCHAR"/>
+            <result property="addname" column="AddName" jdbcType="VARCHAR"/>
+            <result property="addtime" column="AddTime" jdbcType="TIMESTAMP"/>
+            <result property="updatename" column="UpdateName" jdbcType="VARCHAR"/>
+            <result property="updatetime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+            <result property="deletename" column="DeleteName" jdbcType="VARCHAR"/>
+            <result property="deletetime" column="DeleteTime" jdbcType="TIMESTAMP"/>
+            <result property="timeliness" column="TimeLiness" jdbcType="INTEGER"/>
+        </association>
     </resultMap>
 
     <sql id="Base_Column_List">
-          NumberLssue_Id, Outlets_Id, NumberLssue_Order, NumberLssue_Number, NumberLssue_End, NumberLssue_Up, NumberLssue_Remarks, AddName, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+          n.NumberLssue_Id, n.Outlets_Id, n.NumberLssue_Order, n.NumberLssue_Number,
+           n.NumberLssue_End, n.NumberLssue_Up, n.NumberLssue_Remarks, n.AddName,
+           n.AddTime, n.UpdateName, n.UpdateTime, n.DeleteName, n.DeleteTime, n.TimeLiness
+    </sql>
+
+    <sql id="Base_Outlets_List">
+          o.Outlets_Id, o.Outlets_Number, o.Outlets_Name, o.Outlets_Belonging, o.Outlets_Person,
+           o.Outlets_Phone, o.Outlets_Province, o.Outlets_City, o.Outlets_Region, o.Outlets_Address,
+            o.Outlets_Remarks, o.AddName, o.AddTime, o.UpdateName, o.UpdateTime, o.DeleteName,
+             o.DeleteTime, o.TimeLiness
     </sql>
 
     <select id="selectAllNumberLssue" resultMap="NumberlssueMap">
         select
-        <include refid="Base_Column_List" />
-        from numberlssue
-        where TimeLiness = 0
+        <include refid="Base_Column_List" />,
+        <include refid="Base_Outlets_List" />
+        from numberlssue n
+        inner join outlets o on n.Outlets_Id = o.Outlets_Id
+        where n.TimeLiness = 0 order by n.NumberLssue_Id desc
     </select>
 
     <!--查询单个-->
@@ -187,12 +218,12 @@
 
     <!--修改删除人与时效性-->
     <update id="deleteByNumberLssue" parameterType="com.logistics.entity.Numberlssue">
-        update number_rule
+        update numberlssue
         set
           DeleteName = #{deletename},
           DeleteTime = #{deletetime},
           TimeLiness = #{timeliness}
-        where Rule_Id = #{ruleId}
+        where NumberLssue_Id = #{numberlssueId}
     </update>
 
 </mapper>

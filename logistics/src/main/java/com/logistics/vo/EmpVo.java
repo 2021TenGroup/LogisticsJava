@@ -40,6 +40,8 @@ public class EmpVo {
 
     private String empName;
 
+    private String addname;
+
     private Date addtime;
 
     private String updatename;

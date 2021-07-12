@@ -1,5 +1,6 @@
 package com.logistics.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.logistics.ann.ClassMeta;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +19,7 @@ public class NumberlssueVo {
 
     private Integer outletsId;
 
-    private Integer numberlssueOrder;
+    private String numberlssueOrder;
 
     private Integer numberlssueNumber;
 
@@ -30,6 +31,7 @@ public class NumberlssueVo {
 
     private String addname;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date addtime;
 
     private String updatename;
@@ -42,5 +44,6 @@ public class NumberlssueVo {
 
     private Integer timeliness;
 
+    private OutletsVo outletsVo;
     private static final long serialVersionUID = 1L;
 }
