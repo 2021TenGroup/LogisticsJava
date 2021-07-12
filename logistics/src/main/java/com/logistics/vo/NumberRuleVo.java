@@ -1,5 +1,6 @@
 package com.logistics.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.logistics.ann.ClassMeta;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,6 +35,7 @@ public class NumberRuleVo {
 
     private String addname;
 
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date addtime;
 
     private String updatename;
