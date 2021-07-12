@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.logistics.dao.FiMoneyDetailedDao">
+  <resultMap id="BaseResultMap" type="com.logistics.entity.FiMoneyDetailed">
+    <id column="md_id" jdbcType="INTEGER" property="mdId" />
+    <result column="Emp_Id" jdbcType="INTEGER" property="empId" />
+    <result column="waybill_id" jdbcType="INTEGER" property="waybillId" />
+    <result column="md_collect_money" jdbcType="DECIMAL" property="mdCollectMoney" />
+    <result column="md_type" jdbcType="INTEGER" property="mdType" />
+    <result column="md_balance" jdbcType="DECIMAL" property="mdBalance" />
+    <result column="md_details" jdbcType="DECIMAL" property="mdDetails" />
+    <result column="AddName" jdbcType="VARCHAR" property="addname" />
+    <result column="ADDTIME" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    <result column="Outlets_Id" jdbcType="INTEGER" property="outletsId" />
+    <result column="pg_id" jdbcType="INTEGER" property="pgId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    md_id, Emp_Id, waybill_id, md_collect_money, md_type, md_balance, md_details, AddName, 
+    ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness, Outlets_Id, 
+    pg_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from fi_money_detailed
+    where md_id = #{mdId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from fi_money_detailed
+    where md_id = #{mdId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="md_id" keyProperty="mdId" parameterType="com.logistics.entity.FiMoneyDetailed" useGeneratedKeys="true">
+    insert into fi_money_detailed (Emp_Id, waybill_id, md_collect_money, 
+      md_type, md_balance, md_details, 
+      AddName, ADDTIME, UpdateName, 
+      UpdateTime, DeleteName, DeleteTime, 
+      TimeLiness, Outlets_Id, pg_id
+      )
+    values (#{empId,jdbcType=INTEGER}, #{waybillId,jdbcType=INTEGER}, #{mdCollectMoney,jdbcType=DECIMAL}, 
+      #{mdType,jdbcType=INTEGER}, #{mdBalance,jdbcType=DECIMAL}, #{mdDetails,jdbcType=DECIMAL}, 
+      #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, #{updatename,jdbcType=VARCHAR}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{deletename,jdbcType=VARCHAR}, #{deletetime,jdbcType=TIMESTAMP}, 
+      #{timeliness,jdbcType=INTEGER}, #{outletsId,jdbcType=INTEGER}, #{pgId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="md_id" keyProperty="mdId" parameterType="com.logistics.entity.FiMoneyDetailed" useGeneratedKeys="true">
+    insert into fi_money_detailed
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="empId != null">
+        Emp_Id,
+      </if>
+      <if test="waybillId != null">
+        waybill_id,
+      </if>
+      <if test="mdCollectMoney != null">
+        md_collect_money,
+      </if>
+      <if test="mdType != null">
+        md_type,
+      </if>
+      <if test="mdBalance != null">
+        md_balance,
+      </if>
+      <if test="mdDetails != null">
+        md_details,
+      </if>
+      <if test="addname != null">
+        AddName,
+      </if>
+      <if test="addtime != null">
+        ADDTIME,
+      </if>
+      <if test="updatename != null">
+        UpdateName,
+      </if>
+      <if test="updatetime != null">
+        UpdateTime,
+      </if>
+      <if test="deletename != null">
+        DeleteName,
+      </if>
+      <if test="deletetime != null">
+        DeleteTime,
+      </if>
+      <if test="timeliness != null">
+        TimeLiness,
+      </if>
+      <if test="outletsId != null">
+        Outlets_Id,
+      </if>
+      <if test="pgId != null">
+        pg_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="empId != null">
+        #{empId,jdbcType=INTEGER},
+      </if>
+      <if test="waybillId != null">
+        #{waybillId,jdbcType=INTEGER},
+      </if>
+      <if test="mdCollectMoney != null">
+        #{mdCollectMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="mdType != null">
+        #{mdType,jdbcType=INTEGER},
+      </if>
+      <if test="mdBalance != null">
+        #{mdBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="mdDetails != null">
+        #{mdDetails,jdbcType=DECIMAL},
+      </if>
+      <if test="addname != null">
+        #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatename != null">
+        #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        #{timeliness,jdbcType=INTEGER},
+      </if>
+      <if test="outletsId != null">
+        #{outletsId,jdbcType=INTEGER},
+      </if>
+      <if test="pgId != null">
+        #{pgId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.logistics.entity.FiMoneyDetailed">
+    update fi_money_detailed
+    <set>
+      <if test="empId != null">
+        Emp_Id = #{empId,jdbcType=INTEGER},
+      </if>
+      <if test="waybillId != null">
+        waybill_id = #{waybillId,jdbcType=INTEGER},
+      </if>
+      <if test="mdCollectMoney != null">
+        md_collect_money = #{mdCollectMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="mdType != null">
+        md_type = #{mdType,jdbcType=INTEGER},
+      </if>
+      <if test="mdBalance != null">
+        md_balance = #{mdBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="mdDetails != null">
+        md_details = #{mdDetails,jdbcType=DECIMAL},
+      </if>
+      <if test="addname != null">
+        AddName = #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        ADDTIME = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatename != null">
+        UpdateName = #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        DeleteName = #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        TimeLiness = #{timeliness,jdbcType=INTEGER},
+      </if>
+      <if test="outletsId != null">
+        Outlets_Id = #{outletsId,jdbcType=INTEGER},
+      </if>
+      <if test="pgId != null">
+        pg_id = #{pgId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where md_id = #{mdId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.logistics.entity.FiMoneyDetailed">
+    update fi_money_detailed
+    set Emp_Id = #{empId,jdbcType=INTEGER},
+      waybill_id = #{waybillId,jdbcType=INTEGER},
+      md_collect_money = #{mdCollectMoney,jdbcType=DECIMAL},
+      md_type = #{mdType,jdbcType=INTEGER},
+      md_balance = #{mdBalance,jdbcType=DECIMAL},
+      md_details = #{mdDetails,jdbcType=DECIMAL},
+      AddName = #{addname,jdbcType=VARCHAR},
+      ADDTIME = #{addtime,jdbcType=TIMESTAMP},
+      UpdateName = #{updatename,jdbcType=VARCHAR},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      DeleteName = #{deletename,jdbcType=VARCHAR},
+      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      TimeLiness = #{timeliness,jdbcType=INTEGER},
+      Outlets_Id = #{outletsId,jdbcType=INTEGER},
+      pg_id = #{pgId,jdbcType=INTEGER}
+    where md_id = #{mdId,jdbcType=INTEGER}
+  </update>
+</mapper>

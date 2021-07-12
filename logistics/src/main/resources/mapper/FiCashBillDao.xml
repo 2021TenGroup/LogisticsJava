@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.logistics.dao.FiCashBillDao">
+  <resultMap id="BaseResultMap" type="com.logistics.entity.FiCashBill">
+    <id column="cb_id" jdbcType="INTEGER" property="cbId" />
+    <result column="waybill_id" jdbcType="INTEGER" property="waybillId" />
+    <result column="cb_state" jdbcType="INTEGER" property="cbState" />
+    <result column="cb__freight_type" jdbcType="INTEGER" property="cbFreightType" />
+    <result column="cb_deliver_type" jdbcType="INTEGER" property="cbDeliverType" />
+    <result column="AddName" jdbcType="VARCHAR" property="addname" />
+    <result column="ADDTIME" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    <result column="Emp_Id" jdbcType="INTEGER" property="empId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    cb_id, waybill_id, cb_state, cb__freight_type, cb_deliver_type, AddName, ADDTIME, 
+    UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness, Emp_Id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from fi_cash_bill
+    where cb_id = #{cbId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from fi_cash_bill
+    where cb_id = #{cbId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="cb_id" keyProperty="cbId" parameterType="com.logistics.entity.FiCashBill" useGeneratedKeys="true">
+    insert into fi_cash_bill (waybill_id, cb_state, cb__freight_type, 
+      cb_deliver_type, AddName, ADDTIME, 
+      UpdateName, UpdateTime, DeleteName, 
+      DeleteTime, TimeLiness, Emp_Id
+      )
+    values (#{waybillId,jdbcType=INTEGER}, #{cbState,jdbcType=INTEGER}, #{cbFreightType,jdbcType=INTEGER}, 
+      #{cbDeliverType,jdbcType=INTEGER}, #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, 
+      #{updatename,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, #{deletename,jdbcType=VARCHAR}, 
+      #{deletetime,jdbcType=TIMESTAMP}, #{timeliness,jdbcType=INTEGER}, #{empId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="cb_id" keyProperty="cbId" parameterType="com.logistics.entity.FiCashBill" useGeneratedKeys="true">
+    insert into fi_cash_bill
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="waybillId != null">
+        waybill_id,
+      </if>
+      <if test="cbState != null">
+        cb_state,
+      </if>
+      <if test="cbFreightType != null">
+        cb__freight_type,
+      </if>
+      <if test="cbDeliverType != null">
+        cb_deliver_type,
+      </if>
+      <if test="addname != null">
+        AddName,
+      </if>
+      <if test="addtime != null">
+        ADDTIME,
+      </if>
+      <if test="updatename != null">
+        UpdateName,
+      </if>
+      <if test="updatetime != null">
+        UpdateTime,
+      </if>
+      <if test="deletename != null">
+        DeleteName,
+      </if>
+      <if test="deletetime != null">
+        DeleteTime,
+      </if>
+      <if test="timeliness != null">
+        TimeLiness,
+      </if>
+      <if test="empId != null">
+        Emp_Id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="waybillId != null">
+        #{waybillId,jdbcType=INTEGER},
+      </if>
+      <if test="cbState != null">
+        #{cbState,jdbcType=INTEGER},
+      </if>
+      <if test="cbFreightType != null">
+        #{cbFreightType,jdbcType=INTEGER},
+      </if>
+      <if test="cbDeliverType != null">
+        #{cbDeliverType,jdbcType=INTEGER},
+      </if>
+      <if test="addname != null">
+        #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatename != null">
+        #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        #{timeliness,jdbcType=INTEGER},
+      </if>
+      <if test="empId != null">
+        #{empId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.logistics.entity.FiCashBill">
+    update fi_cash_bill
+    <set>
+      <if test="waybillId != null">
+        waybill_id = #{waybillId,jdbcType=INTEGER},
+      </if>
+      <if test="cbState != null">
+        cb_state = #{cbState,jdbcType=INTEGER},
+      </if>
+      <if test="cbFreightType != null">
+        cb__freight_type = #{cbFreightType,jdbcType=INTEGER},
+      </if>
+      <if test="cbDeliverType != null">
+        cb_deliver_type = #{cbDeliverType,jdbcType=INTEGER},
+      </if>
+      <if test="addname != null">
+        AddName = #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        ADDTIME = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatename != null">
+        UpdateName = #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        DeleteName = #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        TimeLiness = #{timeliness,jdbcType=INTEGER},
+      </if>
+      <if test="empId != null">
+        Emp_Id = #{empId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where cb_id = #{cbId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.logistics.entity.FiCashBill">
+    update fi_cash_bill
+    set waybill_id = #{waybillId,jdbcType=INTEGER},
+      cb_state = #{cbState,jdbcType=INTEGER},
+      cb__freight_type = #{cbFreightType,jdbcType=INTEGER},
+      cb_deliver_type = #{cbDeliverType,jdbcType=INTEGER},
+      AddName = #{addname,jdbcType=VARCHAR},
+      ADDTIME = #{addtime,jdbcType=TIMESTAMP},
+      UpdateName = #{updatename,jdbcType=VARCHAR},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      DeleteName = #{deletename,jdbcType=VARCHAR},
+      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      TimeLiness = #{timeliness,jdbcType=INTEGER},
+      Emp_Id = #{empId,jdbcType=INTEGER}
+    where cb_id = #{cbId,jdbcType=INTEGER}
+  </update>
+</mapper>

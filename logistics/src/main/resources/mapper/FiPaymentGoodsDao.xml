@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.logistics.dao.FiPaymentGoodsDao">
+  <resultMap id="BaseResultMap" type="com.logistics.entity.FiPaymentGoods">
+    <id column="pg_id" jdbcType="INTEGER" property="pgId" />
+    <result column="waybill_id" jdbcType="INTEGER" property="waybillId" />
+    <result column="pg_payment" jdbcType="DECIMAL" property="pgPayment" />
+    <result column="pg_service_money" jdbcType="DECIMAL" property="pgServiceMoney" />
+    <result column="pg_actual_money" jdbcType="DECIMAL" property="pgActualMoney" />
+    <result column="Outlets_Id1" jdbcType="DECIMAL" property="outletsId1" />
+    <result column="Emp_id" jdbcType="DECIMAL" property="empId" />
+    <result column="Outlets_Id2" jdbcType="DECIMAL" property="outletsId2" />
+    <result column="AddName" jdbcType="VARCHAR" property="addname" />
+    <result column="ADDTIME" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pg_id, waybill_id, pg_payment, pg_service_money, pg_actual_money, Outlets_Id1, Emp_id, 
+    Outlets_Id2, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from fi_payment_goods
+    where pg_id = #{pgId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from fi_payment_goods
+    where pg_id = #{pgId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="pg_id" keyProperty="pgId" parameterType="com.logistics.entity.FiPaymentGoods" useGeneratedKeys="true">
+    insert into fi_payment_goods (waybill_id, pg_payment, pg_service_money, 
+      pg_actual_money, Outlets_Id1, Emp_id, 
+      Outlets_Id2, AddName, ADDTIME, 
+      UpdateName, UpdateTime, DeleteName, 
+      DeleteTime, TimeLiness)
+    values (#{waybillId,jdbcType=INTEGER}, #{pgPayment,jdbcType=DECIMAL}, #{pgServiceMoney,jdbcType=DECIMAL}, 
+      #{pgActualMoney,jdbcType=DECIMAL}, #{outletsId1,jdbcType=DECIMAL}, #{empId,jdbcType=DECIMAL}, 
+      #{outletsId2,jdbcType=DECIMAL}, #{addname,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, 
+      #{updatename,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, #{deletename,jdbcType=VARCHAR}, 
+      #{deletetime,jdbcType=TIMESTAMP}, #{timeliness,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="pg_id" keyProperty="pgId" parameterType="com.logistics.entity.FiPaymentGoods" useGeneratedKeys="true">
+    insert into fi_payment_goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="waybillId != null">
+        waybill_id,
+      </if>
+      <if test="pgPayment != null">
+        pg_payment,
+      </if>
+      <if test="pgServiceMoney != null">
+        pg_service_money,
+      </if>
+      <if test="pgActualMoney != null">
+        pg_actual_money,
+      </if>
+      <if test="outletsId1 != null">
+        Outlets_Id1,
+      </if>
+      <if test="empId != null">
+        Emp_id,
+      </if>
+      <if test="outletsId2 != null">
+        Outlets_Id2,
+      </if>
+      <if test="addname != null">
+        AddName,
+      </if>
+      <if test="addtime != null">
+        ADDTIME,
+      </if>
+      <if test="updatename != null">
+        UpdateName,
+      </if>
+      <if test="updatetime != null">
+        UpdateTime,
+      </if>
+      <if test="deletename != null">
+        DeleteName,
+      </if>
+      <if test="deletetime != null">
+        DeleteTime,
+      </if>
+      <if test="timeliness != null">
+        TimeLiness,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="waybillId != null">
+        #{waybillId,jdbcType=INTEGER},
+      </if>
+      <if test="pgPayment != null">
+        #{pgPayment,jdbcType=DECIMAL},
+      </if>
+      <if test="pgServiceMoney != null">
+        #{pgServiceMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="pgActualMoney != null">
+        #{pgActualMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="outletsId1 != null">
+        #{outletsId1,jdbcType=DECIMAL},
+      </if>
+      <if test="empId != null">
+        #{empId,jdbcType=DECIMAL},
+      </if>
+      <if test="outletsId2 != null">
+        #{outletsId2,jdbcType=DECIMAL},
+      </if>
+      <if test="addname != null">
+        #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatename != null">
+        #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        #{timeliness,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.logistics.entity.FiPaymentGoods">
+    update fi_payment_goods
+    <set>
+      <if test="waybillId != null">
+        waybill_id = #{waybillId,jdbcType=INTEGER},
+      </if>
+      <if test="pgPayment != null">
+        pg_payment = #{pgPayment,jdbcType=DECIMAL},
+      </if>
+      <if test="pgServiceMoney != null">
+        pg_service_money = #{pgServiceMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="pgActualMoney != null">
+        pg_actual_money = #{pgActualMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="outletsId1 != null">
+        Outlets_Id1 = #{outletsId1,jdbcType=DECIMAL},
+      </if>
+      <if test="empId != null">
+        Emp_id = #{empId,jdbcType=DECIMAL},
+      </if>
+      <if test="outletsId2 != null">
+        Outlets_Id2 = #{outletsId2,jdbcType=DECIMAL},
+      </if>
+      <if test="addname != null">
+        AddName = #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        ADDTIME = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatename != null">
+        UpdateName = #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        DeleteName = #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        TimeLiness = #{timeliness,jdbcType=INTEGER},
+      </if>
+    </set>
+    where pg_id = #{pgId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.logistics.entity.FiPaymentGoods">
+    update fi_payment_goods
+    set waybill_id = #{waybillId,jdbcType=INTEGER},
+      pg_payment = #{pgPayment,jdbcType=DECIMAL},
+      pg_service_money = #{pgServiceMoney,jdbcType=DECIMAL},
+      pg_actual_money = #{pgActualMoney,jdbcType=DECIMAL},
+      Outlets_Id1 = #{outletsId1,jdbcType=DECIMAL},
+      Emp_id = #{empId,jdbcType=DECIMAL},
+      Outlets_Id2 = #{outletsId2,jdbcType=DECIMAL},
+      AddName = #{addname,jdbcType=VARCHAR},
+      ADDTIME = #{addtime,jdbcType=TIMESTAMP},
+      UpdateName = #{updatename,jdbcType=VARCHAR},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      DeleteName = #{deletename,jdbcType=VARCHAR},
+      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      TimeLiness = #{timeliness,jdbcType=INTEGER}
+    where pg_id = #{pgId,jdbcType=INTEGER}
+  </update>
+</mapper>
