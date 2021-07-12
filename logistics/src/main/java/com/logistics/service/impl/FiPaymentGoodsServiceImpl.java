@@ -1,11 +1,8 @@
 package com.logistics.service.impl;
 
-import com.logistics.entity.DsSign;
-import com.logistics.entity.FiCashBill;
-import com.logistics.entity.FiPaymentGoods;
 import com.logistics.dao.FiPaymentGoodsDao;
+import com.logistics.entity.FiPaymentGoods;
 import com.logistics.service.FiPaymentGoodsService;
-import lombok.Builder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

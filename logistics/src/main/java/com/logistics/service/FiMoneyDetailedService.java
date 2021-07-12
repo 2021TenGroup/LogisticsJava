@@ -53,4 +53,9 @@ public interface FiMoneyDetailedService {
      */
     boolean deleteById(Integer mdId);
 
+    /**
+     * 当运单进行录入、入库、出库、签收操作时，新增记录
+     */
+//    FiMoneyDetailed addFiMD(DsWaybillEntrt dsWaybillEntrtEntity , String outletsName , int type);      //运单表Entity 网点名称 类型（0：录入 1：入库）
+
 }

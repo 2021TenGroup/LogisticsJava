@@ -4,37 +4,37 @@ import java.util.Date;
 import java.io.Serializable;
 
 /**
- * 运费账单表(FiCashBill)实体类
+ * 预付款表(FiAdvancCharge)实体类
  *
  * @author makejava
- * @since 2021-07-12 15:34:15
+ * @since 2021-07-12 15:34:14
  */
-public class FiCashBill implements Serializable {
-    private static final long serialVersionUID = -96828468488408714L;
+public class FiAdvancCharge implements Serializable {
+    private static final long serialVersionUID = -20992184431539366L;
     /**
-     * 现金账单ID
+     * 预付款ID
      */
-    private Integer cbId;
+    private Integer acId;
     /**
-     * 运单编号
+     * 网点名称
      */
-    private String waybillNumber;
+    private String outletsName;
     /**
-     * 金额
+     * 当前余额
      */
-    private Double cbMoney;
+    private Double acBalance;
     /**
-     * 收取状态
+     * 警戒金额
      */
-    private Integer cbState;
+    private Double acAlertBalance;
     /**
-     * 运费类型
+     * 关闭金额
      */
-    private Integer cb_FreightType;
+    private Double acCloseBalance;
     /**
-     * 交付类型
+     * 是否启用
      */
-    private Integer cbDeliverType;
+    private Integer acState;
     /**
      * 增加人
      */
@@ -65,52 +65,52 @@ public class FiCashBill implements Serializable {
     private Integer timeliness;
 
 
-    public Integer getCbId() {
-        return cbId;
+    public Integer getAcId() {
+        return acId;
     }
 
-    public void setCbId(Integer cbId) {
-        this.cbId = cbId;
+    public void setAcId(Integer acId) {
+        this.acId = acId;
     }
 
-    public String getWaybillNumber() {
-        return waybillNumber;
+    public String getOutletsName() {
+        return outletsName;
     }
 
-    public void setWaybillNumber(String waybillNumber) {
-        this.waybillNumber = waybillNumber;
+    public void setOutletsName(String outletsName) {
+        this.outletsName = outletsName;
     }
 
-    public Double getCbMoney() {
-        return cbMoney;
+    public Double getAcBalance() {
+        return acBalance;
     }
 
-    public void setCbMoney(Double cbMoney) {
-        this.cbMoney = cbMoney;
+    public void setAcBalance(Double acBalance) {
+        this.acBalance = acBalance;
     }
 
-    public Integer getCbState() {
-        return cbState;
+    public Double getAcAlertBalance() {
+        return acAlertBalance;
     }
 
-    public void setCbState(Integer cbState) {
-        this.cbState = cbState;
+    public void setAcAlertBalance(Double acAlertBalance) {
+        this.acAlertBalance = acAlertBalance;
     }
 
-    public Integer getCb_FreightType() {
-        return cb_FreightType;
+    public Double getAcCloseBalance() {
+        return acCloseBalance;
     }
 
-    public void setCb_FreightType(Integer cb_FreightType) {
-        this.cb_FreightType = cb_FreightType;
+    public void setAcCloseBalance(Double acCloseBalance) {
+        this.acCloseBalance = acCloseBalance;
     }
 
-    public Integer getCbDeliverType() {
-        return cbDeliverType;
+    public Integer getAcState() {
+        return acState;
     }
 
-    public void setCbDeliverType(Integer cbDeliverType) {
-        this.cbDeliverType = cbDeliverType;
+    public void setAcState(Integer acState) {
+        this.acState = acState;
     }
 
     public String getAddname() {

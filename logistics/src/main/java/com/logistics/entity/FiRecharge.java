@@ -4,37 +4,37 @@ import java.util.Date;
 import java.io.Serializable;
 
 /**
- * 运费账单表(FiCashBill)实体类
+ * 预付款充值表(FiRecharge)实体类
  *
  * @author makejava
- * @since 2021-07-12 15:34:15
+ * @since 2021-07-12 15:34:16
  */
-public class FiCashBill implements Serializable {
-    private static final long serialVersionUID = -96828468488408714L;
+public class FiRecharge implements Serializable {
+    private static final long serialVersionUID = -26487537298487780L;
     /**
-     * 现金账单ID
+     * 预付款充值ID
      */
-    private Integer cbId;
+    private Integer reId;
     /**
-     * 运单编号
+     * 操作网点
      */
-    private String waybillNumber;
+    private String outletsNameOper;
+    /**
+     * 充值网点
+     */
+    private String outletsName;
+    /**
+     * 付款类型
+     */
+    private Integer reType;
     /**
      * 金额
      */
-    private Double cbMoney;
+    private Double reMoney;
     /**
-     * 收取状态
+     * 备注
      */
-    private Integer cbState;
-    /**
-     * 运费类型
-     */
-    private Integer cb_FreightType;
-    /**
-     * 交付类型
-     */
-    private Integer cbDeliverType;
+    private String reRemarks;
     /**
      * 增加人
      */
@@ -65,52 +65,52 @@ public class FiCashBill implements Serializable {
     private Integer timeliness;
 
 
-    public Integer getCbId() {
-        return cbId;
+    public Integer getReId() {
+        return reId;
     }
 
-    public void setCbId(Integer cbId) {
-        this.cbId = cbId;
+    public void setReId(Integer reId) {
+        this.reId = reId;
     }
 
-    public String getWaybillNumber() {
-        return waybillNumber;
+    public String getOutletsNameOper() {
+        return outletsNameOper;
     }
 
-    public void setWaybillNumber(String waybillNumber) {
-        this.waybillNumber = waybillNumber;
+    public void setOutletsNameOper(String outletsNameOper) {
+        this.outletsNameOper = outletsNameOper;
     }
 
-    public Double getCbMoney() {
-        return cbMoney;
+    public String getOutletsName() {
+        return outletsName;
     }
 
-    public void setCbMoney(Double cbMoney) {
-        this.cbMoney = cbMoney;
+    public void setOutletsName(String outletsName) {
+        this.outletsName = outletsName;
     }
 
-    public Integer getCbState() {
-        return cbState;
+    public Integer getReType() {
+        return reType;
     }
 
-    public void setCbState(Integer cbState) {
-        this.cbState = cbState;
+    public void setReType(Integer reType) {
+        this.reType = reType;
     }
 
-    public Integer getCb_FreightType() {
-        return cb_FreightType;
+    public Double getReMoney() {
+        return reMoney;
     }
 
-    public void setCb_FreightType(Integer cb_FreightType) {
-        this.cb_FreightType = cb_FreightType;
+    public void setReMoney(Double reMoney) {
+        this.reMoney = reMoney;
     }
 
-    public Integer getCbDeliverType() {
-        return cbDeliverType;
+    public String getReRemarks() {
+        return reRemarks;
     }
 
-    public void setCbDeliverType(Integer cbDeliverType) {
-        this.cbDeliverType = cbDeliverType;
+    public void setReRemarks(String reRemarks) {
+        this.reRemarks = reRemarks;
     }
 
     public String getAddname() {

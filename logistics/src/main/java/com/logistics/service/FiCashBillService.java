@@ -1,7 +1,6 @@
 package com.logistics.service;
 
 import com.logistics.entity.FiCashBill;
-import com.logistics.entity.FiPaymentGoods;
 
 import java.util.List;
 

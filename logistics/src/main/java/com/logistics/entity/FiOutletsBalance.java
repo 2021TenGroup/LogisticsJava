@@ -4,37 +4,25 @@ import java.util.Date;
 import java.io.Serializable;
 
 /**
- * 运费账单表(FiCashBill)实体类
+ * 网点余额表(FiOutletsBalance)实体类
  *
  * @author makejava
  * @since 2021-07-12 15:34:15
  */
-public class FiCashBill implements Serializable {
-    private static final long serialVersionUID = -96828468488408714L;
+public class FiOutletsBalance implements Serializable {
+    private static final long serialVersionUID = -73371787781162245L;
     /**
-     * 现金账单ID
+     * 网点余额ID
      */
-    private Integer cbId;
+    private Integer obId;
     /**
-     * 运单编号
+     * 网点名称
      */
-    private String waybillNumber;
+    private String outletsName;
     /**
-     * 金额
+     * 余额
      */
-    private Double cbMoney;
-    /**
-     * 收取状态
-     */
-    private Integer cbState;
-    /**
-     * 运费类型
-     */
-    private Integer cb_FreightType;
-    /**
-     * 交付类型
-     */
-    private Integer cbDeliverType;
+    private String obBalance;
     /**
      * 增加人
      */
@@ -65,52 +53,28 @@ public class FiCashBill implements Serializable {
     private Integer timeliness;
 
 
-    public Integer getCbId() {
-        return cbId;
+    public Integer getObId() {
+        return obId;
     }
 
-    public void setCbId(Integer cbId) {
-        this.cbId = cbId;
+    public void setObId(Integer obId) {
+        this.obId = obId;
     }
 
-    public String getWaybillNumber() {
-        return waybillNumber;
+    public String getOutletsName() {
+        return outletsName;
     }
 
-    public void setWaybillNumber(String waybillNumber) {
-        this.waybillNumber = waybillNumber;
+    public void setOutletsName(String outletsName) {
+        this.outletsName = outletsName;
     }
 
-    public Double getCbMoney() {
-        return cbMoney;
+    public String getObBalance() {
+        return obBalance;
     }
 
-    public void setCbMoney(Double cbMoney) {
-        this.cbMoney = cbMoney;
-    }
-
-    public Integer getCbState() {
-        return cbState;
-    }
-
-    public void setCbState(Integer cbState) {
-        this.cbState = cbState;
-    }
-
-    public Integer getCb_FreightType() {
-        return cb_FreightType;
-    }
-
-    public void setCb_FreightType(Integer cb_FreightType) {
-        this.cb_FreightType = cb_FreightType;
-    }
-
-    public Integer getCbDeliverType() {
-        return cbDeliverType;
-    }
-
-    public void setCbDeliverType(Integer cbDeliverType) {
-        this.cbDeliverType = cbDeliverType;
+    public void setObBalance(String obBalance) {
+        this.obBalance = obBalance;
     }
 
     public String getAddname() {

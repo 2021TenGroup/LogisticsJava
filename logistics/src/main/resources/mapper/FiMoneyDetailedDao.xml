@@ -3,9 +3,10 @@
 <mapper namespace="com.logistics.dao.FiMoneyDetailedDao">
 
     <resultMap type="com.logistics.entity.FiMoneyDetailed" id="FiMoneyDetailedMap">
-        <result property="empId" column="Emp_Id" jdbcType="INTEGER"/>
-        <result property="waybillId" column="waybill_id" jdbcType="INTEGER"/>
         <result property="mdId" column="md_id" jdbcType="INTEGER"/>
+        <result property="waybillNumber" column="waybill_number" jdbcType="VARCHAR"/>
+        <result property="outletsName" column="Outlets_Name" jdbcType="VARCHAR"/>
+        <result property="userName" column="User_Name" jdbcType="VARCHAR"/>
         <result property="mdCollectMoney" column="md_collect_money" jdbcType="NUMERIC"/>
         <result property="mdType" column="md_type" jdbcType="INTEGER"/>
         <result property="mdBalance" column="md_balance" jdbcType="NUMERIC"/>
@@ -17,14 +18,12 @@
         <result property="deletename" column="DeleteName" jdbcType="VARCHAR"/>
         <result property="deletetime" column="DeleteTime" jdbcType="TIMESTAMP"/>
         <result property="timeliness" column="TimeLiness" jdbcType="INTEGER"/>
-        <result property="outletsId" column="Outlets_Id" jdbcType="INTEGER"/>
-        <result property="pgId" column="pg_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="FiMoneyDetailedMap">
         select
-          Emp_Id, waybill_id, md_id, md_collect_money, md_type, md_balance, md_details, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness, Outlets_Id, pg_id
+          md_id, waybill_number, Outlets_Name, User_Name, md_collect_money, md_type, md_balance, md_details, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
         from lms.fi_money_detailed
         where md_id = #{mdId}
     </select>
@@ -32,7 +31,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="FiMoneyDetailedMap">
         select
-          Emp_Id, waybill_id, md_id, md_collect_money, md_type, md_balance, md_details, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness, Outlets_Id, pg_id
+          md_id, waybill_number, Outlets_Name, User_Name, md_collect_money, md_type, md_balance, md_details, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
         from lms.fi_money_detailed
         limit #{offset}, #{limit}
     </select>
@@ -40,18 +39,21 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="FiMoneyDetailedMap">
         select
-        Emp_Id, waybill_id, md_id, md_collect_money, md_type, md_balance, md_details, AddName, ADDTIME, UpdateName,
-        UpdateTime, DeleteName, DeleteTime, TimeLiness, Outlets_Id, pg_id
+        md_id, waybill_number, Outlets_Name, User_Name, md_collect_money, md_type, md_balance, md_details, AddName,
+        ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
         from lms.fi_money_detailed
         <where>
-            <if test="empId != null">
-                and Emp_Id = #{empId}
-            </if>
-            <if test="waybillId != null">
-                and waybill_id = #{waybillId}
-            </if>
             <if test="mdId != null">
                 and md_id = #{mdId}
+            </if>
+            <if test="waybillNumber != null and waybillNumber != ''">
+                and waybill_number = #{waybillNumber}
+            </if>
+            <if test="outletsName != null and outletsName != ''">
+                and Outlets_Name = #{outletsName}
+            </if>
+            <if test="userName != null and userName != ''">
+                and User_Name = #{userName}
             </if>
             <if test="mdCollectMoney != null">
                 and md_collect_money = #{mdCollectMoney}
@@ -86,59 +88,46 @@
             <if test="timeliness != null">
                 and TimeLiness = #{timeliness}
             </if>
-            <if test="outletsId != null">
-                and Outlets_Id = #{outletsId}
-            </if>
-            <if test="pgId != null">
-                and pg_id = #{pgId}
-            </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="mdId" useGeneratedKeys="true">
-        insert into lms.fi_money_detailed(Emp_Id, waybill_id, md_collect_money, md_type, md_balance, md_details, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness, Outlets_Id, pg_id)
-        values (#{empId}, #{waybillId}, #{mdCollectMoney}, #{mdType}, #{mdBalance}, #{mdDetails}, #{addname}, #{addtime}, #{updatename}, #{updatetime}, #{deletename}, #{deletetime}, #{timeliness}, #{outletsId}, #{pgId})
+        insert into lms.fi_money_detailed(md_collect_money, md_type, md_balance, md_details, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        values (#{mdCollectMoney}, #{mdType}, #{mdBalance}, #{mdDetails}, #{addname}, #{addtime}, #{updatename}, #{updatetime}, #{deletename}, #{deletetime}, #{timeliness})
     </insert>
 
     <insert id="insertBatch" keyProperty="mdId" useGeneratedKeys="true">
-        insert into lms.fi_money_detailed(Emp_Id, waybill_id, md_collect_money, md_type, md_balance, md_details,
-        AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness, Outlets_Id, pg_id)
+        insert into lms.fi_money_detailed(md_collect_money, md_type, md_balance, md_details, AddName, ADDTIME,
+        UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.empId}, #{entity.waybillId}, #{entity.mdCollectMoney}, #{entity.mdType}, #{entity.mdBalance},
-            #{entity.mdDetails}, #{entity.addname}, #{entity.addtime}, #{entity.updatename}, #{entity.updatetime},
-            #{entity.deletename}, #{entity.deletetime}, #{entity.timeliness}, #{entity.outletsId}, #{entity.pgId})
+            (#{entity.mdCollectMoney}, #{entity.mdType}, #{entity.mdBalance}, #{entity.mdDetails}, #{entity.addname},
+            #{entity.addtime}, #{entity.updatename}, #{entity.updatetime}, #{entity.deletename}, #{entity.deletetime},
+            #{entity.timeliness})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="mdId" useGeneratedKeys="true">
-        insert into lms.fi_money_detailed(Emp_Id, waybill_id, md_collect_money, md_type, md_balance, md_details,
-        AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness, Outlets_Id, pg_id)
+        insert into lms.fi_money_detailed(md_collect_money, md_type, md_balance, md_details, AddName, ADDTIME,
+        UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.empId}, #{entity.waybillId}, #{entity.mdCollectMoney}, #{entity.mdType}, #{entity.mdBalance},
-            #{entity.mdDetails}, #{entity.addname}, #{entity.addtime}, #{entity.updatename}, #{entity.updatetime},
-            #{entity.deletename}, #{entity.deletetime}, #{entity.timeliness}, #{entity.outletsId}, #{entity.pgId})
+            (#{entity.mdCollectMoney}, #{entity.mdType}, #{entity.mdBalance}, #{entity.mdDetails}, #{entity.addname},
+            #{entity.addtime}, #{entity.updatename}, #{entity.updatetime}, #{entity.deletename}, #{entity.deletetime},
+            #{entity.timeliness})
         </foreach>
         on duplicate key update
-        Emp_Id = values(Emp_Id) , waybill_id = values(waybill_id) , md_collect_money = values(md_collect_money) ,
-        md_type = values(md_type) , md_balance = values(md_balance) , md_details = values(md_details) , AddName =
-        values(AddName) , ADDTIME = values(ADDTIME) , UpdateName = values(UpdateName) , UpdateTime = values(UpdateTime)
-        , DeleteName = values(DeleteName) , DeleteTime = values(DeleteTime) , TimeLiness = values(TimeLiness) ,
-        Outlets_Id = values(Outlets_Id) , pg_id = values(pg_id)
+        md_collect_money = values(md_collect_money) , md_type = values(md_type) , md_balance = values(md_balance) ,
+        md_details = values(md_details) , AddName = values(AddName) , ADDTIME = values(ADDTIME) , UpdateName =
+        values(UpdateName) , UpdateTime = values(UpdateTime) , DeleteName = values(DeleteName) , DeleteTime =
+        values(DeleteTime) , TimeLiness = values(TimeLiness)
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
         update lms.fi_money_detailed
         <set>
-            <if test="empId != null">
-                Emp_Id = #{empId},
-            </if>
-            <if test="waybillId != null">
-                waybill_id = #{waybillId},
-            </if>
             <if test="mdCollectMoney != null">
                 md_collect_money = #{mdCollectMoney},
             </if>
@@ -171,12 +160,6 @@
             </if>
             <if test="timeliness != null">
                 TimeLiness = #{timeliness},
-            </if>
-            <if test="outletsId != null">
-                Outlets_Id = #{outletsId},
-            </if>
-            <if test="pgId != null">
-                pg_id = #{pgId},
             </if>
         </set>
         where md_id = #{mdId}

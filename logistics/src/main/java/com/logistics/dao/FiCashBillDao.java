@@ -1,7 +1,6 @@
 package com.logistics.dao;
 
 import com.logistics.entity.FiCashBill;
-import com.sun.org.glassfish.gmbal.ManagedObject;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

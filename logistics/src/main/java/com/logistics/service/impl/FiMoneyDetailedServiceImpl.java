@@ -1,7 +1,7 @@
 package com.logistics.service.impl;
 
-import com.logistics.entity.FiMoneyDetailed;
 import com.logistics.dao.FiMoneyDetailedDao;
+import com.logistics.entity.FiMoneyDetailed;
 import com.logistics.service.FiMoneyDetailedService;
 import org.springframework.stereotype.Service;
 
@@ -78,7 +78,34 @@ public class FiMoneyDetailedServiceImpl implements FiMoneyDetailedService {
     }
 
     /**
-     * 当运单进行录入、入库、出库、签收操作时，
+     * 当运单进行录入、入库、出库、签收操作时，新增记录
+     *
+     * 运单表Entity , 网点名称 , 类型（0：录入 1：入库）
      */
+//    @Override
+//    public FiMoneyDetailed addFiMD(DsWaybillEntrt dsWaybillEntrtEntity , String outletsName , String userName , int type){
+//
+//        FiMoneyDetailed fiMoneyDetailed = new FiMoneyDetailed();
+//
+//        String waybillNumber = dsWaybillEntrtEntity.getWaybillNumber(); //获取运单编号
+//        fiMoneyDetailed.setWaybillNumber(waybillNumber);
+//
+//        fiMoneyDetailed.setOutletsName(outletsName);        //网点名称
+//
+//        fiMoneyDetailed.setUserName(userName);      //操作人员
+//
+//        double money = 0;
+//        //（0：录入 1：入库）
+//        if(type == 0){
+//            Type type_ = TypeService.queryByTypeName("录入");
+//            money -= type.getMoney();    //获取其收取的金额
+//        }else if(type == 1){
+//            Outlets outlets = OutletsService.queryByOutletsName(outletsName);       //根据员工名称 获取员工表
+//            Commission commission = CommissionSerivce.queryById(outlets.getOuletsId);   //根据员工名称 获取
+//            double ratio = commission.getCommissionRatio();        //提成比例
+//
+//        }
+//    }
+
 
 }

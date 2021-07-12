@@ -4,62 +4,74 @@ import java.util.Date;
 import java.io.Serializable;
 
 /**
- * (FiMoneyDetailed)实体类
+ * 财务明细表(FiMoneyDetailed)实体类
  *
  * @author makejava
- * @since 2021-07-12 11:46:56
+ * @since 2021-07-12 15:34:15
  */
 public class FiMoneyDetailed implements Serializable {
-    private static final long serialVersionUID = -39694027452475496L;
-
-    private Integer empId;
-
-    private Integer waybillId;
-
+    private static final long serialVersionUID = -26858458022500803L;
+    /**
+     * 财务明细ID
+     */
     private Integer mdId;
-
+    /**
+     * 运单编号
+     */
+    private String waybillNumber;
+    /**
+     * 网点名称
+     */
+    private String outletsName;
+    /**
+     * 操作人名称
+     */
+    private String userName;
+    /**
+     * 收取金额
+     */
     private Double mdCollectMoney;
-
+    /**
+     * 类型
+     */
     private Integer mdType;
-
+    /**
+     * 网点余额
+     */
     private Double mdBalance;
-
+    /**
+     * 金额详情
+     */
     private Double mdDetails;
-
+    /**
+     * 增加人
+     */
     private String addname;
-
+    /**
+     * 增加时间
+     */
     private Date addtime;
-
+    /**
+     * 修改人
+     */
     private String updatename;
-
+    /**
+     * 最后修改时间
+     */
     private Date updatetime;
-
+    /**
+     * 删除人
+     */
     private String deletename;
-
+    /**
+     * 删除时间
+     */
     private Date deletetime;
-
+    /**
+     * 时效性
+     */
     private Integer timeliness;
 
-    private Integer outletsId;
-
-    private Integer pgId;
-
-
-    public Integer getEmpId() {
-        return empId;
-    }
-
-    public void setEmpId(Integer empId) {
-        this.empId = empId;
-    }
-
-    public Integer getWaybillId() {
-        return waybillId;
-    }
-
-    public void setWaybillId(Integer waybillId) {
-        this.waybillId = waybillId;
-    }
 
     public Integer getMdId() {
         return mdId;
@@ -67,6 +79,30 @@ public class FiMoneyDetailed implements Serializable {
 
     public void setMdId(Integer mdId) {
         this.mdId = mdId;
+    }
+
+    public String getWaybillNumber() {
+        return waybillNumber;
+    }
+
+    public void setWaybillNumber(String waybillNumber) {
+        this.waybillNumber = waybillNumber;
+    }
+
+    public String getOutletsName() {
+        return outletsName;
+    }
+
+    public void setOutletsName(String outletsName) {
+        this.outletsName = outletsName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Double getMdCollectMoney() {
@@ -155,22 +191,6 @@ public class FiMoneyDetailed implements Serializable {
 
     public void setTimeliness(Integer timeliness) {
         this.timeliness = timeliness;
-    }
-
-    public Integer getOutletsId() {
-        return outletsId;
-    }
-
-    public void setOutletsId(Integer outletsId) {
-        this.outletsId = outletsId;
-    }
-
-    public Integer getPgId() {
-        return pgId;
-    }
-
-    public void setPgId(Integer pgId) {
-        this.pgId = pgId;
     }
 
 }

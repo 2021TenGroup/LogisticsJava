@@ -1,7 +1,6 @@
 package com.logistics.controller;
 
 import com.logistics.entity.FiCashBill;
-import com.logistics.entity.FiPaymentGoods;
 import com.logistics.entity.result.Result;
 import com.logistics.entity.result.ResultCode;
 import com.logistics.service.FiCashBillService;
