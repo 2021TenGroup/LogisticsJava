@@ -4,12 +4,13 @@ import com.logistics.entity.DsSign;
 import java.util.List;
 
 /**
- * 签收录入表(DsSign)表服务接口
+ * (DsSign)表服务接口
  *
  * @author makejava
- * @since 2021-07-11 19:37:35
+ * @since 2021-07-12 14:02:51
  */
 public interface DsSignService {
+    List<DsSign> queryAll(DsSign dsSign);
 
     /**
      * 通过ID查询单条数据
@@ -51,5 +52,5 @@ public interface DsSignService {
      * @return 是否成功
      */
     boolean deleteById(Integer signId);
-    List<DsSign> queryAll(DsSign dsSign);
+
 }

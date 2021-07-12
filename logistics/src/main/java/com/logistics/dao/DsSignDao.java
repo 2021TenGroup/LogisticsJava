@@ -6,13 +6,14 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * 签收录入表(DsSign)表数据库访问层
+ * (DsSign)表数据库访问层
  *
  * @author makejava
- * @since 2021-07-11 19:37:35
+ * @since 2021-07-12 14:02:51
  */
 @Mapper
 public interface DsSignDao {
+
 
     /**
      * 通过ID查询单条数据

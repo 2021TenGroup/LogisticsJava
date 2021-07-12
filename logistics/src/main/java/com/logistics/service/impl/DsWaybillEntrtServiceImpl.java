@@ -1,7 +1,7 @@
 package com.logistics.service.impl;
 
-import com.logistics.entity.DsWaybillEntrt;
 import com.logistics.dao.DsWaybillEntrtDao;
+import com.logistics.entity.DsWaybillEntrt;
 import com.logistics.service.DsWaybillEntrtService;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * (DsWaybillEntrt)表服务实现类
  *
  * @author makejava
- * @since 2021-07-11 20:06:07
+ * @since 2021-07-12 11:54:55
  */
 @Service("dsWaybillEntrtService")
 public class DsWaybillEntrtServiceImpl implements DsWaybillEntrtService {
@@ -75,5 +75,10 @@ public class DsWaybillEntrtServiceImpl implements DsWaybillEntrtService {
     @Override
     public boolean deleteById(Integer waybillId) {
         return this.dsWaybillEntrtDao.deleteById(waybillId) > 0;
+    }
+
+    @Override
+    public List<DsWaybillEntrt> selectByAll(DsWaybillEntrt dsWaybillEntrt) {
+        return this.dsWaybillEntrtDao.selectByAll(dsWaybillEntrt);
     }
 }

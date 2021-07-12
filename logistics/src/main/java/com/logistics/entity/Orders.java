@@ -1,9 +1,5 @@
 package com.logistics.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.util.Date;
 import java.io.Serializable;
 
@@ -11,27 +7,26 @@ import java.io.Serializable;
  * (Orders)实体类
  *
  * @author makejava
- * @since 2021-07-11 20:30:48
+ * @since 2021-07-12 11:56:53
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Orders implements Serializable {
-    private static final long serialVersionUID = -16370563675838520L;
+    private static final long serialVersionUID = -27453801506076629L;
     
-    private Integer ordersId;
-    
-    private Integer empId;
+    private Integer oId;
     
     private Integer outletsId;
     
-    private Integer shoppingId;
+    private Integer goodId;
+    
+    private Integer empId;
     
     private Integer customerId;
     
+    private Integer dsGoodsId;
+    
     private Integer expressType;
     
-    private String customerId1;
+    private String sender;
     
     private String senderPhone;
     
@@ -67,7 +62,7 @@ public class Orders implements Serializable {
     
     private Double freight;
     
-    private String remarks;
+    private Double totalRates;
     
     private String addname;
     
@@ -82,26 +77,14 @@ public class Orders implements Serializable {
     private Date deletetime;
     
     private Integer timeliness;
-    
-    private Integer dsGoodsId;
-    
-    private Double totalRates;
 
 
-    public Integer getOrdersId() {
-        return ordersId;
+    public Integer getOId() {
+        return oId;
     }
 
-    public void setOrdersId(Integer ordersId) {
-        this.ordersId = ordersId;
-    }
-
-    public Integer getEmpId() {
-        return empId;
-    }
-
-    public void setEmpId(Integer empId) {
-        this.empId = empId;
+    public void setOId(Integer oId) {
+        this.oId = oId;
     }
 
     public Integer getOutletsId() {
@@ -112,12 +95,20 @@ public class Orders implements Serializable {
         this.outletsId = outletsId;
     }
 
-    public Integer getShoppingId() {
-        return shoppingId;
+    public Integer getGoodId() {
+        return goodId;
     }
 
-    public void setShoppingId(Integer shoppingId) {
-        this.shoppingId = shoppingId;
+    public void setGoodId(Integer goodId) {
+        this.goodId = goodId;
+    }
+
+    public Integer getEmpId() {
+        return empId;
+    }
+
+    public void setEmpId(Integer empId) {
+        this.empId = empId;
     }
 
     public Integer getCustomerId() {
@@ -128,6 +119,14 @@ public class Orders implements Serializable {
         this.customerId = customerId;
     }
 
+    public Integer getDsGoodsId() {
+        return dsGoodsId;
+    }
+
+    public void setDsGoodsId(Integer dsGoodsId) {
+        this.dsGoodsId = dsGoodsId;
+    }
+
     public Integer getExpressType() {
         return expressType;
     }
@@ -136,12 +135,12 @@ public class Orders implements Serializable {
         this.expressType = expressType;
     }
 
-    public String getCustomerId1() {
-        return customerId1;
+    public String getSender() {
+        return sender;
     }
 
-    public void setCustomerId1(String customerId1) {
-        this.customerId1 = customerId1;
+    public void setSender(String sender) {
+        this.sender = sender;
     }
 
     public String getSenderPhone() {
@@ -280,12 +279,12 @@ public class Orders implements Serializable {
         this.freight = freight;
     }
 
-    public String getRemarks() {
-        return remarks;
+    public Double getTotalRates() {
+        return totalRates;
     }
 
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
+    public void setTotalRates(Double totalRates) {
+        this.totalRates = totalRates;
     }
 
     public String getAddname() {
@@ -342,22 +341,6 @@ public class Orders implements Serializable {
 
     public void setTimeliness(Integer timeliness) {
         this.timeliness = timeliness;
-    }
-
-    public Integer getDsGoodsId() {
-        return dsGoodsId;
-    }
-
-    public void setDsGoodsId(Integer dsGoodsId) {
-        this.dsGoodsId = dsGoodsId;
-    }
-
-    public Double getTotalRates() {
-        return totalRates;
-    }
-
-    public void setTotalRates(Double totalRates) {
-        this.totalRates = totalRates;
     }
 
 }

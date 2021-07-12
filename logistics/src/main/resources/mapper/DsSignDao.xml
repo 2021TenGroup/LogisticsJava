@@ -7,13 +7,14 @@
         <result property="signId" column="sign_id" jdbcType="INTEGER"/>
         <result property="waybillId" column="waybill_id" jdbcType="INTEGER"/>
         <result property="empId" column="emp_id" jdbcType="INTEGER"/>
-        <result property="signState" column="sign_state" jdbcType="INTEGER"/>
+        <result property="signStatus" column="sign_status" jdbcType="INTEGER"/>
+        <result property="operationTime" column="operation_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="BaseResultMap">
         select
-          sign_id, waybill_id, emp_id, sign_state
+          sign_id, waybill_id, emp_id, sign_status, operation_time
         from lms.ds_sign
         where sign_id = #{signId}
     </select>
@@ -21,7 +22,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="BaseResultMap">
         select
-          sign_id, waybill_id, emp_id, sign_state
+          sign_id, waybill_id, emp_id, sign_status, operation_time
         from lms.ds_sign
         limit #{offset}, #{limit}
     </select>
@@ -29,7 +30,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="BaseResultMap">
         select
-          sign_id, waybill_id, emp_id, sign_state
+          sign_id, waybill_id, emp_id, sign_status, operation_time
         from lms.ds_sign
         <where>
             <if test="signId != null">
@@ -41,16 +42,19 @@
             <if test="empId != null">
                 and emp_id = #{empId}
             </if>
-            <if test="signState != null">
-                and sign_state = #{signState}
+            <if test="signStatus != null">
+                and sign_status = #{signStatus}
+            </if>
+            <if test="operationTime != null">
+                and operation_time = #{operationTime}
             </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="signId" useGeneratedKeys="true">
-        insert into lms.ds_sign(waybill_id, emp_id, sign_state)
-        values (#{waybillId}, #{empId}, #{signState})
+        insert into lms.ds_sign(waybill_id, emp_id, sign_status, operation_time)
+        values (#{waybillId}, #{empId}, #{signStatus}, #{operationTime})
     </insert>
 
     <!--通过主键修改数据-->
@@ -63,8 +67,11 @@
             <if test="empId != null">
                 emp_id = #{empId},
             </if>
-            <if test="signState != null">
-                sign_state = #{signState},
+            <if test="signStatus != null">
+                sign_status = #{signStatus},
+            </if>
+            <if test="operationTime != null">
+                operation_time = #{operationTime},
             </if>
         </set>
         where sign_id = #{signId}

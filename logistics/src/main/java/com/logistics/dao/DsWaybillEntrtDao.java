@@ -1,6 +1,7 @@
 package com.logistics.dao;
 
 import com.logistics.entity.DsWaybillEntrt;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
@@ -8,8 +9,9 @@ import java.util.List;
  * (DsWaybillEntrt)表数据库访问层
  *
  * @author makejava
- * @since 2021-07-11 20:06:07
+ * @since 2021-07-12 11:54:55
  */
+@Mapper
 public interface DsWaybillEntrtDao {
 
     /**
@@ -61,5 +63,7 @@ public interface DsWaybillEntrtDao {
      * @return 影响行数
      */
     int deleteById(Integer waybillId);
+
+    List<DsWaybillEntrt>selectByAll(DsWaybillEntrt dsWaybillEntrt);
 
 }

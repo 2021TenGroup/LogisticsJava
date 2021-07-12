@@ -7,6 +7,7 @@ import com.logistics.service.DsSignService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -22,6 +23,10 @@ public class DsSignController {
     }
   @PostMapping("/insert")
     public Result insert(@RequestBody DsSign dsSign){
+        dsSign.setOperationTime(new Date());
+        dsSign.setWaybillId(1);
+        dsSign.setEmpId(1);
+        dsSign.setSignStatus(1);
       DsSign insert = dsSignService.insert(dsSign);
       return new Result(ResultCode.SUCCESS,insert);
   }

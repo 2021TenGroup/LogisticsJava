@@ -1,7 +1,7 @@
 package com.logistics.service.impl;
 
-import com.logistics.entity.DsSign;
 import com.logistics.dao.DsSignDao;
+import com.logistics.entity.DsSign;
 import com.logistics.service.DsSignService;
 import org.springframework.stereotype.Service;
 
@@ -50,7 +50,6 @@ public class DsSignServiceImpl implements DsSignService {
      */
     @Override
     public DsSign insert(DsSign dsSign) {
-
         this.dsSignDao.insert(dsSign);
         return dsSign;
     }

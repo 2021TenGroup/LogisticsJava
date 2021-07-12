@@ -1,31 +1,26 @@
 package com.logistics.entity;
 
+import java.util.Date;
 import java.io.Serializable;
 
 /**
- * 签收录入表(DsSign)实体类
+ * (DsSign)实体类
  *
  * @author makejava
- * @since 2021-07-11 19:37:23
+ * @since 2021-07-12 14:02:50
  */
 public class DsSign implements Serializable {
-    private static final long serialVersionUID = 845731164438147541L;
-    /**
-    * 牵手录入ID
-    */
+    private static final long serialVersionUID = 605181922543069624L;
+    
     private Integer signId;
-    /**
-    * 运单ID
-    */
+    
     private Integer waybillId;
-    /**
-    * 员工ID
-    */
+    
     private Integer empId;
-    /**
-    * 签收状态 0：未签收 1：已签收
-    */
-    private Integer signState;
+    
+    private Integer signStatus;
+    
+    private Date operationTime;
 
 
     public Integer getSignId() {
@@ -52,12 +47,20 @@ public class DsSign implements Serializable {
         this.empId = empId;
     }
 
-    public Integer getSignState() {
-        return signState;
+    public Integer getSignStatus() {
+        return signStatus;
     }
 
-    public void setSignState(Integer signState) {
-        this.signState = signState;
+    public void setSignStatus(Integer signStatus) {
+        this.signStatus = signStatus;
+    }
+
+    public Date getOperationTime() {
+        return operationTime;
+    }
+
+    public void setOperationTime(Date operationTime) {
+        this.operationTime = operationTime;
     }
 
 }

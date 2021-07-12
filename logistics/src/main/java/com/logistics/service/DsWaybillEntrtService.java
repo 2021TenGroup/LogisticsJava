@@ -1,13 +1,14 @@
 package com.logistics.service;
 
 import com.logistics.entity.DsWaybillEntrt;
+
 import java.util.List;
 
 /**
  * (DsWaybillEntrt)表服务接口
  *
  * @author makejava
- * @since 2021-07-11 20:06:07
+ * @since 2021-07-12 11:54:55
  */
 public interface DsWaybillEntrtService {
 
@@ -52,4 +53,5 @@ public interface DsWaybillEntrtService {
      */
     boolean deleteById(Integer waybillId);
 
+    List<DsWaybillEntrt>selectByAll(DsWaybillEntrt dsWaybillEntrt);
 }
