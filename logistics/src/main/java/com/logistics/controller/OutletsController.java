@@ -38,9 +38,9 @@ public class OutletsController {
     }
 
     @GetMapping("/selectAllOutletsList")
-    public List<OutletsVo> selectAllOutletsList(){
+    public AjaxResponse selectAllOutletsList(){
         List<OutletsVo> list = outletsService.selectAllOutlets();
-        return list;
+        return AjaxResponse.success(list);
     }
 
     @PostMapping("/addOutlets")

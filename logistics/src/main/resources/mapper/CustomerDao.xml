@@ -63,7 +63,7 @@
         <include refid="Base_Outlets_List" />
         from customer c
         inner join outlets o on c.Outlets_Id = o.Outlets_Id
-        where c.TimeLiness = 0
+        where c.TimeLiness = 0 order by c.Customer_Id desc
     </select>
 
     <!--查询单个-->
@@ -196,46 +196,46 @@
             <if test="outletsId != null">
                 Outlets_Id = #{outletsId},
             </if>
-            <if test="customerNumber != null and customerNumber != ''">
+            <if test="customerNumber != null">
                 Customer_Number = #{customerNumber},
             </if>
-            <if test="customerName != null and customerName != ''">
+            <if test="customerName != null">
                 Customer_Name = #{customerName},
             </if>
             <if test="customerSettlement != null">
                 Customer_Settlement = #{customerSettlement},
             </if>
-            <if test="customerUser != null and customerUser != ''">
+            <if test="customerUser != null">
                 Customer_User = #{customerUser},
             </if>
-            <if test="customerPhone != null and customerPhone != ''">
+            <if test="customerPhone != null">
                 Customer_Phone = #{customerPhone},
             </if>
-            <if test="customerProvince != null and customerProvince != ''">
+            <if test="customerProvince != null">
                 Customer_Province = #{customerProvince},
             </if>
-            <if test="customerCity != null and customerCity != ''">
+            <if test="customerCity != null">
                 Customer_City = #{customerCity},
             </if>
-            <if test="customerRegion != null and customerRegion != ''">
+            <if test="customerRegion != null">
                 Customer_Region = #{customerRegion},
             </if>
-            <if test="customerAddress != null and customerAddress != ''">
+            <if test="customerAddress != null">
                 Customer_Address = #{customerAddress},
             </if>
-            <if test="addname != null and addname != ''">
+            <if test="addname != null">
                 AddName = #{addname},
             </if>
             <if test="addtime != null">
                 AddTime = #{addtime},
             </if>
-            <if test="updatename != null and updatename != ''">
+            <if test="updatename != null">
                 UpdateName = #{updatename},
             </if>
             <if test="updatetime != null">
                 UpdateTime = #{updatetime},
             </if>
-            <if test="deletename != null and deletename != ''">
+            <if test="deletename != null">
                 DeleteName = #{deletename},
             </if>
             <if test="deletetime != null">
