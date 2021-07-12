@@ -31,14 +31,6 @@ public interface FiPaymentGoodsService {
     List<FiPaymentGoods> queryAllByLimit(int offset, int limit);
 
     /**
-     * 新增数据
-     *
-     * @param fiPaymentGoods 实例对象
-     * @return 实例对象
-     */
-    FiPaymentGoods insert(FiPaymentGoods fiPaymentGoods);
-
-    /**
      * 修改数据
      *
      * @param fiPaymentGoods 实例对象
@@ -62,10 +54,24 @@ public interface FiPaymentGoodsService {
     List<FiPaymentGoods> queryAll(FiPaymentGoods fiPaymentGoods);
 
     /**
+     * 新增数据
+     * 当运单录入时，有代收货款，则新增代收货款记录
+     * @param dsWaybillEntrt 实例对象
+     * @return 实例对象
+     */
+//    FiPaymentGoods insert(DsWaybillEntrt dsWaybillEntrt);
+
+    /**
      * 运单签收之后，添加员工
      * @param dsSign      运单录入Entity
      * @return
      */
     int updateEmpId(DsSign dsSign);
+
+    /**
+     * 点击发放
+     * 改变时效性，1则不可以再发放
+     */
+    int updateTimeLiness(FiPaymentGoods fiCashBill);
 
 }

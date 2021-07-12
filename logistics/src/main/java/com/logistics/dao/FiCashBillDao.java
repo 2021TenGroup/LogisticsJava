@@ -82,5 +82,7 @@ public interface FiCashBillDao {
      */
     int deleteById(Integer cbId);
 
+    FiCashBill queryByWaybillNumber(String waybillNumber);
+
 }
 

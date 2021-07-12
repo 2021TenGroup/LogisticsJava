@@ -84,4 +84,45 @@ public class FiCashBillServiceImpl implements FiCashBillService {
         return fiCashBillDao.queryAll(fiCashBill);
     }
 
+    /**
+     * 运单录入时，添加运费帐单表
+     */
+//    public int addFiCashBill(DsWaybillEntrt dsWaybillEntrtEntity){      //运单表Entity
+//        Integer oid = dsWaybillEntrtEntity.getOId();      //获取订单ID
+//        OrderService orderService = new OrderService();
+//        Order order = orderService.queryById(oid);      //查询出订单实体类
+//        FiCashBill fiCashBill = new FiCashBill();
+//
+//        Integer waybillId = dsWaybillEntrtEntity.getWaybillId();    //获取 运单录入表 运单编号
+//        fiCashBill.setWaybillId(waybillId);
+//
+//
+//        Double money = order.getFreight();  // 获取订单表 运费金额
+//        fiCashBill.setCbMoney(money);
+//
+//        String state = orderService.getPaymentMethod(); //收取状态
+//        if (state.equals("0")) {        //寄付
+//            fiCashBill.setCbState(1);     //收取状态：已收取
+//            fiCashBill.setCbDeliverType(0);       //类型：寄付
+//        }else {     //到付
+//            fiCashBill.setCbState(0);     //收取状态：未收取
+//            fiCashBill.setCbDeliverType(1);       //类型：到付
+//        }
+//
+//       return fiCashBillDao.insert(fiCashBill);
+//
+//    }
+
+    /**
+     * 当签收之后，改变收取状态
+     * @param dsWaybillEntrtEntity
+     * @return
+     */
+//    public int updateCashBillState(DsWaybillEntrt dsWaybillEntrtEntity){
+//        String waybillNumber = dsWaybillEntrtEntity.getWaybillNumber();    //获取 运单录入表 运单编号
+//        FiCashBill fiCashBill = fiCashBillDao.queryByWaybillNumber(waybillNumber);
+//        fiCashBill.setCbState(1);
+//        return fiCashBillDao.update(fiCashBill);
+//    }
+
 }

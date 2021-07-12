@@ -1,9 +1,11 @@
 package com.logistics.service.impl;
 
 import com.logistics.entity.DsSign;
+import com.logistics.entity.FiCashBill;
 import com.logistics.entity.FiPaymentGoods;
 import com.logistics.dao.FiPaymentGoodsDao;
 import com.logistics.service.FiPaymentGoodsService;
+import lombok.Builder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -44,18 +46,6 @@ public class FiPaymentGoodsServiceImpl implements FiPaymentGoodsService {
     }
 
     /**
-     * 新增数据
-     *
-     * @param fiPaymentGoods 实例对象
-     * @return 实例对象
-     */
-    @Override
-    public FiPaymentGoods insert(FiPaymentGoods fiPaymentGoods) {
-        this.fiPaymentGoodsDao.insert(fiPaymentGoods);
-        return fiPaymentGoods;
-    }
-
-    /**
      * 修改数据
      *
      * @param fiPaymentGoods 实例对象
@@ -87,7 +77,48 @@ public class FiPaymentGoodsServiceImpl implements FiPaymentGoodsService {
     }
 
     /**
-     * 运单签收之后，添加员工
+     * 新增数据
+     * 当运单录入时，有代收货款，则新增代收货款记录
+     * @param dsWaybillEntrtEntity 实例对象
+     * @return 实例对象
+     */
+//    @Override
+//    public FiPaymentGoods insert(DsWaybillEntrt dsWaybillEntrtEntity) {      //运单录入实体类
+//
+//        FiPaymentGoods fiPaymentGoods = new FiPaymentGoods();
+//        String waybillId = dsWaybillEntrtEntity.getWaybillNumber();    //获取 运单录入表 运单编号
+//        fiPaymentGoods.setWaybillId(waybillId);
+//
+//        Double paymentGoods = dsWaybillEntrtEntity.getPaymentGoods();     //获取 运单录入表 代收货款
+//        fiPaymentGoods.setPgPayment(paymentGoods);
+//
+//        Double serviceMoney = paymentGoods*0.03;    //服务费： 总金额*0.03
+//        fiPaymentGoods.setPgServiceMoney(serviceMoney);
+//
+//        fiPaymentGoods.setPgActualMoney(paymentGoods-serviceMoney);//实发给客户的金额
+//
+//        fiPaymentGoods.setOutletsId1(dsWaybillEntrtEntity.getOutletsId());     //首网点
+//
+//        fiPaymentGoods.setOutletsId2(dsWaybillEntrtEntity.getOutletsId1());      //末网点
+//
+//        Integer oId = dsWaybillEntrtEntity.getOId(); //根据运单 获取订单编号
+//
+//        OrderEntity orderEntity = OrderService.queryById(oId);//根据oId查询订单表数据
+//
+//        Integer customerId = orderEntity.getCustomerId();   //获取寄件客户ID
+//
+//        CustomerEntity customerEntity = CustomerService.queryById(customerId);  //根据客户ID查询客户信息
+//
+//        fiPaymentGoods.setSender(customerEntity.getCustomerName());   //获取寄件人姓名
+//
+//        fiPaymentGoods.setSenderPhone(customerEntity.getCustomerPhone());   //获取寄件人电话号码
+//
+//        this.fiPaymentGoodsDao.insert(fiPaymentGoods);
+//        return fiPaymentGoods;
+//    }
+
+    /**
+     * 运单签收之后，添加员工,有员工则已签收
      * @param dsSignEntity      运单录入Entity
      * @return
      */
@@ -101,6 +132,16 @@ public class FiPaymentGoodsServiceImpl implements FiPaymentGoodsService {
             return fiPaymentGoodsDao.update(fiPaymentGoods);
         }
         return 0;
+    }
+
+    /**
+     * 点击发放
+     * 改变时效性，1则不可以再发放
+     */
+    @Override
+    public int updateTimeLiness(FiPaymentGoods fiCashBill){
+        fiCashBill.setTimeliness(1);
+        return fiPaymentGoodsDao.update(fiCashBill);
     }
 
 }

@@ -165,5 +165,11 @@
         delete from lms.fi_cash_bill where cb_id = #{cbId}
     </delete>
 
+
+<!--    根据运单编号查询-->
+    <select id="queryByWaybillNumber" resultType="com.logistics.entity.FiCashBill">
+        select * from lms.fi_cash_bill where waybill_number = #{waybillNumber}
+    </select>
+    
 </mapper>
 

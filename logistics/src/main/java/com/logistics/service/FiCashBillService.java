@@ -1,6 +1,7 @@
 package com.logistics.service;
 
 import com.logistics.entity.FiCashBill;
+import com.logistics.entity.FiPaymentGoods;
 
 import java.util.List;
 
@@ -54,4 +55,15 @@ public interface FiCashBillService {
     boolean deleteById(Integer cbId);
 
     List<FiCashBill> queryAll(FiCashBill fiCashBill);
+
+    /**
+     * 运单录入时，添加运费帐单表
+     */
+//    int addFiCashBill(DsWaybillEntrt dsWaybillEntrtEntity);
+
+    /**
+     * 当签收之后，改变收取状态
+     */
+//    int updateCashBillState(DsWaybillEntrt dsWaybillEntrtEntity);
+
 }
