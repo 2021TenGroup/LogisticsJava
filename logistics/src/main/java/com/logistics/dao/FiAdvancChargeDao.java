@@ -13,6 +13,9 @@ public interface FiAdvancChargeDao {
 
     int insert(FiAdvancCharge record);
 
+    /**
+     * 插入一条预收款记录
+     */
     int insertSelective(FiAdvancCharge record);
 
     FiAdvancCharge selectByPrimaryKey(Integer acId);

@@ -26,4 +26,9 @@ public interface FiAdvancChargeService {
      * 充值记录
      */
     List<FiRecharge> findAllRecharge();
+
+    /**
+     * 插入一条预收款记录
+     */
+    void insertSelective(FiAdvancCharge fiAdvancCharge);
 }

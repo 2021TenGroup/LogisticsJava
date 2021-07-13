@@ -60,4 +60,13 @@ public class FiAdvancChargeServiceImpl implements FiAdvancChargeService {
         List<FiRecharge> list = fiRechargeDao.findAllRecharge();
         return list;
     }
+
+    /**
+     * 插入一条预收款记录
+     */
+    @Override
+    @Transactional
+    public void insertSelective(FiAdvancCharge fiAdvancCharge){
+        fiAdvancChargeDao.insertSelective(fiAdvancCharge);
+    }
 }
