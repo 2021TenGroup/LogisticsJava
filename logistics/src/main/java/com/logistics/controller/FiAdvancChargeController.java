@@ -1,5 +1,7 @@
 package com.logistics.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.logistics.entity.FiAdvancCharge;
 import com.logistics.entity.FiRecharge;
 import com.logistics.service.FiAdvancChargeService;
@@ -18,9 +20,11 @@ public class FiAdvancChargeController {
      * 查询所有预付款
      */
     @GetMapping("/findAllAdvance")
-    public List<FiAdvancCharge> findAllAdvance() {
+    public PageInfo<FiAdvancCharge> findAllAdvance(@RequestParam("currentPage")int currentPage, @RequestParam("pagesize")int pageSize) {
+        PageHelper.startPage(currentPage,pageSize);
         List<FiAdvancCharge> all = fiAdvancChargeService.findAllAdvance();
-        return all;
+        PageInfo<FiAdvancCharge> pageInfo = new PageInfo<>(all);
+        return pageInfo;
     }
 
     /**
@@ -46,8 +50,10 @@ public class FiAdvancChargeController {
      * 充值记录
      */
     @GetMapping("/findAllRecharge")
-    public List<FiRecharge> findAllRecharge() {
+    public PageInfo<FiRecharge> findAllRecharge(@RequestParam("currentPage")int currentPage, @RequestParam("pagesize")int pageSize) {
+        PageHelper.startPage(currentPage,pageSize);
         List<FiRecharge> all = fiAdvancChargeService.findAllRecharge();
-        return all;
+        PageInfo<FiRecharge> pageInfo = new PageInfo<>(all);
+        return pageInfo;
     }
 }

@@ -49,7 +49,7 @@ public class FiAdvancChargeServiceImpl implements FiAdvancChargeService {
         fiRechargeDao.addAdvance(fiRecharge);
         System.out.println(fiRecharge.getOutletsId()+"666666666666");
         System.out.println(fiRecharge.getReMoney()+"999999999999");
-        fiAdvancChargeDao.updateReMoney(fiRecharge.getOutletsId(),fiRecharge.getReMoney());
+        fiAdvancChargeDao.updateReMoney(fiRecharge.getReNetwork(),fiRecharge.getReMoney());
     }
 
     /**

@@ -16,6 +16,28 @@
     <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
     <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
     <result column="Emp_Id" jdbcType="INTEGER" property="empId" />
+
+    <association property="outletsVo" javaType="com.logistics.vo.OutletsVo">
+      <id property="outletsId" column="Outlets_Id"/>
+      <result property="outletsNumber" column="Outlets_Number"/>
+      <result property="outletsName" column="Outlets_Name"/>
+      <result property="outletsBelonging" column="Outlets_Belonging"/>
+      <result property="outletsPerson" column="Outlets_Person"/>
+      <result property="outletsPhone" column="Outlets_Phone"/>
+      <result property="outletsProvince" column="Outlets_Province"/>
+      <result property="outletsCity" column="Outlets_City"/>
+      <result property="outletsRegion" column="Outlets_Region"/>
+      <result property="outletsAddress" column="Outlets_Address"/>
+      <result property="outletsRemarks" column="Outlets_Remarks"/>
+      <result property="addname" column="AddName"/>
+      <result property="addtime" column="AddTime"/>
+      <result property="updatename" column="UpdateName"/>
+      <result property="updatetime" column="UpdateTime"/>
+      <result property="deletename" column="DeleteName"/>
+      <result property="deletetime" column="DeleteTime"/>
+      <result property="timeliness" column="TimeLiness"/>
+    </association>
+
   </resultMap>
   <sql id="Base_Column_List">
     re_id, Outlets_Id, re_network, re_type, re_money, re_remarks, AddName, ADDTIME, UpdateName, 
@@ -277,8 +299,9 @@
     </trim>
   </insert>
   <select id="findAllRecharge" resultMap="BaseResultMap">
-    SELECT r.*
+    SELECT r.*,o.*
     FROM fi_recharge r
+           inner join outlets o on r.Outlets_Id = o.Outlets_Id
     WHERE r.TimeLiness = 0
   </select>
 </mapper>
