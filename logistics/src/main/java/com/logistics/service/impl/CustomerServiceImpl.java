@@ -67,4 +67,14 @@ public class CustomerServiceImpl implements CustomerService {
         return customerDao.deleteByCustomer(customerVo);
     }
 
+    @Override
+    public List<CustomerVo> selectAllCustomer2(String value) {
+        return customerDao.selectAllCustomer2("%"+value+"%");
+    }
+
+    @Override
+    public List<CustomerVo> selectAllCustomer3(Integer state, String value) {
+        return customerDao.selectAllCustomer3(state, "%"+value+"%");
+    }
+
 }

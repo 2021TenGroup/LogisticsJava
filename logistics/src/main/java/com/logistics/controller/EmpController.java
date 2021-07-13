@@ -31,11 +31,22 @@ public class EmpController {
     private EmpService empService;
 
     @GetMapping("/selectAllEmps")
-    public PageInfo<EmpVo> selectAllEmps(@RequestParam("currentPage")int currentPage, @RequestParam("pagesize")int pageSize){
+    public PageInfo<EmpVo> selectAllEmps(@RequestParam("currentPage")int currentPage, @RequestParam("pagesize")int pageSize,
+                                         @RequestParam("approval")String approval, @RequestParam("value1")String value){
         PageHelper.startPage(currentPage,pageSize);
-        List<EmpVo> list = empService.selectAllEmps();
-        PageInfo<EmpVo> pageInfo = new PageInfo<>(list);
-        return pageInfo;
+        if(approval.equals(0)||value.equals("")){
+            List<EmpVo> list = empService.selectAllEmps3(value);
+            PageInfo<EmpVo> pageInfo = new PageInfo<>(list);
+            return pageInfo;
+        }else{
+            List<EmpVo> list = empService.selectAllEmps2(Integer.parseInt(approval),value);
+            PageInfo<EmpVo> pageInfo = new PageInfo<>(list);
+            return pageInfo;
+        }
+        /*List<EmpVo> list = empService.selectAllEmps2(Integer.parseInt(approval),value);
+        PageInfo<EmpVo> pageInfo = new PageInfo<>(list);*/
+
+       /* return pageInfo;*/
     }
 
     @GetMapping("/selectAllEmpsList")

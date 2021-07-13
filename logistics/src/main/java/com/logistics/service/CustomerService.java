@@ -62,4 +62,7 @@ public interface CustomerService {
 
     int delCustomer(CustomerVo customerVo);
 
+    List<CustomerVo> selectAllCustomer2(String value);
+
+    List<CustomerVo> selectAllCustomer3(Integer state,String value);
 }

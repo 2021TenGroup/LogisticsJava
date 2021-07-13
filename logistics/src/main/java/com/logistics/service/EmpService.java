@@ -56,6 +56,10 @@ public interface EmpService {
 
     List<EmpVo> selectAllEmps();
 
+    List<EmpVo> selectAllEmps2(Integer state,String value);
+
+    List<EmpVo> selectAllEmps3(String value);
+
     void addEmps(EmpVo empVo);
 
     int updateEmps(EmpVo empVo);

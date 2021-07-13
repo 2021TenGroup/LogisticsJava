@@ -31,11 +31,18 @@ public class CustomerController {
     private CustomerService customerService;
 
     @GetMapping("/selectAllCustomer")
-    public PageInfo<CustomerVo> selectAllCustomer(@RequestParam("currentPage")int currentPage, @RequestParam("pagesize")int pageSize){
+    public PageInfo<CustomerVo> selectAllCustomer(@RequestParam("currentPage")int currentPage, @RequestParam("pagesize")int pageSize,
+                                                    @RequestParam("approval")String approval, @RequestParam("value1")String value){
         PageHelper.startPage(currentPage,pageSize);
-        List<CustomerVo> list = customerService.selectAllCustomer();
-        PageInfo<CustomerVo> pageInfo = new PageInfo<>(list);
-        return pageInfo;
+        if(approval.equals(0)||value.equals("")) {
+            List<CustomerVo> list = customerService.selectAllCustomer2(value);
+            PageInfo<CustomerVo> pageInfo = new PageInfo<>(list);
+            return pageInfo;
+        }else{
+            List<CustomerVo> list = customerService.selectAllCustomer3(Integer.parseInt(approval),value);
+            PageInfo<CustomerVo> pageInfo = new PageInfo<>(list);
+            return pageInfo;
+        }
     }
 
     @GetMapping("/selectAllCustomerList")

@@ -98,5 +98,9 @@ public interface EmpDao {
     List<EmpVo> selectAllEmps();
 
     int deleteByEmps(EmpVo empVo);
+
+    List<EmpVo> selectAllEmps2ByValue(Integer state,String value);
+
+    List<EmpVo> selectAllEmps3(String value);
 }
 
