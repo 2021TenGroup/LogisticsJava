@@ -271,7 +271,7 @@
         from emp e
         inner join outlets o on e.Outlets_Id=o.Outlets_Id
         left join per_position p on e.Position_Id=p.Position_Id
-        where e.TimeLiness = 0 and (e.Emp_Id like #{value} or e.Emp_Name like #{value}) order by e.AddTime desc
+        where e.TimeLiness = 0 and (e.Emp_number like #{value} or e.Emp_Name like #{value}) order by e.Emp_Id desc
     </select>
 
     <!--查询所有[分页]-->
@@ -282,7 +282,7 @@
         from emp e
         inner join outlets o on e.Outlets_Id=o.Outlets_Id
         left join per_position p on e.Position_Id=p.Position_Id
-        where e.TimeLiness = 0 and e.Outlets_Id=#{param1} and (e.Emp_number like #{param2} or e.Emp_Name like #{param2}) order by e.AddTime desc
+        where e.TimeLiness = 0 and e.Outlets_Id=#{param1} and (e.Emp_number like #{param2} or e.Emp_Name like #{param2}) order by e.Emp_Id desc
     </select>
 
 </mapper>

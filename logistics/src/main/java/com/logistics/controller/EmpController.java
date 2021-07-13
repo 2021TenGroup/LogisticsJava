@@ -33,12 +33,13 @@ public class EmpController {
     @GetMapping("/selectAllEmps")
     public PageInfo<EmpVo> selectAllEmps(@RequestParam("currentPage")int currentPage, @RequestParam("pagesize")int pageSize,
                                          @RequestParam("approval")String approval, @RequestParam("value1")String value){
-        PageHelper.startPage(currentPage,pageSize);
-        if(approval.equals(0)||value.equals("")){
+        if(approval.equals(0) || approval.equals("")){
+            PageHelper.startPage(currentPage,pageSize);
             List<EmpVo> list = empService.selectAllEmps3(value);
             PageInfo<EmpVo> pageInfo = new PageInfo<>(list);
             return pageInfo;
         }else{
+            PageHelper.startPage(currentPage,pageSize);
             List<EmpVo> list = empService.selectAllEmps2(Integer.parseInt(approval),value);
             PageInfo<EmpVo> pageInfo = new PageInfo<>(list);
             return pageInfo;
