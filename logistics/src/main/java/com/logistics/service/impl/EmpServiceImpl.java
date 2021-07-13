@@ -48,6 +48,16 @@ public class EmpServiceImpl implements EmpService {
     }
 
     @Override
+    public List<EmpVo> selectAllEmps2(Integer state,String value) {
+        return empDao.selectAllEmps2ByValue(state,"%"+value+"%");
+    }
+
+    @Override
+    public List<EmpVo> selectAllEmps3(String value) {
+        return empDao.selectAllEmps3("%"+value+"%");
+    }
+
+    @Override
     @Transactional
     public void addEmps(EmpVo empVo) {
         empDao.insert(empVo);

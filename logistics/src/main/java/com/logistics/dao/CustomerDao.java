@@ -85,5 +85,9 @@ public interface CustomerDao {
     List<CustomerVo> selectAllCustomer();
 
     int deleteByCustomer(CustomerVo customerVo);
+
+    List<CustomerVo> selectAllCustomer2(String value);
+
+    List<CustomerVo> selectAllCustomer3(Integer state,String value);
 }
 
