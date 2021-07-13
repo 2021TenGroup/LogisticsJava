@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.logistics.dao.FiMoneyDetailedDao">
+
+    <resultMap type="com.logistics.entity.FiMoneyDetailed" id="FiMoneyDetailedMap">
+        <result property="mdId" column="md_id" jdbcType="INTEGER"/>
+        <result property="waybillNumber" column="waybill_number" jdbcType="VARCHAR"/>
+        <result property="outletsName" column="Outlets_Name" jdbcType="VARCHAR"/>
+        <result property="userName" column="User_Name" jdbcType="VARCHAR"/>
+        <result property="mdCollectMoney" column="md_collect_money" jdbcType="NUMERIC"/>
+        <result property="mdType" column="md_type" jdbcType="INTEGER"/>
+        <result property="mdBalance" column="md_balance" jdbcType="NUMERIC"/>
+        <result property="mdDetails" column="md_details" jdbcType="VARCHAR"/>
+        <result property="addname" column="AddName" jdbcType="VARCHAR"/>
+        <result property="addtime" column="ADDTIME" jdbcType="TIMESTAMP"/>
+        <result property="updatename" column="UpdateName" jdbcType="VARCHAR"/>
+        <result property="updatetime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+        <result property="deletename" column="DeleteName" jdbcType="VARCHAR"/>
+        <result property="deletetime" column="DeleteTime" jdbcType="TIMESTAMP"/>
+        <result property="timeliness" column="TimeLiness" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="FiMoneyDetailedMap">
+        select
+          md_id, waybill_number, Outlets_Name, User_Name, md_collect_money, md_type, md_balance, md_details, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+        from lms.fi_money_detailed
+        where md_id = #{mdId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="FiMoneyDetailedMap">
+        select
+          md_id, waybill_number, Outlets_Name, User_Name, md_collect_money, md_type, md_balance, md_details, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+        from lms.fi_money_detailed
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="FiMoneyDetailedMap">
+        select
+        md_id, waybill_number, Outlets_Name, User_Name, md_collect_money, md_type, md_balance, md_details, AddName,
+        ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+        from lms.fi_money_detailed
+        <where>
+            <if test="mdId != null">
+                and md_id = #{mdId}
+            </if>
+            <if test="waybillNumber != null and waybillNumber != ''">
+                and waybill_number = #{waybillNumber}
+            </if>
+            <if test="outletsName != null and outletsName != ''">
+                and Outlets_Name = #{outletsName}
+            </if>
+            <if test="userName != null and userName != ''">
+                and User_Name = #{userName}
+            </if>
+            <if test="mdCollectMoney != null">
+                and md_collect_money = #{mdCollectMoney}
+            </if>
+            <if test="mdType != null">
+                and md_type = #{mdType}
+            </if>
+            <if test="mdBalance != null">
+                and md_balance = #{mdBalance}
+            </if>
+            <if test="mdDetails != null">
+                and md_details = #{mdDetails}
+            </if>
+            <if test="addname != null and addname != ''">
+                and AddName = #{addname}
+            </if>
+            <if test="addtime != null">
+                and ADDTIME = #{addtime}
+            </if>
+            <if test="updatename != null and updatename != ''">
+                and UpdateName = #{updatename}
+            </if>
+            <if test="updatetime != null">
+                and UpdateTime = #{updatetime}
+            </if>
+            <if test="deletename != null and deletename != ''">
+                and DeleteName = #{deletename}
+            </if>
+            <if test="deletetime != null">
+                and DeleteTime = #{deletetime}
+            </if>
+            <if test="timeliness != null">
+                and TimeLiness = #{timeliness}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="mdId" useGeneratedKeys="true">
+        insert into lms.fi_money_detailed(md_collect_money, md_type, md_balance, md_details, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        values (#{mdCollectMoney}, #{mdType}, #{mdBalance}, #{mdDetails}, #{addname}, #{addtime}, #{updatename}, #{updatetime}, #{deletename}, #{deletetime}, #{timeliness})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="mdId" useGeneratedKeys="true">
+        insert into lms.fi_money_detailed(md_collect_money, md_type, md_balance, md_details, AddName, ADDTIME,
+        UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.mdCollectMoney}, #{entity.mdType}, #{entity.mdBalance}, #{entity.mdDetails}, #{entity.addname},
+            #{entity.addtime}, #{entity.updatename}, #{entity.updatetime}, #{entity.deletename}, #{entity.deletetime},
+            #{entity.timeliness})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="mdId" useGeneratedKeys="true">
+        insert into lms.fi_money_detailed(md_collect_money, md_type, md_balance, md_details, AddName, ADDTIME,
+        UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.mdCollectMoney}, #{entity.mdType}, #{entity.mdBalance}, #{entity.mdDetails}, #{entity.addname},
+            #{entity.addtime}, #{entity.updatename}, #{entity.updatetime}, #{entity.deletename}, #{entity.deletetime},
+            #{entity.timeliness})
+        </foreach>
+        on duplicate key update
+        md_collect_money = values(md_collect_money) , md_type = values(md_type) , md_balance = values(md_balance) ,
+        md_details = values(md_details) , AddName = values(AddName) , ADDTIME = values(ADDTIME) , UpdateName =
+        values(UpdateName) , UpdateTime = values(UpdateTime) , DeleteName = values(DeleteName) , DeleteTime =
+        values(DeleteTime) , TimeLiness = values(TimeLiness)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update lms.fi_money_detailed
+        <set>
+            <if test="mdCollectMoney != null">
+                md_collect_money = #{mdCollectMoney},
+            </if>
+            <if test="mdType != null">
+                md_type = #{mdType},
+            </if>
+            <if test="mdBalance != null">
+                md_balance = #{mdBalance},
+            </if>
+            <if test="mdDetails != null">
+                md_details = #{mdDetails},
+            </if>
+            <if test="addname != null and addname != ''">
+                AddName = #{addname},
+            </if>
+            <if test="addtime != null">
+                ADDTIME = #{addtime},
+            </if>
+            <if test="updatename != null and updatename != ''">
+                UpdateName = #{updatename},
+            </if>
+            <if test="updatetime != null">
+                UpdateTime = #{updatetime},
+            </if>
+            <if test="deletename != null and deletename != ''">
+                DeleteName = #{deletename},
+            </if>
+            <if test="deletetime != null">
+                DeleteTime = #{deletetime},
+            </if>
+            <if test="timeliness != null">
+                TimeLiness = #{timeliness},
+            </if>
+        </set>
+        where md_id = #{mdId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from lms.fi_money_detailed where md_id = #{mdId}
+    </delete>
+
+</mapper>
+

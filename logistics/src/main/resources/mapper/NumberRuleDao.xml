@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.logistics.dao.NumberRuleDao">
+    <resultMap type="com.logistics.entity.NumberRule" id="NumberRuleMap">
+        <id property="ruleId" column="Rule_Id" jdbcType="INTEGER"/>
+        <result property="ruleName" column="Rule_Name" jdbcType="VARCHAR"/>
+        <result property="ruleStart" column="Rule_Start" jdbcType="VARCHAR"/>
+        <result property="ruleEnd" column="Rule_End" jdbcType="VARCHAR"/>
+        <result property="ruleLenght" column="Rule_Lenght" jdbcType="INTEGER"/>
+        <result property="ruleMax" column="Rule_Max" jdbcType="VARCHAR"/>
+        <result property="ruleRemarks" column="Rule_Remarks" jdbcType="VARCHAR"/>
+        <result property="ruleType" column="Rule_Type" jdbcType="INTEGER"/>
+        <result property="ruleUsage" column="Rule_Usage" jdbcType="INTEGER"/>
+        <result property="addname" column="AddName" jdbcType="VARCHAR"/>
+        <result property="addtime" column="AddTime" jdbcType="TIMESTAMP"/>
+        <result property="updatename" column="UpdateName" jdbcType="VARCHAR"/>
+        <result property="updatetime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+        <result property="deletename" column="DeleteName" jdbcType="VARCHAR"/>
+        <result property="deletetime" column="DeleteTime" jdbcType="TIMESTAMP"/>
+        <result property="timeliness" column="TimeLiness" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+          Rule_Id, Rule_Name, Rule_Start, Rule_End, Rule_Lenght, Rule_Max, Rule_Remarks, Rule_Type, Rule_Usage, AddName, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+    </sql>
+
+    <select id="selectAllNumberRule" resultMap="NumberRuleMap">
+        select
+        <include refid="Base_Column_List" />
+        from number_rule
+        where TimeLiness = 0
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="NumberRuleMap">
+        select
+          Rule_Id, Rule_Name, Rule_Start, Rule_End, Rule_Lenght, Rule_Max, Rule_Remarks, Rule_Type, Rule_Usage, AddName, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+        from lms.number_rule
+        where Rule_Id = #{ruleId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="NumberRuleMap">
+        select
+          Rule_Id, Rule_Name, Rule_Start, Rule_End, Rule_Lenght, Rule_Max, Rule_Remarks, Rule_Type, Rule_Usage, AddName, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+        from lms.number_rule
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="NumberRuleMap">
+        select
+        Rule_Id, Rule_Name, Rule_Start, Rule_End, Rule_Lenght, Rule_Max, Rule_Remarks, Rule_Type, Rule_Usage, AddName,
+        AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+        from lms.number_rule
+        <where>
+            <if test="ruleId != null">
+                and Rule_Id = #{ruleId}
+            </if>
+            <if test="ruleName != null and ruleName != ''">
+                and Rule_Name = #{ruleName}
+            </if>
+            <if test="ruleStart != null and ruleStart != ''">
+                and Rule_Start = #{ruleStart}
+            </if>
+            <if test="ruleEnd != null and ruleEnd != ''">
+                and Rule_End = #{ruleEnd}
+            </if>
+            <if test="ruleLenght != null">
+                and Rule_Lenght = #{ruleLenght}
+            </if>
+            <if test="ruleMax != null and ruleMax != ''">
+                and Rule_Max = #{ruleMax}
+            </if>
+            <if test="ruleRemarks != null and ruleRemarks != ''">
+                and Rule_Remarks = #{ruleRemarks}
+            </if>
+            <if test="ruleType != null">
+                and Rule_Type = #{ruleType}
+            </if>
+            <if test="ruleUsage != null">
+                and Rule_Usage = #{ruleUsage}
+            </if>
+            <if test="addname != null and addname != ''">
+                and AddName = #{addname}
+            </if>
+            <if test="addtime != null">
+                and AddTime = #{addtime}
+            </if>
+            <if test="updatename != null and updatename != ''">
+                and UpdateName = #{updatename}
+            </if>
+            <if test="updatetime != null">
+                and UpdateTime = #{updatetime}
+            </if>
+            <if test="deletename != null and deletename != ''">
+                and DeleteName = #{deletename}
+            </if>
+            <if test="deletetime != null">
+                and DeleteTime = #{deletetime}
+            </if>
+            <if test="timeliness != null">
+                and TimeLiness = #{timeliness}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="ruleId" useGeneratedKeys="true">
+        insert into lms.number_rule(Rule_Name, Rule_Start, Rule_End, Rule_Lenght, Rule_Max, Rule_Remarks, Rule_Type, Rule_Usage, AddName, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        values (#{ruleName}, #{ruleStart}, #{ruleEnd}, #{ruleLenght}, #{ruleMax}, #{ruleRemarks}, #{ruleType}, #{ruleUsage}, #{addname}, #{addtime}, #{updatename}, #{updatetime}, #{deletename}, #{deletetime}, #{timeliness})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="ruleId" useGeneratedKeys="true">
+        insert into lms.number_rule(Rule_Name, Rule_Start, Rule_End, Rule_Lenght, Rule_Max, Rule_Remarks, Rule_Type,
+        Rule_Usage, AddName, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.ruleName}, #{entity.ruleStart}, #{entity.ruleEnd}, #{entity.ruleLenght}, #{entity.ruleMax},
+            #{entity.ruleRemarks}, #{entity.ruleType}, #{entity.ruleUsage}, #{entity.addname}, #{entity.addtime},
+            #{entity.updatename}, #{entity.updatetime}, #{entity.deletename}, #{entity.deletetime},
+            #{entity.timeliness})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="ruleId" useGeneratedKeys="true">
+        insert into lms.number_rule(Rule_Name, Rule_Start, Rule_End, Rule_Lenght, Rule_Max, Rule_Remarks, Rule_Type,
+        Rule_Usage, AddName, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.ruleName}, #{entity.ruleStart}, #{entity.ruleEnd}, #{entity.ruleLenght}, #{entity.ruleMax},
+            #{entity.ruleRemarks}, #{entity.ruleType}, #{entity.ruleUsage}, #{entity.addname}, #{entity.addtime},
+            #{entity.updatename}, #{entity.updatetime}, #{entity.deletename}, #{entity.deletetime},
+            #{entity.timeliness})
+        </foreach>
+        on duplicate key update
+        Rule_Name = values(Rule_Name) , Rule_Start = values(Rule_Start) , Rule_End = values(Rule_End) , Rule_Lenght =
+        values(Rule_Lenght) , Rule_Max = values(Rule_Max) , Rule_Remarks = values(Rule_Remarks) , Rule_Type =
+        values(Rule_Type) , Rule_Usage = values(Rule_Usage) , AddName = values(AddName) , AddTime = values(AddTime) ,
+        UpdateName = values(UpdateName) , UpdateTime = values(UpdateTime) , DeleteName = values(DeleteName) , DeleteTime
+        = values(DeleteTime) , TimeLiness = values(TimeLiness)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update lms.number_rule
+        <set>
+            <if test="ruleName != null and ruleName != ''">
+                Rule_Name = #{ruleName},
+            </if>
+            <if test="ruleStart != null and ruleStart != ''">
+                Rule_Start = #{ruleStart},
+            </if>
+            <if test="ruleEnd != null and ruleEnd != ''">
+                Rule_End = #{ruleEnd},
+            </if>
+            <if test="ruleLenght != null">
+                Rule_Lenght = #{ruleLenght},
+            </if>
+            <if test="ruleMax != null and ruleMax != ''">
+                Rule_Max = #{ruleMax},
+            </if>
+            <if test="ruleRemarks != null and ruleRemarks != ''">
+                Rule_Remarks = #{ruleRemarks},
+            </if>
+            <if test="ruleType != null">
+                Rule_Type = #{ruleType},
+            </if>
+            <if test="ruleUsage != null">
+                Rule_Usage = #{ruleUsage},
+            </if>
+            <if test="addname != null and addname != ''">
+                AddName = #{addname},
+            </if>
+            <if test="addtime != null">
+                AddTime = #{addtime},
+            </if>
+            <if test="updatename != null and updatename != ''">
+                UpdateName = #{updatename},
+            </if>
+            <if test="updatetime != null">
+                UpdateTime = #{updatetime},
+            </if>
+            <if test="deletename != null and deletename != ''">
+                DeleteName = #{deletename},
+            </if>
+            <if test="deletetime != null">
+                DeleteTime = #{deletetime},
+            </if>
+            <if test="timeliness != null">
+                TimeLiness = #{timeliness},
+            </if>
+        </set>
+        where Rule_Id = #{ruleId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from lms.number_rule where Rule_Id = #{ruleId}
+    </delete>
+
+    <!--修改删除人与时效性-->
+    <update id="deleteByNumberRule" parameterType="com.logistics.entity.NumberRule">
+        update number_rule
+        set
+          DeleteName = #{deletename},
+          DeleteTime = #{deletetime},
+          TimeLiness = #{timeliness}
+        where Rule_Id = #{ruleId}
+    </update>
+
+</mapper>
+

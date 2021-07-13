@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.logistics.dao.DsSignDao">
+
+    <resultMap type="com.logistics.entity.DsSign" id="DsSignMap">
+        <result property="signId" column="sign_id" jdbcType="INTEGER"/>
+        <result property="waybillId" column="waybill_id" jdbcType="INTEGER"/>
+        <result property="empId" column="emp_id" jdbcType="INTEGER"/>
+        <result property="signStatus" column="sign_status" jdbcType="INTEGER"/>
+        <result property="operationTime" column="operation_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="DsSignMap">
+        select
+          sign_id, waybill_id, emp_id, sign_status, operation_time
+        from lms.ds_sign
+        where sign_id = #{signId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="DsSignMap">
+        select
+          sign_id, waybill_id, emp_id, sign_status, operation_time
+        from lms.ds_sign
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="DsSignMap">
+        select
+        sign_id, waybill_id, emp_id, sign_status, operation_time
+        from lms.ds_sign
+        <where>
+            <if test="signId != null">
+                and sign_id = #{signId}
+            </if>
+            <if test="waybillId != null">
+                and waybill_id = #{waybillId}
+            </if>
+            <if test="empId != null">
+                and emp_id = #{empId}
+            </if>
+            <if test="signStatus != null">
+                and sign_status = #{signStatus}
+            </if>
+            <if test="operationTime != null">
+                and operation_time = #{operationTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="signId" useGeneratedKeys="true">
+        insert into lms.ds_sign(waybill_id, emp_id, sign_status, operation_time)
+        values (#{waybillId}, #{empId}, #{signStatus}, #{operationTime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="signId" useGeneratedKeys="true">
+        insert into lms.ds_sign(waybill_id, emp_id, sign_status, operation_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.waybillId}, #{entity.empId}, #{entity.signStatus}, #{entity.operationTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="signId" useGeneratedKeys="true">
+        insert into lms.ds_sign(waybill_id, emp_id, sign_status, operation_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.waybillId}, #{entity.empId}, #{entity.signStatus}, #{entity.operationTime})
+        </foreach>
+        on duplicate key update
+        waybill_id = values(waybill_id) , emp_id = values(emp_id) , sign_status = values(sign_status) , operation_time =
+        values(operation_time)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update lms.ds_sign
+        <set>
+            <if test="waybillId != null">
+                waybill_id = #{waybillId},
+            </if>
+            <if test="empId != null">
+                emp_id = #{empId},
+            </if>
+            <if test="signStatus != null">
+                sign_status = #{signStatus},
+            </if>
+            <if test="operationTime != null">
+                operation_time = #{operationTime},
+            </if>
+        </set>
+        where sign_id = #{signId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from lms.ds_sign where sign_id = #{signId}
+    </delete>
+
+</mapper>
+

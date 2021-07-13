@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.logistics.dao.TypesDao">
+
+    <resultMap type="com.logistics.entity.Types" id="TypesMap">
+        <result property="typeId" column="type_id" jdbcType="INTEGER"/>
+        <result property="typeName" column="type_name" jdbcType="VARCHAR"/>
+        <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+        <result property="addname" column="AddName" jdbcType="VARCHAR"/>
+        <result property="addtime" column="ADDTIME" jdbcType="TIMESTAMP"/>
+        <result property="updatename" column="UpdateName" jdbcType="VARCHAR"/>
+        <result property="updatetime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+        <result property="deletename" column="DeleteName" jdbcType="VARCHAR"/>
+        <result property="deletetime" column="DeleteTime" jdbcType="TIMESTAMP"/>
+        <result property="timeliness" column="TimeLiness" jdbcType="INTEGER"/>
+        <result property="typeMoney" column="type_money" jdbcType="NUMERIC"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TypesMap">
+        select
+          type_id, type_name, remarks, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness, type_money
+        from lms.types
+        where type_id = #{typeId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TypesMap">
+        select
+          type_id, type_name, remarks, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness, type_money
+        from lms.types
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TypesMap">
+        select
+        type_id, type_name, remarks, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness,
+        type_money
+        from lms.types
+        <where>
+            <if test="typeId != null">
+                and type_id = #{typeId}
+            </if>
+            <if test="typeName != null and typeName != ''">
+                and type_name = #{typeName}
+            </if>
+            <if test="remarks != null and remarks != ''">
+                and remarks = #{remarks}
+            </if>
+            <if test="addname != null and addname != ''">
+                and AddName = #{addname}
+            </if>
+            <if test="addtime != null">
+                and ADDTIME = #{addtime}
+            </if>
+            <if test="updatename != null and updatename != ''">
+                and UpdateName = #{updatename}
+            </if>
+            <if test="updatetime != null">
+                and UpdateTime = #{updatetime}
+            </if>
+            <if test="deletename != null and deletename != ''">
+                and DeleteName = #{deletename}
+            </if>
+            <if test="deletetime != null">
+                and DeleteTime = #{deletetime}
+            </if>
+            <if test="timeliness != null">
+                and TimeLiness = #{timeliness}
+            </if>
+            <if test="typeMoney != null">
+                and type_money = #{typeMoney}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="typeId" useGeneratedKeys="true">
+        insert into lms.types(type_name, remarks, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness, type_money)
+        values (#{typeName}, #{remarks}, #{addname}, #{addtime}, #{updatename}, #{updatetime}, #{deletename}, #{deletetime}, #{timeliness}, #{typeMoney})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="typeId" useGeneratedKeys="true">
+        insert into lms.types(type_name, remarks, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime,
+        TimeLiness, type_money)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.typeName}, #{entity.remarks}, #{entity.addname}, #{entity.addtime}, #{entity.updatename},
+            #{entity.updatetime}, #{entity.deletename}, #{entity.deletetime}, #{entity.timeliness}, #{entity.typeMoney})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="typeId" useGeneratedKeys="true">
+        insert into lms.types(type_name, remarks, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime,
+        TimeLiness, type_money)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.typeName}, #{entity.remarks}, #{entity.addname}, #{entity.addtime}, #{entity.updatename},
+            #{entity.updatetime}, #{entity.deletename}, #{entity.deletetime}, #{entity.timeliness}, #{entity.typeMoney})
+        </foreach>
+        on duplicate key update
+        type_name = values(type_name) , remarks = values(remarks) , AddName = values(AddName) , ADDTIME =
+        values(ADDTIME) , UpdateName = values(UpdateName) , UpdateTime = values(UpdateTime) , DeleteName =
+        values(DeleteName) , DeleteTime = values(DeleteTime) , TimeLiness = values(TimeLiness) , type_money =
+        values(type_money)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update lms.types
+        <set>
+            <if test="typeName != null and typeName != ''">
+                type_name = #{typeName},
+            </if>
+            <if test="remarks != null and remarks != ''">
+                remarks = #{remarks},
+            </if>
+            <if test="addname != null and addname != ''">
+                AddName = #{addname},
+            </if>
+            <if test="addtime != null">
+                ADDTIME = #{addtime},
+            </if>
+            <if test="updatename != null and updatename != ''">
+                UpdateName = #{updatename},
+            </if>
+            <if test="updatetime != null">
+                UpdateTime = #{updatetime},
+            </if>
+            <if test="deletename != null and deletename != ''">
+                DeleteName = #{deletename},
+            </if>
+            <if test="deletetime != null">
+                DeleteTime = #{deletetime},
+            </if>
+            <if test="timeliness != null">
+                TimeLiness = #{timeliness},
+            </if>
+            <if test="typeMoney != null">
+                type_money = #{typeMoney},
+            </if>
+        </set>
+        where type_id = #{typeId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from lms.types where type_id = #{typeId}
+    </delete>
+
+<!--    根据名称查询-->
+    <select id="queryByTypesName" resultType="com.logistics.entity.Types">
+        select * from lms.types where type_name = #{typeName}
+    </select>
+
+</mapper>
+

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.logistics.dao.PerPositionDao">
+    <resultMap type="com.logistics.entity.PerPosition" id="PerPositionMap">
+        <id property="positionId" column="Position_Id" jdbcType="INTEGER"/>
+        <result property="positionName" column="Position_Name" jdbcType="VARCHAR"/>
+        <result property="outletsId" column="Outlets_Id" jdbcType="INTEGER"/>
+        <result property="addtime" column="AddTime" jdbcType="TIMESTAMP"/>
+        <result property="updatename" column="UpdateName" jdbcType="VARCHAR"/>
+        <result property="updatetime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+        <result property="deletename" column="DeleteName" jdbcType="VARCHAR"/>
+        <result property="deletetime" column="DeleteTime" jdbcType="TIMESTAMP"/>
+        <result property="timeliness" column="TimeLiness" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PerPositionMap">
+        select
+        Position_Id, Position_Name, Outlets_Id, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+        from lms.per_position
+        where Position_Id = #{positionId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PerPositionMap">
+        select
+        Position_Id, Position_Name, Outlets_Id, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+        from lms.per_position
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="PerPositionMap">
+        select
+        Position_Id, Position_Name, Outlets_Id, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+        from lms.per_position
+        <where>
+            <if test="positionId != null">
+                and Position_Id = #{positionId}
+            </if>
+            <if test="positionName != null and positionName != ''">
+                and Position_Name = #{positionName}
+            </if>
+            <if test="outletsId != null">
+                and Outlets_Id = #{outletsId}
+            </if>
+            <if test="addtime != null">
+                and AddTime = #{addtime}
+            </if>
+            <if test="updatename != null and updatename != ''">
+                and UpdateName = #{updatename}
+            </if>
+            <if test="updatetime != null">
+                and UpdateTime = #{updatetime}
+            </if>
+            <if test="deletename != null and deletename != ''">
+                and DeleteName = #{deletename}
+            </if>
+            <if test="deletetime != null">
+                and DeleteTime = #{deletetime}
+            </if>
+            <if test="timeliness != null">
+                and TimeLiness = #{timeliness}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="positionId" useGeneratedKeys="true">
+        insert into lms.per_position(Position_Name, Outlets_Id, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime,
+        TimeLiness)
+        values (#{positionName}, #{outletsId}, #{addtime}, #{updatename}, #{updatetime}, #{deletename}, #{deletetime},
+        #{timeliness})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="positionId" useGeneratedKeys="true">
+        insert into lms.per_position(Position_Name, Outlets_Id, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime,
+        TimeLiness)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.positionName}, #{entity.outletsId}, #{entity.addtime}, #{entity.updatename}, #{entity.updatetime},
+            #{entity.deletename}, #{entity.deletetime}, #{entity.timeliness})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="positionId" useGeneratedKeys="true">
+        insert into lms.per_position(Position_Name, Outlets_Id, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime,
+        TimeLiness)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.positionName}, #{entity.outletsId}, #{entity.addtime}, #{entity.updatename}, #{entity.updatetime},
+            #{entity.deletename}, #{entity.deletetime}, #{entity.timeliness})
+        </foreach>
+        on duplicate key update
+        Position_Name = values(Position_Name) , Outlets_Id = values(Outlets_Id) , AddTime = values(AddTime) , UpdateName
+        = values(UpdateName) , UpdateTime = values(UpdateTime) , DeleteName = values(DeleteName) , DeleteTime =
+        values(DeleteTime) , TimeLiness = values(TimeLiness)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update lms.per_position
+        <set>
+            <if test="positionName != null and positionName != ''">
+                Position_Name = #{positionName},
+            </if>
+            <if test="outletsId != null">
+                Outlets_Id = #{outletsId},
+            </if>
+            <if test="addtime != null">
+                AddTime = #{addtime},
+            </if>
+            <if test="updatename != null and updatename != ''">
+                UpdateName = #{updatename},
+            </if>
+            <if test="updatetime != null">
+                UpdateTime = #{updatetime},
+            </if>
+            <if test="deletename != null and deletename != ''">
+                DeleteName = #{deletename},
+            </if>
+            <if test="deletetime != null">
+                DeleteTime = #{deletetime},
+            </if>
+            <if test="timeliness != null">
+                TimeLiness = #{timeliness},
+            </if>
+        </set>
+        where Position_Id = #{positionId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from lms.per_position where Position_Id = #{positionId}
+    </delete>
+
+</mapper>
+
