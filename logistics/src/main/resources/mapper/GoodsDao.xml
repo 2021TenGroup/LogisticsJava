@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.logistics.dao.GoodsDao">
+  <resultMap id="BaseResultMap" type="com.logistics.entity.Goods">
+    <id column="good_id" jdbcType="INTEGER" property="goodId" />
+    <result column="good_name" jdbcType="VARCHAR" property="goodName" />
+    <result column="good_number" jdbcType="INTEGER" property="goodNumber" />
+    <result column="weight" jdbcType="DECIMAL" property="weight" />
+    <result column="volume" jdbcType="DECIMAL" property="volume" />
+    <result column="long_s" jdbcType="DECIMAL" property="longS" />
+    <result column="wide" jdbcType="DECIMAL" property="wide" />
+    <result column="high" jdbcType="DECIMAL" property="high" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="AddName" jdbcType="VARCHAR" property="addname" />
+    <result column="ADDTIME" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    good_id, good_name, good_number, weight, volume, long_s, wide, high, remarks, AddName, 
+    ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+  </sql>
+  <!-- 添加订单的物品信息 -->
+  <insert id="addOrdersGoods"  keyProperty="goodId" parameterType="com.logistics.entity.Goods" useGeneratedKeys="true">
+    insert INTO goods(good_number,weight,volume,AddName)
+    VALUES (#{goodNumber}, #{weight}, #{volume}, #{addname});
+  </insert>
+
+  <update id="deleteByGoods" parameterType="com.logistics.entity.Goods">
+    update goods
+    set
+        DeleteName = #{deletename},
+        DeleteTime = #{deletetime},
+        TimeLiness = #{timeliness}
+    where good_id = #{goodId}
+  </update>
+</mapper>

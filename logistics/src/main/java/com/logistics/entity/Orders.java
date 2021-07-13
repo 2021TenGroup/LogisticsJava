@@ -1,5 +1,7 @@
 package com.logistics.entity;
 
+import lombok.ToString;
+
 import java.util.Date;
 import java.io.Serializable;
 
@@ -9,6 +11,8 @@ import java.io.Serializable;
  * @author makejava
  * @since 2021-07-13 04:36:30
  */
+
+@ToString(exclude = "goods,dsGoodsLtem")
 public class Orders implements Serializable {
     private static final long serialVersionUID = 639243481880050974L;
 
@@ -343,4 +347,5 @@ public class Orders implements Serializable {
         this.timeliness = timeliness;
     }
 
+    private Goods goods;
 }

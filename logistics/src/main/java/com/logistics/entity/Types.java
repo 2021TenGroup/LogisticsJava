@@ -9,6 +9,7 @@ import java.io.Serializable;
  * @author makejava
  * @since 2021-07-13 11:07:55
  */
+
 public class Types implements Serializable {
     private static final long serialVersionUID = 805869572649062750L;
 

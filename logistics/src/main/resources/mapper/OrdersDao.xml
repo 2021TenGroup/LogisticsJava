@@ -36,6 +36,31 @@
         <result property="deletename" column="DeleteName" jdbcType="VARCHAR"/>
         <result property="deletetime" column="DeleteTime" jdbcType="TIMESTAMP"/>
         <result property="timeliness" column="TimeLiness" jdbcType="INTEGER"/>
+
+        <association property="goods" javaType="com.logistics.entity.Goods">
+            <id column="good_id" jdbcType="INTEGER" property="goodId" />
+            <result column="good_name" jdbcType="VARCHAR" property="goodName" />
+            <result column="good_number" jdbcType="INTEGER" property="goodNumber" />
+            <result column="weight" jdbcType="DECIMAL" property="weight" />
+            <result column="volume" jdbcType="DECIMAL" property="volume" />
+            <result column="long_s" jdbcType="DECIMAL" property="longS" />
+            <result column="wide" jdbcType="DECIMAL" property="wide" />
+            <result column="high" jdbcType="DECIMAL" property="high" />
+            <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+            <result column="AddName" jdbcType="VARCHAR" property="addname" />
+            <result column="ADDTIME" jdbcType="TIMESTAMP" property="addtime" />
+            <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+            <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+            <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+            <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+            <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+        </association>
+
+<!--        <association property="dsGoodsLtem" javaType="com.logistics.entity.DsGoodsLtem">-->
+<!--            <id column="ds_goods_id" jdbcType="INTEGER" property="dsGoodsId" />-->
+<!--            <result column="ds_goods_name" jdbcType="VARCHAR" property="dsGoodsName" />-->
+<!--        </association>-->
+
     </resultMap>
 
     <!--查询单个-->
@@ -218,7 +243,7 @@
     </insert>
 
     <!--通过主键修改数据-->
-    <update id="update">
+    <update id="update" parameterType="com.logistics.entity.Orders">
         update lms.orders
         <set>
             <if test="outletsId != null">
@@ -326,5 +351,43 @@
         delete from lms.orders where o_id = #{oId}
     </delete>
 
+    <!-- 查询所有的未录入的订单信息 -->
+    <select id="selAllOrders" resultMap="OrdersMap">
+    SELECT
+	o_id,o_time,order_source,addressee, a_phone,receiving_address,sender,sender_phone,mailing_address,good_number,weight,remarks
+    FROM orders o LEFT JOIN  goods s on o.good_id=s.good_id WHERE o.TimeLiness=0 AND o.state=0;
+  </select>
+    <!--  查询所有未录入和已录入的订单信息-->
+    <select id="selAllOrdersAndwaybill"  resultMap="OrdersMap">
+    SELECT
+	o.o_id,o.order_source,o.sender,o.sender_phone,o.mailing_address,
+	o.province,o.city,o.region,o.receiving_address,d.waybill_id,s.good_number,s.weight,s.remarks
+    FROM orders o LEFT JOIN ds_waybill_entrt d on o.o_id=d.o_id LEFT JOIN  goods s on o.good_id=s.good_id;
+  </select>
+
+    <!--  插入订单信息-->
+    <insert id="addOrders" keyProperty="oId" parameterType="com.logistics.entity.Orders" useGeneratedKeys="true">
+    insert INTO orders (sender,sender_phone,postcode,mailing_address,addressee,a_phone,receiving_code,receiving_address,payment_for_goods,o_time,AddName,ADDTIME,TimeLiness,state)
+    VALUES (#{sender}, #{senderPhone}, #{postcode},#{mailingAddress},#{addressee}, #{aPhone}, #{receivingCode}, #{receivingAddress},#{paymentForGoods},now(), #{addname},now(),0,0);
+  </insert>
+
+    <!-- 根据删除id订单信息 -->
+    <update id="deleteByOrders" parameterType="com.logistics.entity.Orders">
+    update orders
+    set
+        DeleteName = #{deletename},
+        DeleteTime = #{deletetime},
+        TimeLiness = #{timeliness}
+    where o_id = #{oId}
+  </update>
+
+    <!--  修改订单-->
+    <update id="updOrdersW" parameterType="com.logistics.entity.Orders">
+    update orders
+    set sender=#{sender},sender_phone=#{senderPhone},postcode=#{postcode},mailing_address=#{mailingAddress},
+    addressee=#{addressee},a_phone=#{aPhone},receiving_code=#{receivingCode},receiving_address=#{receivingAddress},
+    payment_for_goods=#{paymentForGoods},state=1
+    where o_id = #{oId}
+  </update>
 </mapper>
 

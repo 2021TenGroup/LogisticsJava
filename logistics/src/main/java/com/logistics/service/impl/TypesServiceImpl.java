@@ -85,4 +85,36 @@ public class TypesServiceImpl implements TypesService {
         return typesDao.queryByTypeName(typeName);
     }
 
+    @Override
+    public int addTypes(Types types){
+        types.setTimeliness(1);
+        return typesDao.addTypes(types);
+    }
+
+    /**
+     * 删除一条类型维护
+     */
+    @Override
+    public int deleteByTypes(Types types){
+        System.out.println(types.getDeletename()+"====="+types.getTimeliness());
+        return typesDao.deleteByTypes(types);
+    }
+
+    /**
+     * 修改类型维护
+     */
+    @Override
+    public int updTypes(Integer typeId){
+        return typesDao.updTypes(typeId);
+    }
+
+    /**
+     * 查询类型维护
+     * @return
+     */
+    @Override
+    public List<Types> selAllTypes(){
+        return typesDao.selAllTypes();
+    }
+
 }

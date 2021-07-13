@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.logistics.dao.DsGoodsLtemDao">
+  <resultMap id="BaseResultMap" type="com.logistics.entity.DsGoodsLtem">
+    <id column="ds_goods_id" jdbcType="INTEGER" property="dsGoodsId" />
+    <result column="ds_goods_name" jdbcType="VARCHAR" property="dsGoodsName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ds_goods_id, ds_goods_name
+  </sql>
+  <!-- 添加订单的物品类型信息 -->
+  <insert id="addOrdersDsGoods" keyProperty="dsGoodsId" parameterType="com.logistics.entity.DsGoodsLtem" useGeneratedKeys="true">
+    INSERT INTO ds_goods_ltem(ds_goods_name) VALUES(#{dsGoodsName});
+  </insert>
+</mapper>

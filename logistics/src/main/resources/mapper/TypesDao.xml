@@ -154,5 +154,40 @@
         select * from lms.types where type_name = #{typeName}
     </select>
 
+    <!--  查询所有类型维护  -->
+    <select id="selAllTypes"  resultMap="TypesMap">
+        select
+        type_id, type_name, remarks, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness,
+        type_money
+        from types where TimeLiness=0
+    </select>
+
+    <!--    插入类型维护数据-->
+    <insert id="addTypes"  keyProperty="typeId" parameterType="com.logistics.entity.Types" useGeneratedKeys="true">
+    insert into types (type_name,type_money,remarks,AddName,ADDTIME,TimeLiness)
+    values (#{typeName},#{typeMoney}, #{remarks}, #{addname},
+    now(),0
+    )
+  </insert>
+    <!--    修改类型维护-->
+    <update id="updTypes" parameterType="com.logistics.entity.Types">
+    update types
+    set type_name = #{typeName},
+      remarks = #{remarks},
+      type_money=#{typeMoney},
+      UpdateName = #{updatename},
+      UpdateTime = #{updatetime},
+    where type_id = #{typeId}
+  </update>
+    <!--    删除类型维护-->
+    <update id="deleteByTypes" parameterType="com.logistics.entity.Types">
+    update types
+    set
+        DeleteName = #{deletename},
+        DeleteTime = #{deletetime},
+        TimeLiness = #{timeliness}
+    where type_id = #{typeId}
+  </update>
+
 </mapper>
 

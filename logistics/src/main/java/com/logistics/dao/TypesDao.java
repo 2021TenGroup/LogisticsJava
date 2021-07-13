@@ -86,5 +86,17 @@ public interface TypesDao {
      */
     Types queryByTypeName(String typeName);
 
+    //添加一条类型维护
+    int addTypes(Types types);
+
+    //修改一条类型维护
+    int updTypes(Integer typeId);
+
+    //查询所有类型维护数据
+    List<Types> selAllTypes();
+
+    //删除一条类型维护
+    int deleteByTypes(Types types);
+
 }
 
