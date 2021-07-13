@@ -154,8 +154,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="empId" useGeneratedKeys="true">
-        insert into lms.emp(Position_Id, Outlets_Id, Emp_number, User_Name, Pass_word, Phone, Identity_cards, Address, Z_photographs, F_photographs, Emp_Name, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
-        values (#{positionId}, #{outletsId}, #{empNumber}, #{userName}, #{passWord}, #{phone}, #{identityCards}, #{address}, #{zPhotographs}, #{fPhotographs}, #{empName}, #{addtime}, #{updatename}, #{updatetime}, #{deletename}, #{deletetime}, #{timeliness})
+        insert into lms.emp(Position_Id, Outlets_Id, Emp_number, User_Name, Pass_word, Phone, Identity_cards, Address, Z_photographs, F_photographs, Emp_Name,AddName, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        values (#{positionId}, #{outletsId}, #{empNumber}, #{userName}, #{passWord}, #{phone}, #{identityCards}, #{address}, #{zPhotographs}, #{fPhotographs}, #{empName}, #{addname}, #{addtime}, #{updatename}, #{updatetime}, #{deletename}, #{deletetime}, #{timeliness})
     </insert>
 
     <insert id="insertBatch" keyProperty="empId" useGeneratedKeys="true">
