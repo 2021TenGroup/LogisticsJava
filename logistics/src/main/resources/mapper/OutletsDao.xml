@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.logistics.dao.OutletsDao">
-    <resultMap type="com.logistics.entity.Outlets" id="OutletsMap">
+    <resultMap type="com.logistics.vo.OutletsVo" id="OutletsMap">
         <id property="outletsId" column="Outlets_Id" jdbcType="INTEGER"/>
         <result property="outletsNumber" column="Outlets_Number" jdbcType="VARCHAR"/>
         <result property="outletsName" column="Outlets_Name" jdbcType="VARCHAR"/>

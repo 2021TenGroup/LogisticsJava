@@ -66,4 +66,9 @@ public class OutletsServiceImpl implements OutletsService {
     public int delOutletsVo(OutletsVo outletsVo) {
         return outletsDao.deleteByOutlets(outletsVo);
     }
+
+    @Override
+    public OutletsVo selectOutletsById(int id) {
+        return outletsDao.queryById(id);
+    }
 }

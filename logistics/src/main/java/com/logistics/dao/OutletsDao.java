@@ -22,7 +22,7 @@ public interface OutletsDao {
      * @param outletsId 主键
      * @return 实例对象
      */
-    Outlets queryById(Integer outletsId);
+    OutletsVo queryById(int outletsId);
 
     /**
      * 查询指定行数据

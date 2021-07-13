@@ -43,6 +43,12 @@ public class OutletsController {
         return AjaxResponse.success(list);
     }
 
+    @GetMapping("/selectOutletsById/{id}")
+    public AjaxResponse selectOutletsById(@Valid @PathVariable("id") int id){
+        OutletsVo list = outletsService.selectOutletsById(id);
+        return AjaxResponse.success(list);
+    }
+
     @PostMapping("/addOutlets")
     public AjaxResponse addClassType(@RequestBody @Valid OutletsVo outletsVo){
         Date date = new Date();
