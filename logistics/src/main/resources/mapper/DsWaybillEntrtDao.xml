@@ -92,5 +92,9 @@
         delete from lms.ds_waybill_entrt where waybill_id = #{waybillId}
     </delete>
 
+    <select id="queryByWaybillNumber" resultType="com.logistics.entity.DsWaybillEntrt">
+        select * from lms.ds_waybill_entrt where waybill_number = #{waybillNumber}
+    </select>
+
 </mapper>
 

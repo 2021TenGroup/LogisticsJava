@@ -1,15 +1,14 @@
 package com.logistics.service.impl;
 
+import com.logistics.dao.FiAdvancChargeDao;
 import com.logistics.dao.FiRechargeDao;
 import com.logistics.entity.FiAdvancCharge;
-import com.logistics.dao.FiAdvancChargeDao;
 import com.logistics.entity.FiRecharge;
 import com.logistics.service.FiAdvancChargeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**

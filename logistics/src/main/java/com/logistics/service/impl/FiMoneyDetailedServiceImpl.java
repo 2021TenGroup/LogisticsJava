@@ -31,6 +31,10 @@ public class FiMoneyDetailedServiceImpl implements FiMoneyDetailedService {
     private TypesService typesService;
     @Resource
     private CommissionService commissionService;
+    @Resource
+    private DsWaybillEntrtService dsWaybillEntrtService;
+    @Resource
+    private OrdersService ordersService;
 
     /**
      * 通过ID查询单条数据
@@ -105,11 +109,15 @@ public class FiMoneyDetailedServiceImpl implements FiMoneyDetailedService {
      * 运单表Entity , 网点名称 , 操作人员名称 , 类型（0：录入 1：入库）
      */
     @Override
-    public int addFiMD(DsWaybillEntrt dsWaybillEntrtEntity , String outletsName , String userName , int type){
+    public int addFiMD(AddFiMdEntity addFiMdEntity){
+
+        String waybillNumber = addFiMdEntity.getWaybillNumber();        //运单编号
+        String outletsName = addFiMdEntity.getOutletsName();        //网点名称
+        String userName = addFiMdEntity.getUserName();      //操作人
+        int type = addFiMdEntity.getType();     //类型，0：类型扣费，1：提成扣费
 
         FiMoneyDetailed fiMoneyDetailed = new FiMoneyDetailed();
 
-        String waybillNumber = dsWaybillEntrtEntity.getWaybillNumber(); //获取运单编号
         fiMoneyDetailed.setWaybillNumber(waybillNumber);     //插入运单编号
 
         fiMoneyDetailed.setOutletsName(outletsName);        //插入网点名称
@@ -121,15 +129,16 @@ public class FiMoneyDetailedServiceImpl implements FiMoneyDetailedService {
         double money = 0;
         //（0：录入 1：入库）
         if(type == 0){
-            Types types = typesService.queryByTypeName("入库");
-            money -= types.getTypeMoney();    //获取其收取的金额
+            Types types = typesService.queryByTypesName("入库");
+            money = types.getTypeMoney();    //获取其收取的金额
             fiMoneyDetailed.setMdType(0);       //插入类型
             fiMoneyDetailed.setMdDetails("收取维护费");
         }else if(type == 1){
             Commission commission = commissionService.queryByOutletsId(outletsId);   //根据网点ID 获取提成表信息
-            double ratio = commission.getCommissionRatio();        //提成比例
-            ratio /= 100;
-            money *= ratio;
+            DsWaybillEntrt dsWaybillEntrt = dsWaybillEntrtService.queryByWaybillNumber(waybillNumber);
+            Orders orders = ordersService.queryById(dsWaybillEntrt.getOId());
+            double ratio = commission.getCommissionRatio()/100;        //提成比例
+            money = orders.getFreight() * ratio;
             fiMoneyDetailed.setMdType(1);       //插入类型
             fiMoneyDetailed.setMdDetails("收取提成费");
         }
@@ -144,6 +153,10 @@ public class FiMoneyDetailedServiceImpl implements FiMoneyDetailedService {
         fiMoneyDetailed.setMdBalance(newMoney);     //插入余额
 
         fiMoneyDetailed.setAddtime(new Date()); //插入时间
+
+        fiMoneyDetailed.setOutletsName(outletsName);
+
+        fiMoneyDetailed.setWaybillNumber(waybillNumber);
 
         return fiMoneyDetailedDao.insert(fiMoneyDetailed);
 

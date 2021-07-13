@@ -53,4 +53,6 @@ public interface DsWaybillEntrtService {
      */
     boolean deleteById(Integer waybillId);
 
+    DsWaybillEntrt queryByWaybillNumber(String waybillNumber);
+
 }

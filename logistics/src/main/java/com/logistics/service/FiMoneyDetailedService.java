@@ -1,6 +1,6 @@
 package com.logistics.service;
 
-import com.logistics.entity.DsWaybillEntrt;
+import com.logistics.entity.AddFiMdEntity;
 import com.logistics.entity.FiMoneyDetailed;
 
 import java.util.List;
@@ -59,6 +59,6 @@ public interface FiMoneyDetailedService {
     /**
      * 当运单进行录入、入库、出库、签收操作时，新增记录
      */
-    int addFiMD(DsWaybillEntrt dsWaybillEntrtEntity , String outletsName , String userName , int type);      //运单表Entity 网点名称 类型（0：录入 1：入库）
+    int addFiMD(AddFiMdEntity addFiMdEntity);      //运单表Entity 网点名称 类型（0：录入 1：入库）
 
 }

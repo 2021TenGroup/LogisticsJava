@@ -9,7 +9,6 @@ import com.logistics.entity.*;
 import com.logistics.service.DsWaybillEntrtService;
 import com.logistics.service.FiAdvancChargeService;
 import com.logistics.service.FiPaymentGoodsService;
-import com.logistics.service.OrdersService;
 import com.logistics.vo.EmpVo;
 import com.logistics.vo.OutletsVo;
 import org.springframework.stereotype.Service;
@@ -138,6 +137,8 @@ public class FiPaymentGoodsServiceImpl implements FiPaymentGoodsService {
         fiPaymentGoods.setPgSender(orders.getSender());   //获取寄件人姓名
 
         fiPaymentGoods.setPgSenderPhone(orders.getSenderPhone());   //获取寄件人电话号码
+
+        fiPaymentGoods.setPgState(0);
 
         this.fiPaymentGoodsDao.insert(fiPaymentGoods);
         return fiPaymentGoods;

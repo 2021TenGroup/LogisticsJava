@@ -84,7 +84,7 @@ public interface TypesDao {
     /**
      * 根据名称查询
      */
-    Types queryByTypeName(String typeName);
+    Types queryByTypesName(String typeName);
 
 }
 

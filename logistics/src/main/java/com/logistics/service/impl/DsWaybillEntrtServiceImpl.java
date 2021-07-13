@@ -76,4 +76,14 @@ public class DsWaybillEntrtServiceImpl implements DsWaybillEntrtService {
     public boolean deleteById(Integer waybillId) {
         return this.dsWaybillEntrtDao.deleteById(waybillId) > 0;
     }
+
+    /**
+     * 根据网点编号查询
+     */
+    @Override
+    public DsWaybillEntrt queryByWaybillNumber(String waybillNumber){
+        return dsWaybillEntrtDao.queryByWaybillNumber(waybillNumber);
+    }
+
+
 }

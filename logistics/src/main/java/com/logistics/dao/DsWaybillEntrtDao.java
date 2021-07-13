@@ -81,5 +81,10 @@ public interface DsWaybillEntrtDao {
      */
     int deleteById(Integer waybillId);
 
+    /**
+     * 根据网点编号查询
+     */
+    DsWaybillEntrt queryByWaybillNumber(String waybillNumber);
+
 }
 

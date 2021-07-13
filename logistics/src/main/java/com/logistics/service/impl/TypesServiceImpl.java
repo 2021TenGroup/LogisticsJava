@@ -81,8 +81,8 @@ public class TypesServiceImpl implements TypesService {
      * 根据名称查询
      */
     @Override
-    public Types queryByTypeName(String typeName){
-        return typesDao.queryByTypeName(typeName);
+    public Types queryByTypesName(String typeName){
+        return typesDao.queryByTypesName(typeName);
     }
 
 }
