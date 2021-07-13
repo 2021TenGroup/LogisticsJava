@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.logistics.dao.WarehousDao">
+
+    <resultMap type="com.logistics.entity.Warehous" id="WarehousMap">
+        <result property="warehousId" column="warehous_Id" jdbcType="INTEGER"/>
+        <result property="outletsId" column="Outlets_Id" jdbcType="INTEGER"/>
+        <result property="waybillId" column="waybill_id" jdbcType="INTEGER"/>
+        <result property="enterCode" column="enter_code" jdbcType="VARCHAR"/>
+        <result property="enterTime" column="enter_time" jdbcType="TIMESTAMP"/>
+        <result property="enterPeople" column="enter_people" jdbcType="VARCHAR"/>
+        <result property="upOutletsId" column="up_outlets_Id" jdbcType="INTEGER"/>
+        <result property="outCode" column="out_code" jdbcType="VARCHAR"/>
+        <result property="outTime" column="out_time" jdbcType="TIMESTAMP"/>
+        <result property="outPeople" column="out_people" jdbcType="VARCHAR"/>
+        <result property="downOutletsId" column="down_outlets_Id" jdbcType="INTEGER"/>
+        <result property="addname" column="AddName" jdbcType="VARCHAR"/>
+        <result property="addtime" column="ADDTIME" jdbcType="TIMESTAMP"/>
+        <result property="updatename" column="UpdateName" jdbcType="VARCHAR"/>
+        <result property="updatetime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+        <result property="deletename" column="DeleteName" jdbcType="VARCHAR"/>
+        <result property="deletetime" column="DeleteTime" jdbcType="TIMESTAMP"/>
+        <result property="timeliness" column="TimeLiness" jdbcType="INTEGER"/>
+        <association property="dsWaybillEntrtvo" javaType="com.logistics.vo.DsWaybillEntrtVo">
+            <result property="waybillId" column="waybill_id" jdbcType="INTEGER"/>
+            <result property="oId" column="o_id" jdbcType="INTEGER"/>
+            <result property="empId" column="emp_id" jdbcType="INTEGER"/>
+            <result property="waybillNumber" column="waybill_number" jdbcType="INTEGER"></result>
+        </association>
+        <collection property="outletsVo" ofType="com.logistics.vo.OutletsVo">
+            <id property="outletsId" column="Outlets_Id" jdbcType="INTEGER"/>
+            <result property="outletsNumber" column="Outlets_Number" jdbcType="VARCHAR"/>
+            <result property="outletsName" column="Outlets_Name" jdbcType="VARCHAR"/>
+            <result property="outletsBelonging" column="Outlets_Belonging" jdbcType="INTEGER"/>
+            <result property="outletsPerson" column="Outlets_Person" jdbcType="VARCHAR"/>
+            <result property="outletsPhone" column="Outlets_Phone" jdbcType="INTEGER"/>
+            <result property="outletsProvince" column="Outlets_Province" jdbcType="VARCHAR"/>
+            <result property="outletsCity" column="Outlets_City" jdbcType="VARCHAR"/>
+            <result property="outletsRegion" column="Outlets_Region" jdbcType="VARCHAR"/>
+            <result property="outletsAddress" column="Outlets_Address" jdbcType="VARCHAR"/>
+            <result property="outletsRemarks" column="Outlets_Remarks" jdbcType="VARCHAR"/>
+            <result property="addname" column="AddName" jdbcType="VARCHAR"/>
+            <result property="addtime" column="AddTime" jdbcType="TIMESTAMP"/>
+            <result property="updatename" column="UpdateName" jdbcType="VARCHAR"/>
+            <result property="updatetime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+            <result property="deletename" column="DeleteName" jdbcType="VARCHAR"/>
+            <result property="deletetime" column="DeleteTime" jdbcType="TIMESTAMP"/>
+            <result property="timeliness" column="TimeLiness" jdbcType="INTEGER"/>
+        </collection>
+    </resultMap>
+
+    <!--查询运单号-->
+    <select id="queryByIds" resultMap="WarehousMap">
+    SELECT d.o_id o1.Outlets_Id o2.Outlets_Id ben.Outlets_Id
+    FROM
+    warehous w
+    INNER JOIN ds_waybill_entrt d ON w.waybill_id = d.waybill_id
+    INNER JOIN outlets ben ON w.up_outlets_Id = ben.Outlets_Id
+    INNER JOIN outlets o1 ON w.up_outlets_Id = o1.Outlets_Id
+    INNER JOIN outlets o2 ON w.down_outlets_Id = o2.Outlets_Id
+    WHERE w.TimeLiness = 0 And w.waybill_id = {waybillId}
+    </select>
+
+
+
+<!--    根据运单号查询入库信息-->
+    <select id="queryById" resultMap="WarehousMap">
+    SELECT Outlets_Id,waybill_id, enter_code,enter_people,enter_time
+    FROM
+    warehous
+    WHERE waybill_id = #{waybillId}
+    </select>
+
+
+    <!--    根据运单号查询出库库信息-->
+    <select id="queryByIdOut" resultMap="WarehousMap">
+    SELECT Outlets_Id,waybill_id, enter_code,enter_people,enter_time
+    FROM
+    warehous
+    WHERE waybill_id = #{waybillId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="WarehousMap">
+        select
+          warehous_Id, Outlets_Id, waybill_id, enter_code, enter_time, enter_people
+
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="WarehousMap">
+        select
+        warehous_Id, Outlets_Id, waybill_id, enter_code, enter_time, enter_people
+        from
+        warehous
+    </select>
+
+<!--    根据运单号查询出库信息-->
+    <select id="queryAllByBill" resultMap="WarehousMap">
+        select
+         out_code ,out_time ,out_people ,down_outlets_Id
+         from
+         waybill_id = #{waybillId}
+
+    </select>
+
+
+<!--    查询所有已出库-->
+    <select id="queryAllOut" resultMap="WarehousMap">
+        select
+        out_code, Outlets_Id,out_time, out_people, down_outlets_Id,waybill_id
+        from
+        warehous
+        where out_time is not null
+    </select>
+
+    <!--入库-->
+    <insert id="insert" keyProperty="warehousId" useGeneratedKeys="true">
+        insert into lms.warehous(Outlets_Id, waybill_id, enter_code, enter_time, enter_people, up_outlets_Id)
+        values (#{outletsId}, #{waybillId}, #{enterCode}, #{enterTime}, #{enterPeople}, #{upOutletsId})
+    </insert>
+    <!--出库-->
+    <update id="insertOutBywaybillId">
+        update  lms.lms.warehous(out_code,out_time,down_outlets_Id,AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        value (#{outCode}, #{outTime}, #{outPeople}, #{downOutletsId}, #{addname}, #{addtime}, #{updatename}, #{updatetime}, #{deletename}, #{deletetime}, #{timeliness})
+    where waybill_id = #{waybillId}
+    </update>
+
+    <insert id="insertBatch" keyProperty="warehousId" useGeneratedKeys="true">
+        insert into lms.warehous(Outlets_Id, waybill_id, enter_code, enter_time, enter_people, up_outlets_Id, out_code,
+        out_time, out_people, down_outlets_Id, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime,
+        TimeLiness)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.outletsId}, #{entity.waybillId}, #{entity.enterCode}, #{entity.enterTime}, #{entity.enterPeople},
+            #{entity.upOutletsId}, #{entity.outCode}, #{entity.outTime}, #{entity.outPeople}, #{entity.downOutletsId},
+            #{entity.addname}, #{entity.addtime}, #{entity.updatename}, #{entity.updatetime}, #{entity.deletename},
+            #{entity.deletetime}, #{entity.timeliness})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="warehousId" useGeneratedKeys="true">
+        insert into lms.warehous(Outlets_Id, waybill_id, enter_code, enter_time, enter_people, up_outlets_Id, out_code,
+        out_time, out_people, down_outlets_Id, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime,
+        TimeLiness)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.outletsId}, #{entity.waybillId}, #{entity.enterCode}, #{entity.enterTime}, #{entity.enterPeople},
+            #{entity.upOutletsId}, #{entity.outCode}, #{entity.outTime}, #{entity.outPeople}, #{entity.downOutletsId},
+            #{entity.addname}, #{entity.addtime}, #{entity.updatename}, #{entity.updatetime}, #{entity.deletename},
+            #{entity.deletetime}, #{entity.timeliness})
+        </foreach>
+        on duplicate key update
+        Outlets_Id = values(Outlets_Id) , waybill_id = values(waybill_id) , enter_code = values(enter_code) , enter_time
+        = values(enter_time) , enter_people = values(enter_people) , up_outlets_Id = values(up_outlets_Id) , out_code =
+        values(out_code) , out_time = values(out_time) , out_people = values(out_people) , down_outlets_Id =
+        values(down_outlets_Id) , AddName = values(AddName) , ADDTIME = values(ADDTIME) , UpdateName =
+        values(UpdateName) , UpdateTime = values(UpdateTime) , DeleteName = values(DeleteName) , DeleteTime =
+        values(DeleteTime) , TimeLiness = values(TimeLiness)
+    </insert>
+
+    <!--出库-->
+    <update id="update" parameterType="com.logistics.entity.Warehous">
+        update warehous
+        set
+        out_code = #{outCode,jdbcType=VARCHAR},
+        out_time = #{outTime,jdbcType=TIMESTAMP},
+        out_people = #{outPeople,jdbcType=VARCHAR},
+        down_outlets_Id = #{downOutletsId,jdbcType=INTEGER}
+        where waybill_id = #{waybillId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from lms.warehous where warehous_Id = #{warehousId}
+    </delete>
+
+</mapper>
+
