@@ -67,7 +67,7 @@ public class FiMoneyDetailedServiceImpl implements FiMoneyDetailedService {
      */
     @Override
     public FiMoneyDetailed insert(FiMoneyDetailed fiMoneyDetailed) {
-        this.fiMoneyDetailedDao.insert(fiMoneyDetailed);
+        this.fiMoneyDetailedDao.addFiMoneyDetailed(fiMoneyDetailed);
         return fiMoneyDetailed;
     }
 
@@ -158,7 +158,9 @@ public class FiMoneyDetailedServiceImpl implements FiMoneyDetailedService {
 
         fiMoneyDetailed.setWaybillNumber(waybillNumber);
 
-        return fiMoneyDetailedDao.insert(fiMoneyDetailed);
+        System.out.println(fiMoneyDetailed.toString());
+
+        return fiMoneyDetailedDao.addFiMoneyDetailed(fiMoneyDetailed);
 
     }
 

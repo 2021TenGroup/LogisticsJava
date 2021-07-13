@@ -47,7 +47,7 @@ public interface FiMoneyDetailedDao {
      * @param fiMoneyDetailed 实例对象
      * @return 影响行数
      */
-    int insert(FiMoneyDetailed fiMoneyDetailed);
+    int addFiMoneyDetailed(FiMoneyDetailed fiMoneyDetailed);
 
     /**
      * 批量新增数据（MyBatis原生foreach方法）

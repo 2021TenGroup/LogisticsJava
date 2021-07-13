@@ -2,6 +2,7 @@ package com.logistics.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.logistics.entity.AddFiMdEntity;
 import com.logistics.entity.FiCashBill;
 import com.logistics.entity.FiMoneyDetailed;
 import com.logistics.service.FiMoneyDetailedService;
@@ -42,6 +43,16 @@ public class FiMoneyDetailedController {
         List<FiMoneyDetailed> list = fiMoneyDetailedService.queryAll();
         PageInfo<FiMoneyDetailed> pageInfo = new PageInfo<>(list);
         return pageInfo;
+    }
+
+    /**
+     *添加运费账单信息
+     * @param addFiMdEntity
+     * @return
+     */
+    @PostMapping("/addFiMD")
+    public int addFiMD(@RequestBody AddFiMdEntity addFiMdEntity){
+        return fiMoneyDetailedService.addFiMD(addFiMdEntity);
     }
 
 }

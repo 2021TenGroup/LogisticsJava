@@ -170,4 +170,14 @@
         delete from lms.fi_money_detailed where md_id = #{mdId}
     </delete>
 
+<!--    添加运费账单信息-->
+    <insert id="addFiMoneyDetailed" parameterType="com.logistics.entity.FiMoneyDetailed">
+        insert into lms.fi_money_detailed
+            (waybill_number, Outlets_Name, User_Name, md_collect_money, md_type, md_balance,
+             md_details, AddName, ADDTIME, UpdateName, UpdateTime,DeleteTime,TimeLiness)
+        values
+            (#{waybillNumber}, #{outletsName}, #{userName}, #{mdCollectMoney}, #{mdType}, #{mdBalance},
+             #{mdDetails}, #{addname}, #{addtime}, #{updatename}, #{updatetime},#{deletetime},#{timeliness})
+    </insert>
+
 </mapper>
