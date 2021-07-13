@@ -33,12 +33,13 @@ public class CustomerController {
     @GetMapping("/selectAllCustomer")
     public PageInfo<CustomerVo> selectAllCustomer(@RequestParam("currentPage")int currentPage, @RequestParam("pagesize")int pageSize,
                                                     @RequestParam("approval")String approval, @RequestParam("value1")String value){
-        PageHelper.startPage(currentPage,pageSize);
-        if(approval.equals(0)||value.equals("")) {
+        if(approval.equals(0) || approval.equals("")) {
+            PageHelper.startPage(currentPage,pageSize);
             List<CustomerVo> list = customerService.selectAllCustomer2(value);
             PageInfo<CustomerVo> pageInfo = new PageInfo<>(list);
             return pageInfo;
         }else{
+            PageHelper.startPage(currentPage,pageSize);
             List<CustomerVo> list = customerService.selectAllCustomer3(Integer.parseInt(approval),value);
             PageInfo<CustomerVo> pageInfo = new PageInfo<>(list);
             return pageInfo;

@@ -270,7 +270,7 @@
         <include refid="Base_Outlets_List" />
         from customer c
         inner join outlets o on c.Outlets_Id = o.Outlets_Id
-        where c.TimeLiness = 0 and (c.Customer_Number like #{value} or c.Customer_Name like #{value}) order by c.AddTime desc
+        where c.TimeLiness = 0 and (c.Customer_Number like #{value} or c.Customer_Name like #{value}) order by c.Customer_Id desc
     </select>
 
     <!--查询所有[分页]-->
@@ -280,7 +280,7 @@
         <include refid="Base_Outlets_List" />
         from customer c
         inner join outlets o on c.Outlets_Id = o.Outlets_Id
-        where c.TimeLiness = 0 and c.Outlets_Id=#{param1} and (c.Customer_Id like #{value} or c.Customer_Name like #{value}) order by c.AddTime desc
+        where c.TimeLiness = 0 and c.Outlets_Id=#{param1} and (c.Customer_Number like #{param2} or c.Customer_Name like #{param2}) order by c.Customer_Id desc
     </select>
 
 </mapper>
