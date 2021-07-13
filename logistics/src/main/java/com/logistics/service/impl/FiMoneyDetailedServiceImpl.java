@@ -65,6 +65,7 @@ public class FiMoneyDetailedServiceImpl implements FiMoneyDetailedService {
      * @param fiMoneyDetailed 实例对象
      * @return 实例对象
      */
+    @Transactional
     @Override
     public FiMoneyDetailed insert(FiMoneyDetailed fiMoneyDetailed) {
         this.fiMoneyDetailedDao.addFiMoneyDetailed(fiMoneyDetailed);
@@ -77,6 +78,7 @@ public class FiMoneyDetailedServiceImpl implements FiMoneyDetailedService {
      * @param fiMoneyDetailed 实例对象
      * @return 实例对象
      */
+    @Transactional
     @Override
     public FiMoneyDetailed update(FiMoneyDetailed fiMoneyDetailed) {
         this.fiMoneyDetailedDao.update(fiMoneyDetailed);
@@ -89,6 +91,7 @@ public class FiMoneyDetailedServiceImpl implements FiMoneyDetailedService {
      * @param mdId 主键
      * @return 是否成功
      */
+    @Transactional
     @Override
     public boolean deleteById(Integer mdId) {
         return this.fiMoneyDetailedDao.deleteById(mdId) > 0;
@@ -108,6 +111,7 @@ public class FiMoneyDetailedServiceImpl implements FiMoneyDetailedService {
      *
      * 运单表Entity , 网点名称 , 操作人员名称 , 类型（0：录入 1：入库）
      */
+    @Transactional
     @Override
     public int addFiMD(AddFiMdEntity addFiMdEntity){
 

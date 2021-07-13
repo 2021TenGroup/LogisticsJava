@@ -35,6 +35,7 @@ public class FiCashBillServiceImpl implements FiCashBillService {
      * @param cbId 主键
      * @return 实例对象
      */
+
     @Override
     public FiCashBill queryById(Integer cbId) {
         return this.fiCashBillDao.queryById(cbId);
@@ -58,6 +59,7 @@ public class FiCashBillServiceImpl implements FiCashBillService {
      * @param fiCashBill 实例对象
      * @return 实例对象
      */
+    @Transactional
     @Override
     public FiCashBill insert(FiCashBill fiCashBill) {
         this.fiCashBillDao.insert(fiCashBill);
@@ -70,6 +72,7 @@ public class FiCashBillServiceImpl implements FiCashBillService {
      * @param fiCashBill 实例对象
      * @return 实例对象
      */
+    @Transactional
     @Override
     public FiCashBill update(FiCashBill fiCashBill) {
         this.fiCashBillDao.update(fiCashBill);
@@ -82,6 +85,7 @@ public class FiCashBillServiceImpl implements FiCashBillService {
      * @param cbId 主键
      * @return 是否成功
      */
+    @Transactional
     @Override
     public boolean deleteById(Integer cbId) {
         return this.fiCashBillDao.deleteById(cbId) > 0;
@@ -97,6 +101,7 @@ public class FiCashBillServiceImpl implements FiCashBillService {
     /**
      * 运单录入时，添加运费帐单表
      */
+    @Transactional
     @Override
     public int addFiCashBill(DsWaybillEntrt dsWaybillEntrtEntity){      //运单表Entity
         Integer oid = dsWaybillEntrtEntity.getOId();      //获取订单ID
@@ -129,6 +134,7 @@ public class FiCashBillServiceImpl implements FiCashBillService {
      * @param dsWaybillEntrtEntity
      * @return
      */
+    @Transactional
     @Override
     public int updateCashBillState(DsWaybillEntrt dsWaybillEntrtEntity){
         String waybillNumber = dsWaybillEntrtEntity.getWaybillNumber();    //获取 运单录入表 运单编号

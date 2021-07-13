@@ -70,6 +70,7 @@ public class FiPaymentGoodsServiceImpl implements FiPaymentGoodsService {
      * @param fiPaymentGoods 实例对象
      * @return 实例对象
      */
+    @Transactional
     @Override
     public FiPaymentGoods update(FiPaymentGoods fiPaymentGoods) {
         this.fiPaymentGoodsDao.update(fiPaymentGoods);
@@ -82,6 +83,7 @@ public class FiPaymentGoodsServiceImpl implements FiPaymentGoodsService {
      * @param pgId 主键
      * @return 是否成功
      */
+    @Transactional
     @Override
     public boolean deleteById(Integer pgId) {
         return this.fiPaymentGoodsDao.deleteById(pgId) > 0;
@@ -101,6 +103,7 @@ public class FiPaymentGoodsServiceImpl implements FiPaymentGoodsService {
      * @param dsWaybillEntrtEntity 实例对象
      * @return 实例对象
      */
+    @Transactional
     @Override
     public FiPaymentGoods addFiPG(DsWaybillEntrt dsWaybillEntrtEntity) {      //运单录入实体类
 
@@ -149,6 +152,7 @@ public class FiPaymentGoodsServiceImpl implements FiPaymentGoodsService {
      * @param dsSign      运单录入Entity
      * @return
      */
+    @Transactional
     @Override
     public int updateUserName(DsSign dsSign) {
         Integer waybillId = dsSign.getWaybillId();    //获取 运单签收表 运单ID
@@ -184,6 +188,7 @@ public class FiPaymentGoodsServiceImpl implements FiPaymentGoodsService {
      * 点击发放
      * 改变时效性，1则不可以再发放
      */
+    @Transactional
     @Override
     public int updateTimeLiness(FiPaymentGoods fiPaymentGoods){
 

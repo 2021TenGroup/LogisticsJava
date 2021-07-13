@@ -55,11 +55,13 @@ public class NumberlssueServiceImpl implements NumberlssueService {
     }
 
     @Override
+    @Transactional
     public void addNumberLssue(NumberlssueVo numberlssueVo) {
         numberlssueDao.insert(numberlssueVo);
     }
 
     @Override
+    @Transactional
     public int updateNumberLssue(NumberlssueVo numberlssueVo) {
         return numberlssueDao.update(numberlssueVo);
     }
