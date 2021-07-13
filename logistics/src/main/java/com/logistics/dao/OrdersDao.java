@@ -81,5 +81,20 @@ public interface OrdersDao {
      */
     int deleteById(Integer oId);
 
+    //查询所有的未录入的订单信息
+    List<Orders> selAllOrders();
+
+    //查询所有未录入和已录入的订单信息
+    List<Orders> selAllOrdersAndwaybill();
+
+    // 插入订单信息
+    int addOrders(Orders orders);
+
+    // 删除订单
+    int deleteByOrders(Orders orders);
+
+    //修改录入
+    int updOrdersW(Orders orders);
+
 }
 
