@@ -1,49 +1,45 @@
 package com.logistics.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.io.Serializable;
 
 /**
- * (Outlets)实体类
+ * (NumberRule)实体类
  *
  * @author makejava
- * @since 2021-07-11 14:38:02
+ * @since 2021-07-11 19:20:12
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Outlets implements Serializable {
+public class NumberRule implements Serializable {
+    private Integer ruleId;
 
-    private Integer outletsId;
+    private String ruleName;
 
-    private String outletsNumber;
+    private String ruleStart;
 
-    private String outletsName;
+    private String ruleEnd;
 
-    private Integer outletsBelonging;
+    private Integer ruleLenght;
 
-    private String outletsPerson;
+    private String ruleMax;
 
-    private Integer outletsPhone;
+    private String ruleRemarks;
 
-    private String outletsProvince;
+    private Integer ruleType;
 
-    private String outletsCity;
-
-    private String outletsRegion;
-
-    private String outletsAddress;
-
-    private String outletsRemarks;
+    private Integer ruleUsage;
 
     private String addname;
 
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date addtime;
 
     private String updatename;
@@ -57,5 +53,4 @@ public class Outlets implements Serializable {
     private Integer timeliness;
 
     private static final long serialVersionUID = 1L;
-
 }

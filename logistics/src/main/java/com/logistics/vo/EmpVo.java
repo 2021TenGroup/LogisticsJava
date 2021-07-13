@@ -1,23 +1,21 @@
-package com.logistics.entity;
+package com.logistics.vo;
 
+import com.logistics.ann.ClassMeta;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import java.util.Date;
-import java.io.Serializable;
+import org.springframework.validation.annotation.Validated;
 
-/**
- * (EmpVo)实体类
- *
- * @author makejava
- * @since 2021-07-11 16:35:38
- */
+import java.util.Date;
+
+@Validated
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = "outlets,perPosition")
-public class Emp implements Serializable {
+@ClassMeta(className = "用户表")
+@ToString(exclude = "outletsVo,perPositionVo")
+public class EmpVo {
     private Integer empId;
 
     private Integer positionId;
@@ -56,8 +54,7 @@ public class Emp implements Serializable {
 
     private Integer timeliness;
 
-    private Outlets outlets;
-    private PerPosition perPosition;
+    private OutletsVo outletsVo;
+    private PerPositionVo perPositionVo;
     private static final long serialVersionUID = 1L;
-
 }

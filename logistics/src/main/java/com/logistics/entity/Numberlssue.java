@@ -3,44 +3,33 @@ package com.logistics.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.io.Serializable;
 
 /**
- * (Outlets)实体类
+ * (Numberlssue)实体类
  *
  * @author makejava
- * @since 2021-07-11 14:38:02
+ * @since 2021-07-11 19:35:29
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Outlets implements Serializable {
+public class Numberlssue implements Serializable {
+    private Integer numberlssueId;
 
     private Integer outletsId;
 
-    private String outletsNumber;
+    private String numberlssueOrder;
 
-    private String outletsName;
+    private Integer numberlssueNumber;
 
-    private Integer outletsBelonging;
+    private String numberlssueEnd;
 
-    private String outletsPerson;
+    private Integer numberlssueUp;
 
-    private Integer outletsPhone;
-
-    private String outletsProvince;
-
-    private String outletsCity;
-
-    private String outletsRegion;
-
-    private String outletsAddress;
-
-    private String outletsRemarks;
+    private String numberlssueRemarks;
 
     private String addname;
 
@@ -57,5 +46,4 @@ public class Outlets implements Serializable {
     private Integer timeliness;
 
     private static final long serialVersionUID = 1L;
-
 }

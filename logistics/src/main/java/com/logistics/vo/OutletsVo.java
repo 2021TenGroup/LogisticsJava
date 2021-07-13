@@ -1,25 +1,19 @@
-package com.logistics.entity;
+package com.logistics.vo;
 
+import com.logistics.ann.ClassMeta;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import org.springframework.validation.annotation.Validated;
 
-import java.math.BigDecimal;
 import java.util.Date;
-import java.io.Serializable;
 
-/**
- * (Outlets)实体类
- *
- * @author makejava
- * @since 2021-07-11 14:38:02
- */
+@Validated
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Outlets implements Serializable {
-
+@ClassMeta(className = "网点维护表")
+public class OutletsVo {
     private Integer outletsId;
 
     private String outletsNumber;
@@ -42,20 +36,19 @@ public class Outlets implements Serializable {
 
     private String outletsRemarks;
 
-    private String addname;
+    public String addname;
 
     private Date addtime;
 
-    private String updatename;
+    public String updatename;
 
     private Date updatetime;
 
-    private String deletename;
+    public String deletename;
 
     private Date deletetime;
 
     private Integer timeliness;
 
     private static final long serialVersionUID = 1L;
-
 }

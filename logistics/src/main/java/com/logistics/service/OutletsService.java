@@ -1,7 +1,7 @@
 package com.logistics.service;
 
 import com.logistics.entity.Outlets;
-import org.apache.ibatis.annotations.Mapper;
+import com.logistics.vo.OutletsVo;
 
 import java.util.List;
 
@@ -9,9 +9,8 @@ import java.util.List;
  * (Outlets)表服务接口
  *
  * @author makejava
- * @since 2021-07-13 04:36:31
+ * @since 2021-07-11 14:38:04
  */
-@Mapper
 public interface OutletsService {
 
     /**
@@ -55,7 +54,17 @@ public interface OutletsService {
      */
     boolean deleteById(Integer outletsId);
 
-    //根据网点名称 获取网点信息
-    Outlets queryByOutletsName(String outletsName);
+    /*
+    * 查询所有
+    * */
+    List<OutletsVo> selectAllOutlets();
+
+    void addOutlets(OutletsVo outletsVo);
+
+    int updateOutlets(OutletsVo outletsVo);
+
+    int delOutletsVo(OutletsVo outletsVo);
+
+    OutletsVo selectOutletsById(int id);
 
 }

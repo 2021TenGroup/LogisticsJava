@@ -4,43 +4,42 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
 import java.util.Date;
 import java.io.Serializable;
 
 /**
- * (EmpVo)实体类
+ * (Customer)实体类
  *
  * @author makejava
- * @since 2021-07-11 16:35:38
+ * @since 2021-07-11 15:28:24
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = "outlets,perPosition")
-public class Emp implements Serializable {
-    private Integer empId;
-
-    private Integer positionId;
+@ToString(exclude = "outlets")
+public class Customer implements Serializable {
+    private Integer customerId;
 
     private Integer outletsId;
 
-    private String empNumber;
+    private String customerNumber;
 
-    private String userName;
+    private String customerName;
 
-    private String passWord;
+    private Integer customerSettlement;
 
-    private Integer phone;
+    private String customerUser;
 
-    private String identityCards;
+    private String customerPhone;
 
-    private String address;
+    private String customerProvince;
 
-    private String zPhotographs;
+    private String customerCity;
 
-    private String fPhotographs;
+    private String customerRegion;
 
-    private String empName;
+    private String customerAddress;
 
     private String addname;
 
@@ -57,7 +56,5 @@ public class Emp implements Serializable {
     private Integer timeliness;
 
     private Outlets outlets;
-    private PerPosition perPosition;
     private static final long serialVersionUID = 1L;
-
 }

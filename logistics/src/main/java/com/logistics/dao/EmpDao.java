@@ -1,16 +1,24 @@
 package com.logistics.dao;
 
 import com.logistics.entity.Emp;
+import com.logistics.vo.EmpVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
+<<<<<<< HEAD
  * (Emp)表数据库访问层
  *
  * @author makejava
  * @since 2021-07-13 04:36:28
+=======
+ * (EmpVo)表数据库访问层
+ *
+ * @author makejava
+ * @since 2021-07-11 16:35:38
+>>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
  */
 @Mapper
 public interface EmpDao {
@@ -44,15 +52,15 @@ public interface EmpDao {
     /**
      * 新增数据
      *
-     * @param emp 实例对象
+     * @param empVo 实例对象
      * @return 影响行数
      */
-    int insert(Emp emp);
+    int insert(EmpVo empVo);
 
     /**
      * 批量新增数据（MyBatis原生foreach方法）
      *
-     * @param entities List<Emp> 实例对象列表
+     * @param entities List<EmpVo> 实例对象列表
      * @return 影响行数
      */
     int insertBatch(@Param("entities") List<Emp> entities);
@@ -60,7 +68,7 @@ public interface EmpDao {
     /**
      * 批量新增或按主键更新数据（MyBatis原生foreach方法）
      *
-     * @param entities List<Emp> 实例对象列表
+     * @param entities List<EmpVo> 实例对象列表
      * @return 影响行数
      */
     int insertOrUpdateBatch(@Param("entities") List<Emp> entities);
@@ -68,10 +76,10 @@ public interface EmpDao {
     /**
      * 修改数据
      *
-     * @param emp 实例对象
+     * @param empVo 实例对象
      * @return 影响行数
      */
-    int update(Emp emp);
+    int update(EmpVo empVo);
 
     /**
      * 通过主键删除数据
@@ -80,6 +88,10 @@ public interface EmpDao {
      * @return 影响行数
      */
     int deleteById(Integer empId);
+
+    List<EmpVo> selectAllEmps();
+
+    int deleteByEmps(EmpVo empVo);
 
 }
 

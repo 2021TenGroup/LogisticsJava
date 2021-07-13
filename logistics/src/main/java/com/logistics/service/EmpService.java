@@ -1,14 +1,15 @@
 package com.logistics.service;
 
 import com.logistics.entity.Emp;
+import com.logistics.vo.EmpVo;
 
 import java.util.List;
 
 /**
- * (Emp)表服务接口
+ * (EmpVo)表服务接口
  *
  * @author makejava
- * @since 2021-07-13 04:36:28
+ * @since 2021-07-11 16:35:39
  */
 public interface EmpService {
 
@@ -52,5 +53,13 @@ public interface EmpService {
      * @return 是否成功
      */
     boolean deleteById(Integer empId);
+
+    List<EmpVo> selectAllEmps();
+
+    void addEmps(EmpVo empVo);
+
+    int updateEmps(EmpVo empVo);
+
+    int deleteByEmps(EmpVo empVo);
 
 }
