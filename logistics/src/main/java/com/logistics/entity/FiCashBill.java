@@ -1,5 +1,7 @@
 package com.logistics.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.io.Serializable;
 
@@ -42,6 +44,7 @@ public class FiCashBill implements Serializable {
     /**
      * 增加时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date addtime;
     /**
      * 修改人
@@ -50,6 +53,7 @@ public class FiCashBill implements Serializable {
     /**
      * 最后修改时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date updatetime;
     /**
      * 删除人
@@ -58,6 +62,7 @@ public class FiCashBill implements Serializable {
     /**
      * 删除时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date deletetime;
     /**
      * 时效性

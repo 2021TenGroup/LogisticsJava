@@ -1,8 +1,12 @@
 package com.logistics.service.impl;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.logistics.dao.EmpDao;
 import com.logistics.dao.FiPaymentGoodsDao;
-import com.logistics.entity.FiPaymentGoods;
+import com.logistics.dao.OrdersDao;
+import com.logistics.dao.OutletsDao;
+import com.logistics.entity.*;
+import com.logistics.service.DsWaybillEntrtService;
 import com.logistics.service.FiPaymentGoodsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +27,14 @@ import java.util.List;
 public class FiPaymentGoodsServiceImpl implements FiPaymentGoodsService {
     @Resource
     private FiPaymentGoodsDao fiPaymentGoodsDao;
+    @Resource
+    private OrdersDao ordersDao;
+    @Resource
+    private OutletsDao outletsDao;
+    @Resource
+    private EmpDao empDao;
+    @Resource
+    private DsWaybillEntrtService dsWaybillEntrtService;
 
     /**
      * 通过ID查询单条数据
@@ -84,60 +96,65 @@ public class FiPaymentGoodsServiceImpl implements FiPaymentGoodsService {
      * @param dsWaybillEntrtEntity 实例对象
      * @return 实例对象
      */
-//    @Override
-//    public FiPaymentGoods insert(DsWaybillEntrt dsWaybillEntrtEntity) {      //运单录入实体类
-//
-//        FiPaymentGoods fiPaymentGoods = new FiPaymentGoods();
-//        String waybillId = dsWaybillEntrtEntity.getWaybillNumber();    //获取 运单录入表 运单编号
-//        fiPaymentGoods.setWaybillId(waybillId);
-//
-//        Double paymentGoods = dsWaybillEntrtEntity.getPaymentGoods();     //获取 运单录入表 代收货款
-//        fiPaymentGoods.setPgPayment(paymentGoods);
-//
-//        Double serviceMoney = paymentGoods*0.03;    //服务费： 总金额*0.03
-//        fiPaymentGoods.setPgServiceMoney(serviceMoney);
-//
-//        fiPaymentGoods.setPgActualMoney(paymentGoods-serviceMoney);//实发给客户的金额
-//
-//        fiPaymentGoods.setOutletsId1(dsWaybillEntrtEntity.getOutletsId());     //首网点
-//
-//        fiPaymentGoods.setOutletsId2(dsWaybillEntrtEntity.getOutletsId1());      //末网点
-//
-//        Integer oId = dsWaybillEntrtEntity.getOId(); //根据运单 获取订单编号
-//
-//        OrderEntity orderEntity = OrderService.queryById(oId);//根据oId查询订单表数据
-//
-//        Integer customerId = orderEntity.getCustomerId();   //获取寄件客户ID
-//
-//        CustomerEntity customerEntity = CustomerService.queryById(customerId);  //根据客户ID查询客户信息
-//
-//        fiPaymentGoods.setSender(customerEntity.getCustomerName());   //获取寄件人姓名
-//
-//        fiPaymentGoods.setSenderPhone(customerEntity.getCustomerPhone());   //获取寄件人电话号码
-//
-//        this.fiPaymentGoodsDao.insert(fiPaymentGoods);
-//        return fiPaymentGoods;
-//    }
+    @Override
+    public FiPaymentGoods addFiPG(DsWaybillEntrt dsWaybillEntrtEntity) {      //运单录入实体类
+
+        FiPaymentGoods fiPaymentGoods = new FiPaymentGoods();
+        String waybillNumber = dsWaybillEntrtEntity.getWaybillNumber();    //获取 运单录入表 运单编号
+        fiPaymentGoods.setWaybillNumber(waybillNumber);
+
+
+        Integer oId = dsWaybillEntrtEntity.getOId();    //根据运单 获取订单编号
+        Orders orders = ordersDao.queryById(oId);
+
+        System.out.println("oId:"+oId);
+        System.out.println("orders.getPaymentForGoods():"+orders.getPaymentForGoods());
+        if (orders.getPaymentForGoods() == null || orders.getPaymentForGoods() == 0){
+            System.out.println("没有代收货款，添加失败");
+            return null;
+        }
+        Double paymentGoods = orders.getPaymentForGoods();     //获取 订单表 代收货款
+        fiPaymentGoods.setPgPayment(paymentGoods);
+
+        Double serviceMoney = paymentGoods*0.03;    //服务费： 总金额*0.03
+        fiPaymentGoods.setPgServiceMoney(serviceMoney);
+
+        fiPaymentGoods.setPgActualMoney(paymentGoods-serviceMoney);   //实发给客户的金额
+
+        Emp emp = empDao.queryById(orders.getEmpId());       //首网点
+        Outlets outlets = outletsDao.queryById(emp.getOutletsId());
+        fiPaymentGoods.setOutletsId1(outlets.getOutletsName());
+
+        outlets = outletsDao.queryById(orders.getOutletsId());  //末网点
+        fiPaymentGoods.setOutletsId2(outlets.getOutletsName());
+
+        fiPaymentGoods.setPgSender(orders.getSender());   //获取寄件人姓名
+
+        fiPaymentGoods.setPgSenderPhone(orders.getSenderPhone());   //获取寄件人电话号码
+
+        this.fiPaymentGoodsDao.insert(fiPaymentGoods);
+        return fiPaymentGoods;
+    }
 
     /**
      * 运单签收之后，添加员工,有员工则已签收
-     * @param dsWaybillEntrtEntity      运单录入Entity
+     * @param dsSign      运单录入Entity
      * @return
      */
-//    @Override
-//    public int updateEmpId(DsWaybillEntrt dsWaybillEntrtEntity) {
-//        Integer waybillId = dsSignEntity.getWaybillId();    //获取 运单签收表 运单ID
-//        FiPaymentGoods fiPaymentGoods = fiPaymentGoodsDao.queryByWaybillId(waybillId);      //根据运单ID查询代收货款表
-//        if(fiPaymentGoods != null){
-//            Integer oId = dsWaybillEntrtEntity.getOId();//获取 运单签收表 订单ID
-//            Oreders oreders = dsWaybillService.queryByOId(oId);
-//            Integer empID = oreders.getEmpId();    //获取 运单签收表 员工ID
-//            fiPaymentGoods.setEmpId(empID);
-//            fiPaymentGoods.setAddtime(new Date());
-//            return fiPaymentGoodsDao.update(fiPaymentGoods);
-//        }
-//        return 0;
-//    }
+    @Override
+    public int updateUserName(DsSign dsSign) {
+        Integer waybillId = dsSign.getWaybillId();    //获取 运单签收表 运单ID
+        DsWaybillEntrt dsWaybillEntrt = dsWaybillEntrtService.queryById(waybillId);
+        FiPaymentGoods fiPaymentGoods = fiPaymentGoodsDao.queryByWaybillNumber(dsWaybillEntrt.getWaybillNumber());      //根据运单ID查询代收货款表
+        if(fiPaymentGoods != null){
+            Integer empID = dsSign.getEmpId();    //获取 运单签收表 员工ID
+            Emp emp = empDao.queryById(empID);
+            fiPaymentGoods.setUserName(emp.getUserName());
+            fiPaymentGoods.setAddtime(new Date());
+            return fiPaymentGoodsDao.update(fiPaymentGoods);
+        }
+        return 0;
+    }
 
     /**
      * 点击发放

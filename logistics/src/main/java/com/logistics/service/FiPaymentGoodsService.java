@@ -1,5 +1,7 @@
 package com.logistics.service;
 
+import com.logistics.entity.DsSign;
+import com.logistics.entity.DsWaybillEntrt;
 import com.logistics.entity.FiPaymentGoods;
 
 import java.util.List;
@@ -58,14 +60,14 @@ public interface FiPaymentGoodsService {
      * @param dsWaybillEntrt 实例对象
      * @return 实例对象
      */
-//    FiPaymentGoods insert(DsWaybillEntrt dsWaybillEntrt);
+    FiPaymentGoods addFiPG(DsWaybillEntrt dsWaybillEntrt);
 
     /**
      * 运单签收之后，添加员工
      * @param dsSign      运单录入Entity
      * @return
      */
-//    int updateEmpId(DsWaybillEntrt dsWaybillEntrtEntity);
+    int updateUserName(DsSign dsSign);
 
     /**
      * 点击发放

@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.logistics.dao.OrdersDao">
+
+    <resultMap type="com.logistics.entity.Orders" id="OrdersMap">
+        <result property="oId" column="o_id" jdbcType="INTEGER"/>
+        <result property="outletsId" column="Outlets_Id" jdbcType="INTEGER"/>
+        <result property="goodId" column="good_id" jdbcType="INTEGER"/>
+        <result property="empId" column="Emp_Id" jdbcType="INTEGER"/>
+        <result property="customerId" column="Customer_Id" jdbcType="INTEGER"/>
+        <result property="dsGoodsId" column="ds_goods_id" jdbcType="INTEGER"/>
+        <result property="expressType" column="express_type" jdbcType="INTEGER"/>
+        <result property="sender" column="sender" jdbcType="VARCHAR"/>
+        <result property="senderPhone" column="sender_phone" jdbcType="VARCHAR"/>
+        <result property="postcode" column="postcode" jdbcType="VARCHAR"/>
+        <result property="province" column="province" jdbcType="VARCHAR"/>
+        <result property="city" column="city" jdbcType="VARCHAR"/>
+        <result property="region" column="region" jdbcType="VARCHAR"/>
+        <result property="mailingAddress" column="mailing_address" jdbcType="VARCHAR"/>
+        <result property="addressee" column="addressee" jdbcType="VARCHAR"/>
+        <result property="aPhone" column="a_phone" jdbcType="VARCHAR"/>
+        <result property="receivingCode" column="receiving_code" jdbcType="VARCHAR"/>
+        <result property="receivingAddress" column="receiving_address" jdbcType="VARCHAR"/>
+        <result property="orderSource" column="order_source" jdbcType="INTEGER"/>
+        <result property="state" column="state" jdbcType="INTEGER"/>
+        <result property="oTime" column="o_time" jdbcType="TIMESTAMP"/>
+        <result property="paymentMethod" column="payment_method" jdbcType="INTEGER"/>
+        <result property="serviceCharge" column="service_charge" jdbcType="NUMERIC"/>
+        <result property="paymentForGoods" column="payment_for_goods" jdbcType="NUMERIC"/>
+        <result property="freight" column="freight" jdbcType="NUMERIC"/>
+        <result property="totalRates" column="total_rates" jdbcType="NUMERIC"/>
+        <result property="addname" column="AddName" jdbcType="VARCHAR"/>
+        <result property="addtime" column="ADDTIME" jdbcType="TIMESTAMP"/>
+        <result property="updatename" column="UpdateName" jdbcType="VARCHAR"/>
+        <result property="updatetime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+        <result property="deletename" column="DeleteName" jdbcType="VARCHAR"/>
+        <result property="deletetime" column="DeleteTime" jdbcType="TIMESTAMP"/>
+        <result property="timeliness" column="TimeLiness" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="OrdersMap">
+        select
+          o_id, Outlets_Id, good_id, Emp_Id, Customer_Id, ds_goods_id, express_type, sender, sender_phone, postcode, province, city, region, mailing_address, addressee, a_phone, receiving_code, receiving_address, order_source, state, o_time, payment_method, service_charge, payment_for_goods, freight, total_rates, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+        from lms.orders
+        where o_id = #{oId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="OrdersMap">
+        select
+          o_id, Outlets_Id, good_id, Emp_Id, Customer_Id, ds_goods_id, express_type, sender, sender_phone, postcode, province, city, region, mailing_address, addressee, a_phone, receiving_code, receiving_address, order_source, state, o_time, payment_method, service_charge, payment_for_goods, freight, total_rates, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+        from lms.orders
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="OrdersMap">
+        select
+        o_id, Outlets_Id, good_id, Emp_Id, Customer_Id, ds_goods_id, express_type, sender, sender_phone, postcode,
+        province, city, region, mailing_address, addressee, a_phone, receiving_code, receiving_address, order_source,
+        state, o_time, payment_method, service_charge, payment_for_goods, freight, total_rates, AddName, ADDTIME,
+        UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+        from lms.orders
+        <where>
+            <if test="oId != null">
+                and o_id = #{oId}
+            </if>
+            <if test="outletsId != null">
+                and Outlets_Id = #{outletsId}
+            </if>
+            <if test="goodId != null">
+                and good_id = #{goodId}
+            </if>
+            <if test="empId != null">
+                and Emp_Id = #{empId}
+            </if>
+            <if test="customerId != null">
+                and Customer_Id = #{customerId}
+            </if>
+            <if test="dsGoodsId != null">
+                and ds_goods_id = #{dsGoodsId}
+            </if>
+            <if test="expressType != null">
+                and express_type = #{expressType}
+            </if>
+            <if test="sender != null and sender != ''">
+                and sender = #{sender}
+            </if>
+            <if test="senderPhone != null and senderPhone != ''">
+                and sender_phone = #{senderPhone}
+            </if>
+            <if test="postcode != null and postcode != ''">
+                and postcode = #{postcode}
+            </if>
+            <if test="province != null and province != ''">
+                and province = #{province}
+            </if>
+            <if test="city != null and city != ''">
+                and city = #{city}
+            </if>
+            <if test="region != null and region != ''">
+                and region = #{region}
+            </if>
+            <if test="mailingAddress != null and mailingAddress != ''">
+                and mailing_address = #{mailingAddress}
+            </if>
+            <if test="addressee != null and addressee != ''">
+                and addressee = #{addressee}
+            </if>
+            <if test="aPhone != null and aPhone != ''">
+                and a_phone = #{aPhone}
+            </if>
+            <if test="receivingCode != null and receivingCode != ''">
+                and receiving_code = #{receivingCode}
+            </if>
+            <if test="receivingAddress != null and receivingAddress != ''">
+                and receiving_address = #{receivingAddress}
+            </if>
+            <if test="orderSource != null">
+                and order_source = #{orderSource}
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
+            <if test="oTime != null">
+                and o_time = #{oTime}
+            </if>
+            <if test="paymentMethod != null">
+                and payment_method = #{paymentMethod}
+            </if>
+            <if test="serviceCharge != null">
+                and service_charge = #{serviceCharge}
+            </if>
+            <if test="paymentForGoods != null">
+                and payment_for_goods = #{paymentForGoods}
+            </if>
+            <if test="freight != null">
+                and freight = #{freight}
+            </if>
+            <if test="totalRates != null">
+                and total_rates = #{totalRates}
+            </if>
+            <if test="addname != null and addname != ''">
+                and AddName = #{addname}
+            </if>
+            <if test="addtime != null">
+                and ADDTIME = #{addtime}
+            </if>
+            <if test="updatename != null and updatename != ''">
+                and UpdateName = #{updatename}
+            </if>
+            <if test="updatetime != null">
+                and UpdateTime = #{updatetime}
+            </if>
+            <if test="deletename != null and deletename != ''">
+                and DeleteName = #{deletename}
+            </if>
+            <if test="deletetime != null">
+                and DeleteTime = #{deletetime}
+            </if>
+            <if test="timeliness != null">
+                and TimeLiness = #{timeliness}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="oId" useGeneratedKeys="true">
+        insert into lms.orders(Outlets_Id, good_id, Emp_Id, Customer_Id, ds_goods_id, express_type, sender, sender_phone, postcode, province, city, region, mailing_address, addressee, a_phone, receiving_code, receiving_address, order_source, state, o_time, payment_method, service_charge, payment_for_goods, freight, total_rates, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        values (#{outletsId}, #{goodId}, #{empId}, #{customerId}, #{dsGoodsId}, #{expressType}, #{sender}, #{senderPhone}, #{postcode}, #{province}, #{city}, #{region}, #{mailingAddress}, #{addressee}, #{aPhone}, #{receivingCode}, #{receivingAddress}, #{orderSource}, #{state}, #{oTime}, #{paymentMethod}, #{serviceCharge}, #{paymentForGoods}, #{freight}, #{totalRates}, #{addname}, #{addtime}, #{updatename}, #{updatetime}, #{deletename}, #{deletetime}, #{timeliness})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="oId" useGeneratedKeys="true">
+        insert into lms.orders(Outlets_Id, good_id, Emp_Id, Customer_Id, ds_goods_id, express_type, sender,
+        sender_phone, postcode, province, city, region, mailing_address, addressee, a_phone, receiving_code,
+        receiving_address, order_source, state, o_time, payment_method, service_charge, payment_for_goods, freight,
+        total_rates, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.outletsId}, #{entity.goodId}, #{entity.empId}, #{entity.customerId}, #{entity.dsGoodsId},
+            #{entity.expressType}, #{entity.sender}, #{entity.senderPhone}, #{entity.postcode}, #{entity.province},
+            #{entity.city}, #{entity.region}, #{entity.mailingAddress}, #{entity.addressee}, #{entity.aPhone},
+            #{entity.receivingCode}, #{entity.receivingAddress}, #{entity.orderSource}, #{entity.state},
+            #{entity.oTime}, #{entity.paymentMethod}, #{entity.serviceCharge}, #{entity.paymentForGoods},
+            #{entity.freight}, #{entity.totalRates}, #{entity.addname}, #{entity.addtime}, #{entity.updatename},
+            #{entity.updatetime}, #{entity.deletename}, #{entity.deletetime}, #{entity.timeliness})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="oId" useGeneratedKeys="true">
+        insert into lms.orders(Outlets_Id, good_id, Emp_Id, Customer_Id, ds_goods_id, express_type, sender,
+        sender_phone, postcode, province, city, region, mailing_address, addressee, a_phone, receiving_code,
+        receiving_address, order_source, state, o_time, payment_method, service_charge, payment_for_goods, freight,
+        total_rates, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.outletsId}, #{entity.goodId}, #{entity.empId}, #{entity.customerId}, #{entity.dsGoodsId},
+            #{entity.expressType}, #{entity.sender}, #{entity.senderPhone}, #{entity.postcode}, #{entity.province},
+            #{entity.city}, #{entity.region}, #{entity.mailingAddress}, #{entity.addressee}, #{entity.aPhone},
+            #{entity.receivingCode}, #{entity.receivingAddress}, #{entity.orderSource}, #{entity.state},
+            #{entity.oTime}, #{entity.paymentMethod}, #{entity.serviceCharge}, #{entity.paymentForGoods},
+            #{entity.freight}, #{entity.totalRates}, #{entity.addname}, #{entity.addtime}, #{entity.updatename},
+            #{entity.updatetime}, #{entity.deletename}, #{entity.deletetime}, #{entity.timeliness})
+        </foreach>
+        on duplicate key update
+        Outlets_Id = values(Outlets_Id) , good_id = values(good_id) , Emp_Id = values(Emp_Id) , Customer_Id =
+        values(Customer_Id) , ds_goods_id = values(ds_goods_id) , express_type = values(express_type) , sender =
+        values(sender) , sender_phone = values(sender_phone) , postcode = values(postcode) , province = values(province)
+        , city = values(city) , region = values(region) , mailing_address = values(mailing_address) , addressee =
+        values(addressee) , a_phone = values(a_phone) , receiving_code = values(receiving_code) , receiving_address =
+        values(receiving_address) , order_source = values(order_source) , state = values(state) , o_time =
+        values(o_time) , payment_method = values(payment_method) , service_charge = values(service_charge) ,
+        payment_for_goods = values(payment_for_goods) , freight = values(freight) , total_rates = values(total_rates) ,
+        AddName = values(AddName) , ADDTIME = values(ADDTIME) , UpdateName = values(UpdateName) , UpdateTime =
+        values(UpdateTime) , DeleteName = values(DeleteName) , DeleteTime = values(DeleteTime) , TimeLiness =
+        values(TimeLiness)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update lms.orders
+        <set>
+            <if test="outletsId != null">
+                Outlets_Id = #{outletsId},
+            </if>
+            <if test="goodId != null">
+                good_id = #{goodId},
+            </if>
+            <if test="empId != null">
+                Emp_Id = #{empId},
+            </if>
+            <if test="customerId != null">
+                Customer_Id = #{customerId},
+            </if>
+            <if test="dsGoodsId != null">
+                ds_goods_id = #{dsGoodsId},
+            </if>
+            <if test="expressType != null">
+                express_type = #{expressType},
+            </if>
+            <if test="sender != null and sender != ''">
+                sender = #{sender},
+            </if>
+            <if test="senderPhone != null and senderPhone != ''">
+                sender_phone = #{senderPhone},
+            </if>
+            <if test="postcode != null and postcode != ''">
+                postcode = #{postcode},
+            </if>
+            <if test="province != null and province != ''">
+                province = #{province},
+            </if>
+            <if test="city != null and city != ''">
+                city = #{city},
+            </if>
+            <if test="region != null and region != ''">
+                region = #{region},
+            </if>
+            <if test="mailingAddress != null and mailingAddress != ''">
+                mailing_address = #{mailingAddress},
+            </if>
+            <if test="addressee != null and addressee != ''">
+                addressee = #{addressee},
+            </if>
+            <if test="aPhone != null and aPhone != ''">
+                a_phone = #{aPhone},
+            </if>
+            <if test="receivingCode != null and receivingCode != ''">
+                receiving_code = #{receivingCode},
+            </if>
+            <if test="receivingAddress != null and receivingAddress != ''">
+                receiving_address = #{receivingAddress},
+            </if>
+            <if test="orderSource != null">
+                order_source = #{orderSource},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+            <if test="oTime != null">
+                o_time = #{oTime},
+            </if>
+            <if test="paymentMethod != null">
+                payment_method = #{paymentMethod},
+            </if>
+            <if test="serviceCharge != null">
+                service_charge = #{serviceCharge},
+            </if>
+            <if test="paymentForGoods != null">
+                payment_for_goods = #{paymentForGoods},
+            </if>
+            <if test="freight != null">
+                freight = #{freight},
+            </if>
+            <if test="totalRates != null">
+                total_rates = #{totalRates},
+            </if>
+            <if test="addname != null and addname != ''">
+                AddName = #{addname},
+            </if>
+            <if test="addtime != null">
+                ADDTIME = #{addtime},
+            </if>
+            <if test="updatename != null and updatename != ''">
+                UpdateName = #{updatename},
+            </if>
+            <if test="updatetime != null">
+                UpdateTime = #{updatetime},
+            </if>
+            <if test="deletename != null and deletename != ''">
+                DeleteName = #{deletename},
+            </if>
+            <if test="deletetime != null">
+                DeleteTime = #{deletetime},
+            </if>
+            <if test="timeliness != null">
+                TimeLiness = #{timeliness},
+            </if>
+        </set>
+        where o_id = #{oId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from lms.orders where o_id = #{oId}
+    </delete>
+
+</mapper>
+

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.logistics.dao.DsWaybillEntrtDao">
+
+    <resultMap type="com.logistics.entity.DsWaybillEntrt" id="DsWaybillEntrtMap">
+        <result property="waybillId" column="waybill_id" jdbcType="INTEGER"/>
+        <result property="oId" column="o_id" jdbcType="INTEGER"/>
+        <result property="empId" column="emp_id" jdbcType="INTEGER"/>
+        <result property="waybillNumber" column="waybill_number" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="DsWaybillEntrtMap">
+        select
+          waybill_id, o_id, emp_id, waybill_number
+        from lms.ds_waybill_entrt
+        where waybill_id = #{waybillId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="DsWaybillEntrtMap">
+        select
+          waybill_id, o_id, emp_id, waybill_number
+        from lms.ds_waybill_entrt
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="DsWaybillEntrtMap">
+        select
+        waybill_id, o_id, emp_id, waybill_number
+        from lms.ds_waybill_entrt
+        <where>
+            <if test="waybillId != null">
+                and waybill_id = #{waybillId}
+            </if>
+            <if test="oId != null">
+                and o_id = #{oId}
+            </if>
+            <if test="empId != null">
+                and emp_id = #{empId}
+            </if>
+            <if test="waybillNumber != null and waybillNumber != ''">
+                and waybill_number = #{waybillNumber}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="waybillId" useGeneratedKeys="true">
+        insert into lms.ds_waybill_entrt(o_id, emp_id, waybill_number)
+        values (#{oId}, #{empId}, #{waybillNumber})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="waybillId" useGeneratedKeys="true">
+        insert into lms.ds_waybill_entrt(o_id, emp_id, waybill_number)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.oId}, #{entity.empId}, #{entity.waybillNumber})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="waybillId" useGeneratedKeys="true">
+        insert into lms.ds_waybill_entrt(o_id, emp_id, waybill_number)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.oId}, #{entity.empId}, #{entity.waybillNumber})
+        </foreach>
+        on duplicate key update
+        o_id = values(o_id) , emp_id = values(emp_id) , waybill_number = values(waybill_number)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update lms.ds_waybill_entrt
+        <set>
+            <if test="oId != null">
+                o_id = #{oId},
+            </if>
+            <if test="empId != null">
+                emp_id = #{empId},
+            </if>
+            <if test="waybillNumber != null and waybillNumber != ''">
+                waybill_number = #{waybillNumber},
+            </if>
+        </set>
+        where waybill_id = #{waybillId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from lms.ds_waybill_entrt where waybill_id = #{waybillId}
+    </delete>
+
+</mapper>
+

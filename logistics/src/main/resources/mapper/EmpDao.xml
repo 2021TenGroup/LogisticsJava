@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.logistics.dao.EmpDao">
+
+    <resultMap type="com.logistics.entity.Emp" id="EmpMap">
+        <result property="empId" column="Emp_Id" jdbcType="INTEGER"/>
+        <result property="positionId" column="Position_Id" jdbcType="INTEGER"/>
+        <result property="outletsId" column="Outlets_Id" jdbcType="INTEGER"/>
+        <result property="empNumber" column="Emp_number" jdbcType="VARCHAR"/>
+        <result property="userName" column="User_Name" jdbcType="VARCHAR"/>
+        <result property="passWord" column="Pass_word" jdbcType="VARCHAR"/>
+        <result property="phone" column="Phone" jdbcType="INTEGER"/>
+        <result property="identityCards" column="Identity_cards" jdbcType="VARCHAR"/>
+        <result property="address" column="Address" jdbcType="VARCHAR"/>
+        <result property="zPhotographs" column="Z_photographs" jdbcType="VARCHAR"/>
+        <result property="fPhotographs" column="F_photographs" jdbcType="VARCHAR"/>
+        <result property="empName" column="Emp_Name" jdbcType="VARCHAR"/>
+        <result property="addname" column="AddName" jdbcType="VARCHAR"/>
+        <result property="addtime" column="ADDTIME" jdbcType="TIMESTAMP"/>
+        <result property="updatename" column="UpdateName" jdbcType="VARCHAR"/>
+        <result property="updatetime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+        <result property="deletename" column="DeleteName" jdbcType="VARCHAR"/>
+        <result property="deletetime" column="DeleteTime" jdbcType="TIMESTAMP"/>
+        <result property="timeliness" column="TimeLiness" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="EmpMap">
+        select
+          Emp_Id, Position_Id, Outlets_Id, Emp_number, User_Name, Pass_word, Phone, Identity_cards, Address, Z_photographs, F_photographs, Emp_Name, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+        from lms.emp
+        where Emp_Id = #{empId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="EmpMap">
+        select
+          Emp_Id, Position_Id, Outlets_Id, Emp_number, User_Name, Pass_word, Phone, Identity_cards, Address, Z_photographs, F_photographs, Emp_Name, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+        from lms.emp
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="EmpMap">
+        select
+        Emp_Id, Position_Id, Outlets_Id, Emp_number, User_Name, Pass_word, Phone, Identity_cards, Address,
+        Z_photographs, F_photographs, Emp_Name, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime,
+        TimeLiness
+        from lms.emp
+        <where>
+            <if test="empId != null">
+                and Emp_Id = #{empId}
+            </if>
+            <if test="positionId != null">
+                and Position_Id = #{positionId}
+            </if>
+            <if test="outletsId != null">
+                and Outlets_Id = #{outletsId}
+            </if>
+            <if test="empNumber != null and empNumber != ''">
+                and Emp_number = #{empNumber}
+            </if>
+            <if test="userName != null and userName != ''">
+                and User_Name = #{userName}
+            </if>
+            <if test="passWord != null and passWord != ''">
+                and Pass_word = #{passWord}
+            </if>
+            <if test="phone != null">
+                and Phone = #{phone}
+            </if>
+            <if test="identityCards != null and identityCards != ''">
+                and Identity_cards = #{identityCards}
+            </if>
+            <if test="address != null and address != ''">
+                and Address = #{address}
+            </if>
+            <if test="zPhotographs != null and zPhotographs != ''">
+                and Z_photographs = #{zPhotographs}
+            </if>
+            <if test="fPhotographs != null and fPhotographs != ''">
+                and F_photographs = #{fPhotographs}
+            </if>
+            <if test="empName != null and empName != ''">
+                and Emp_Name = #{empName}
+            </if>
+            <if test="addname != null and addname != ''">
+                and AddName = #{addname}
+            </if>
+            <if test="addtime != null">
+                and ADDTIME = #{addtime}
+            </if>
+            <if test="updatename != null and updatename != ''">
+                and UpdateName = #{updatename}
+            </if>
+            <if test="updatetime != null">
+                and UpdateTime = #{updatetime}
+            </if>
+            <if test="deletename != null and deletename != ''">
+                and DeleteName = #{deletename}
+            </if>
+            <if test="deletetime != null">
+                and DeleteTime = #{deletetime}
+            </if>
+            <if test="timeliness != null">
+                and TimeLiness = #{timeliness}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="empId" useGeneratedKeys="true">
+        insert into lms.emp(Position_Id, Outlets_Id, Emp_number, User_Name, Pass_word, Phone, Identity_cards, Address, Z_photographs, F_photographs, Emp_Name, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        values (#{positionId}, #{outletsId}, #{empNumber}, #{userName}, #{passWord}, #{phone}, #{identityCards}, #{address}, #{zPhotographs}, #{fPhotographs}, #{empName}, #{addname}, #{addtime}, #{updatename}, #{updatetime}, #{deletename}, #{deletetime}, #{timeliness})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="empId" useGeneratedKeys="true">
+        insert into lms.emp(Position_Id, Outlets_Id, Emp_number, User_Name, Pass_word, Phone, Identity_cards, Address,
+        Z_photographs, F_photographs, Emp_Name, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime,
+        TimeLiness)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.positionId}, #{entity.outletsId}, #{entity.empNumber}, #{entity.userName}, #{entity.passWord},
+            #{entity.phone}, #{entity.identityCards}, #{entity.address}, #{entity.zPhotographs}, #{entity.fPhotographs},
+            #{entity.empName}, #{entity.addname}, #{entity.addtime}, #{entity.updatename}, #{entity.updatetime},
+            #{entity.deletename}, #{entity.deletetime}, #{entity.timeliness})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="empId" useGeneratedKeys="true">
+        insert into lms.emp(Position_Id, Outlets_Id, Emp_number, User_Name, Pass_word, Phone, Identity_cards, Address,
+        Z_photographs, F_photographs, Emp_Name, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime,
+        TimeLiness)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.positionId}, #{entity.outletsId}, #{entity.empNumber}, #{entity.userName}, #{entity.passWord},
+            #{entity.phone}, #{entity.identityCards}, #{entity.address}, #{entity.zPhotographs}, #{entity.fPhotographs},
+            #{entity.empName}, #{entity.addname}, #{entity.addtime}, #{entity.updatename}, #{entity.updatetime},
+            #{entity.deletename}, #{entity.deletetime}, #{entity.timeliness})
+        </foreach>
+        on duplicate key update
+        Position_Id = values(Position_Id) , Outlets_Id = values(Outlets_Id) , Emp_number = values(Emp_number) ,
+        User_Name = values(User_Name) , Pass_word = values(Pass_word) , Phone = values(Phone) , Identity_cards =
+        values(Identity_cards) , Address = values(Address) , Z_photographs = values(Z_photographs) , F_photographs =
+        values(F_photographs) , Emp_Name = values(Emp_Name) , AddName = values(AddName) , ADDTIME = values(ADDTIME) ,
+        UpdateName = values(UpdateName) , UpdateTime = values(UpdateTime) , DeleteName = values(DeleteName) , DeleteTime
+        = values(DeleteTime) , TimeLiness = values(TimeLiness)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update lms.emp
+        <set>
+            <if test="positionId != null">
+                Position_Id = #{positionId},
+            </if>
+            <if test="outletsId != null">
+                Outlets_Id = #{outletsId},
+            </if>
+            <if test="empNumber != null and empNumber != ''">
+                Emp_number = #{empNumber},
+            </if>
+            <if test="userName != null and userName != ''">
+                User_Name = #{userName},
+            </if>
+            <if test="passWord != null and passWord != ''">
+                Pass_word = #{passWord},
+            </if>
+            <if test="phone != null">
+                Phone = #{phone},
+            </if>
+            <if test="identityCards != null and identityCards != ''">
+                Identity_cards = #{identityCards},
+            </if>
+            <if test="address != null and address != ''">
+                Address = #{address},
+            </if>
+            <if test="zPhotographs != null and zPhotographs != ''">
+                Z_photographs = #{zPhotographs},
+            </if>
+            <if test="fPhotographs != null and fPhotographs != ''">
+                F_photographs = #{fPhotographs},
+            </if>
+            <if test="empName != null and empName != ''">
+                Emp_Name = #{empName},
+            </if>
+            <if test="addname != null and addname != ''">
+                AddName = #{addname},
+            </if>
+            <if test="addtime != null">
+                ADDTIME = #{addtime},
+            </if>
+            <if test="updatename != null and updatename != ''">
+                UpdateName = #{updatename},
+            </if>
+            <if test="updatetime != null">
+                UpdateTime = #{updatetime},
+            </if>
+            <if test="deletename != null and deletename != ''">
+                DeleteName = #{deletename},
+            </if>
+            <if test="deletetime != null">
+                DeleteTime = #{deletetime},
+            </if>
+            <if test="timeliness != null">
+                TimeLiness = #{timeliness},
+            </if>
+        </set>
+        where Emp_Id = #{empId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from lms.emp where Emp_Id = #{empId}
+    </delete>
+
+</mapper>
+

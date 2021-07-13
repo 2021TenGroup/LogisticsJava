@@ -19,12 +19,14 @@
         <result property="deletename" column="DeleteName" jdbcType="VARCHAR"/>
         <result property="deletetime" column="DeleteTime" jdbcType="TIMESTAMP"/>
         <result property="timeliness" column="TimeLiness" jdbcType="INTEGER"/>
+        <result property="pgSender" column="pg_sender" jdbcType="VARCHAR"/>
+        <result property="pgSenderPhone" column="pg_sender_phone" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="FiPaymentGoodsMap">
         select
-          pg_id, waybill_number, pg_payment, pg_service_money, pg_actual_money, Outlets_Id1, User_Name, Outlets_Id2, pg_state, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+          pg_id, waybill_number, pg_payment, pg_service_money, pg_actual_money, Outlets_Id1, User_Name, Outlets_Id2, pg_state, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness, pg_sender, pg_sender_phone
         from lms.fi_payment_goods
         where pg_id = #{pgId}
     </select>
@@ -32,7 +34,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="FiPaymentGoodsMap">
         select
-          pg_id, waybill_number, pg_payment, pg_service_money, pg_actual_money, Outlets_Id1, User_Name, Outlets_Id2, pg_state, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+          pg_id, waybill_number, pg_payment, pg_service_money, pg_actual_money, Outlets_Id1, User_Name, Outlets_Id2, pg_state, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness, pg_sender, pg_sender_phone
         from lms.fi_payment_goods
         limit #{offset}, #{limit}
     </select>
@@ -41,7 +43,8 @@
     <select id="queryAll" resultMap="FiPaymentGoodsMap">
         select
         pg_id, waybill_number, pg_payment, pg_service_money, pg_actual_money, Outlets_Id1, User_Name, Outlets_Id2,
-        pg_state, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+        pg_state, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness, pg_sender,
+        pg_sender_phone
         from lms.fi_payment_goods
         <where>
             <if test="pgId != null">
@@ -92,46 +95,61 @@
             <if test="timeliness != null">
                 and TimeLiness = #{timeliness}
             </if>
+            <if test="pgSender != null and pgSender != ''">
+                and pg_sender = #{pgSender}
+            </if>
+            <if test="pgSenderPhone != null and pgSenderPhone != ''">
+                and pg_sender_phone = #{pgSenderPhone}
+            </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="pgId" useGeneratedKeys="true">
-        insert into lms.fi_payment_goods(pg_payment, pg_service_money, pg_actual_money, Outlets_Id1, Outlets_Id2, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
-        values (#{pgPayment}, #{pgServiceMoney}, #{pgActualMoney}, #{outletsId1}, #{outletsId2}, #{addname}, #{addtime}, #{updatename}, #{updatetime}, #{deletename}, #{deletetime}, #{timeliness})
+        insert into lms.fi_payment_goods(waybill_number, pg_payment, pg_service_money, pg_actual_money, Outlets_Id1, User_Name, Outlets_Id2, pg_state, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness, pg_sender, pg_sender_phone)
+        values (#{waybillNumber}, #{pgPayment}, #{pgServiceMoney}, #{pgActualMoney}, #{outletsId1}, #{userName}, #{outletsId2}, #{pgState}, #{addname}, #{addtime}, #{updatename}, #{updatetime}, #{deletename}, #{deletetime}, #{timeliness}, #{pgSender}, #{pgSenderPhone})
     </insert>
 
     <insert id="insertBatch" keyProperty="pgId" useGeneratedKeys="true">
-        insert into lms.fi_payment_goods(pg_payment, pg_service_money, pg_actual_money, Outlets_Id1, Outlets_Id2,
-        AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        insert into lms.fi_payment_goods(waybill_number, pg_payment, pg_service_money, pg_actual_money, Outlets_Id1,
+        User_Name, Outlets_Id2, pg_state, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness,
+        pg_sender, pg_sender_phone)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.pgPayment}, #{entity.pgServiceMoney}, #{entity.pgActualMoney}, #{entity.outletsId1},
-            #{entity.outletsId2}, #{entity.addname}, #{entity.addtime}, #{entity.updatename}, #{entity.updatetime},
-            #{entity.deletename}, #{entity.deletetime}, #{entity.timeliness})
+            (#{entity.waybillNumber}, #{entity.pgPayment}, #{entity.pgServiceMoney}, #{entity.pgActualMoney},
+            #{entity.outletsId1}, #{entity.userName}, #{entity.outletsId2}, #{entity.pgState}, #{entity.addname},
+            #{entity.addtime}, #{entity.updatename}, #{entity.updatetime}, #{entity.deletename}, #{entity.deletetime},
+            #{entity.timeliness}, #{entity.pgSender}, #{entity.pgSenderPhone})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="pgId" useGeneratedKeys="true">
-        insert into lms.fi_payment_goods(pg_payment, pg_service_money, pg_actual_money, Outlets_Id1, Outlets_Id2,
-        AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        insert into lms.fi_payment_goods(waybill_number, pg_payment, pg_service_money, pg_actual_money, Outlets_Id1,
+        User_Name, Outlets_Id2, pg_state, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness,
+        pg_sender, pg_sender_phone)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.pgPayment}, #{entity.pgServiceMoney}, #{entity.pgActualMoney}, #{entity.outletsId1},
-            #{entity.outletsId2}, #{entity.addname}, #{entity.addtime}, #{entity.updatename}, #{entity.updatetime},
-            #{entity.deletename}, #{entity.deletetime}, #{entity.timeliness})
+            (#{entity.waybillNumber}, #{entity.pgPayment}, #{entity.pgServiceMoney}, #{entity.pgActualMoney},
+            #{entity.outletsId1}, #{entity.userName}, #{entity.outletsId2}, #{entity.pgState}, #{entity.addname},
+            #{entity.addtime}, #{entity.updatename}, #{entity.updatetime}, #{entity.deletename}, #{entity.deletetime},
+            #{entity.timeliness}, #{entity.pgSender}, #{entity.pgSenderPhone})
         </foreach>
         on duplicate key update
-        pg_payment = values(pg_payment) , pg_service_money = values(pg_service_money) , pg_actual_money =
-        values(pg_actual_money) , Outlets_Id1 = values(Outlets_Id1) , Outlets_Id2 = values(Outlets_Id2) , AddName =
+        waybill_number = values(waybill_number) , pg_payment = values(pg_payment) , pg_service_money =
+        values(pg_service_money) , pg_actual_money = values(pg_actual_money) , Outlets_Id1 = values(Outlets_Id1) ,
+        User_Name = values(User_Name) , Outlets_Id2 = values(Outlets_Id2) , pg_state = values(pg_state) , AddName =
         values(AddName) , ADDTIME = values(ADDTIME) , UpdateName = values(UpdateName) , UpdateTime = values(UpdateTime)
-        , DeleteName = values(DeleteName) , DeleteTime = values(DeleteTime) , TimeLiness = values(TimeLiness)
+        , DeleteName = values(DeleteName) , DeleteTime = values(DeleteTime) , TimeLiness = values(TimeLiness) ,
+        pg_sender = values(pg_sender) , pg_sender_phone = values(pg_sender_phone)
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
         update lms.fi_payment_goods
         <set>
+            <if test="waybillNumber != null and waybillNumber != ''">
+                waybill_number = #{waybillNumber},
+            </if>
             <if test="pgPayment != null">
                 pg_payment = #{pgPayment},
             </if>
@@ -144,8 +162,14 @@
             <if test="outletsId1 != null and outletsId1 != ''">
                 Outlets_Id1 = #{outletsId1},
             </if>
+            <if test="userName != null and userName != ''">
+                User_Name = #{userName},
+            </if>
             <if test="outletsId2 != null and outletsId2 != ''">
                 Outlets_Id2 = #{outletsId2},
+            </if>
+            <if test="pgState != null">
+                pg_state = #{pgState},
             </if>
             <if test="addname != null and addname != ''">
                 AddName = #{addname},
@@ -168,6 +192,12 @@
             <if test="timeliness != null">
                 TimeLiness = #{timeliness},
             </if>
+            <if test="pgSender != null and pgSender != ''">
+                pg_sender = #{pgSender},
+            </if>
+            <if test="pgSenderPhone != null and pgSenderPhone != ''">
+                pg_sender_phone = #{pgSenderPhone},
+            </if>
         </set>
         where pg_id = #{pgId}
     </update>
@@ -177,12 +207,12 @@
         delete from lms.fi_payment_goods where pg_id = #{pgId}
     </delete>
 
-<!--    根据运单查询-->
-    <select id="queryByWaybillId" resultType="com.logistics.entity.FiPaymentGoods">
-        select * from lms.fi_payment_goods where waybill_number = #{waybillNumber}
+    <!--    根据运单查询-->
+    <select id="queryByWaybillNumber" resultType="com.logistics.entity.FiPaymentGoods">
+    select * from lms.fi_payment_goods where waybill_number = #{waybillNumber}
     </select>
 
-<!--    点击发放-->
+    <!--    点击发放-->
     <update id="updateTimeliness">
         update lms.fi_payment_goods set TimeLiness = 1  where pg_id = #{PgId}
     </update>

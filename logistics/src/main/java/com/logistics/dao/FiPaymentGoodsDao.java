@@ -84,7 +84,7 @@ public interface FiPaymentGoodsDao {
     /**
      * 根据运单ID查询
      */
-    FiPaymentGoods queryByWaybillId(String waybillNumber);
+    FiPaymentGoods queryByWaybillNumber(String waybillNumber);
 
     /**
      * 点击发放

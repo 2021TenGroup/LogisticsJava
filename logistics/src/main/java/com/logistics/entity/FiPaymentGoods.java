@@ -1,5 +1,7 @@
 package com.logistics.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.io.Serializable;
 
@@ -7,10 +9,10 @@ import java.io.Serializable;
  * 代收货款表(FiPaymentGoods)实体类
  *
  * @author makejava
- * @since 2021-07-12 15:34:15
+ * @since 2021-07-13 04:58:49
  */
 public class FiPaymentGoods implements Serializable {
-    private static final long serialVersionUID = 633174883542818234L;
+    private static final long serialVersionUID = -48370970185985367L;
     /**
      * 代收货款ID
      */
@@ -54,6 +56,7 @@ public class FiPaymentGoods implements Serializable {
     /**
      * 增加时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date addtime;
     /**
      * 修改人
@@ -62,6 +65,7 @@ public class FiPaymentGoods implements Serializable {
     /**
      * 最后修改时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date updatetime;
     /**
      * 删除人
@@ -70,11 +74,20 @@ public class FiPaymentGoods implements Serializable {
     /**
      * 删除时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date deletetime;
     /**
      * 时效性
      */
     private Integer timeliness;
+    /**
+     * 客户姓名
+     */
+    private String pgSender;
+    /**
+     * 客户手机号
+     */
+    private String pgSenderPhone;
 
 
     public Integer getPgId() {
@@ -203,6 +216,22 @@ public class FiPaymentGoods implements Serializable {
 
     public void setTimeliness(Integer timeliness) {
         this.timeliness = timeliness;
+    }
+
+    public String getPgSender() {
+        return pgSender;
+    }
+
+    public void setPgSender(String pgSender) {
+        this.pgSender = pgSender;
+    }
+
+    public String getPgSenderPhone() {
+        return pgSenderPhone;
+    }
+
+    public void setPgSenderPhone(String pgSenderPhone) {
+        this.pgSenderPhone = pgSenderPhone;
     }
 
 }

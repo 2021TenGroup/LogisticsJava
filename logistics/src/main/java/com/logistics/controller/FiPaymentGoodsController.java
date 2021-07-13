@@ -2,6 +2,8 @@ package com.logistics.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.logistics.entity.DsSign;
+import com.logistics.entity.DsWaybillEntrt;
 import com.logistics.entity.FiPaymentGoods;
 import com.logistics.entity.result.Result;
 import com.logistics.entity.result.ResultCode;
@@ -46,6 +48,24 @@ public class FiPaymentGoodsController {
         List<FiPaymentGoods> list = fiPaymentGoodsService.queryAll(null);
         PageInfo<FiPaymentGoods> pageInfo = new PageInfo<>(list);
         return pageInfo;
+    }
+
+    /**
+     *  新增数据
+     *  当运单录入时，有代收货款，则新增代收货款记录
+     */
+    @PostMapping("/addFiPG/{oId}")
+    public void addFiPG(@PathVariable("oId") Integer oid, @RequestBody DsWaybillEntrt dsWaybillEntrt){
+        dsWaybillEntrt.setOId(oid);
+        fiPaymentGoodsService.addFiPG(dsWaybillEntrt);
+    }
+
+    /**
+     * 运单签收
+     */
+    @PutMapping("/updateUserName")
+    public int updateUserName(@RequestBody DsSign dsSign){
+        return fiPaymentGoodsService.updateUserName(dsSign);
     }
 
     /**

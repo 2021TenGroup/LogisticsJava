@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.logistics.dao.OutletsDao">
+
+    <resultMap type="com.logistics.entity.Outlets" id="OutletsMap">
+        <result property="outletsId" column="Outlets_Id" jdbcType="INTEGER"/>
+        <result property="outletsNumber" column="Outlets_Number" jdbcType="VARCHAR"/>
+        <result property="outletsName" column="Outlets_Name" jdbcType="VARCHAR"/>
+        <result property="outletsBelonging" column="Outlets_Belonging" jdbcType="INTEGER"/>
+        <result property="outletsPerson" column="Outlets_Person" jdbcType="VARCHAR"/>
+        <result property="outletsPhone" column="Outlets_Phone" jdbcType="INTEGER"/>
+        <result property="outletsProvince" column="Outlets_Province" jdbcType="VARCHAR"/>
+        <result property="outletsCity" column="Outlets_City" jdbcType="VARCHAR"/>
+        <result property="outletsRegion" column="Outlets_Region" jdbcType="VARCHAR"/>
+        <result property="outletsAddress" column="Outlets_Address" jdbcType="VARCHAR"/>
+        <result property="outletsRemarks" column="Outlets_Remarks" jdbcType="VARCHAR"/>
+        <result property="addname" column="AddName" jdbcType="VARCHAR"/>
+        <result property="addtime" column="ADDTIME" jdbcType="TIMESTAMP"/>
+        <result property="updatename" column="UpdateName" jdbcType="VARCHAR"/>
+        <result property="updatetime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+        <result property="deletename" column="DeleteName" jdbcType="VARCHAR"/>
+        <result property="deletetime" column="DeleteTime" jdbcType="TIMESTAMP"/>
+        <result property="timeliness" column="TimeLiness" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="OutletsMap">
+        select
+          Outlets_Id, Outlets_Number, Outlets_Name, Outlets_Belonging, Outlets_Person, Outlets_Phone, Outlets_Province, Outlets_City, Outlets_Region, Outlets_Address, Outlets_Remarks, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+        from lms.outlets
+        where Outlets_Id = #{outletsId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="OutletsMap">
+        select
+          Outlets_Id, Outlets_Number, Outlets_Name, Outlets_Belonging, Outlets_Person, Outlets_Phone, Outlets_Province, Outlets_City, Outlets_Region, Outlets_Address, Outlets_Remarks, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+        from lms.outlets
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="OutletsMap">
+        select
+        Outlets_Id, Outlets_Number, Outlets_Name, Outlets_Belonging, Outlets_Person, Outlets_Phone, Outlets_Province,
+        Outlets_City, Outlets_Region, Outlets_Address, Outlets_Remarks, AddName, ADDTIME, UpdateName, UpdateTime,
+        DeleteName, DeleteTime, TimeLiness
+        from lms.outlets
+        <where>
+            <if test="outletsId != null">
+                and Outlets_Id = #{outletsId}
+            </if>
+            <if test="outletsNumber != null and outletsNumber != ''">
+                and Outlets_Number = #{outletsNumber}
+            </if>
+            <if test="outletsName != null and outletsName != ''">
+                and Outlets_Name = #{outletsName}
+            </if>
+            <if test="outletsBelonging != null">
+                and Outlets_Belonging = #{outletsBelonging}
+            </if>
+            <if test="outletsPerson != null and outletsPerson != ''">
+                and Outlets_Person = #{outletsPerson}
+            </if>
+            <if test="outletsPhone != null">
+                and Outlets_Phone = #{outletsPhone}
+            </if>
+            <if test="outletsProvince != null and outletsProvince != ''">
+                and Outlets_Province = #{outletsProvince}
+            </if>
+            <if test="outletsCity != null and outletsCity != ''">
+                and Outlets_City = #{outletsCity}
+            </if>
+            <if test="outletsRegion != null and outletsRegion != ''">
+                and Outlets_Region = #{outletsRegion}
+            </if>
+            <if test="outletsAddress != null and outletsAddress != ''">
+                and Outlets_Address = #{outletsAddress}
+            </if>
+            <if test="outletsRemarks != null and outletsRemarks != ''">
+                and Outlets_Remarks = #{outletsRemarks}
+            </if>
+            <if test="addname != null and addname != ''">
+                and AddName = #{addname}
+            </if>
+            <if test="addtime != null">
+                and ADDTIME = #{addtime}
+            </if>
+            <if test="updatename != null and updatename != ''">
+                and UpdateName = #{updatename}
+            </if>
+            <if test="updatetime != null">
+                and UpdateTime = #{updatetime}
+            </if>
+            <if test="deletename != null and deletename != ''">
+                and DeleteName = #{deletename}
+            </if>
+            <if test="deletetime != null">
+                and DeleteTime = #{deletetime}
+            </if>
+            <if test="timeliness != null">
+                and TimeLiness = #{timeliness}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="outletsId" useGeneratedKeys="true">
+        insert into lms.outlets(Outlets_Number, Outlets_Name, Outlets_Belonging, Outlets_Person, Outlets_Phone, Outlets_Province, Outlets_City, Outlets_Region, Outlets_Address, Outlets_Remarks, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        values (#{outletsNumber}, #{outletsName}, #{outletsBelonging}, #{outletsPerson}, #{outletsPhone}, #{outletsProvince}, #{outletsCity}, #{outletsRegion}, #{outletsAddress}, #{outletsRemarks}, #{addname}, #{addtime}, #{updatename}, #{updatetime}, #{deletename}, #{deletetime}, #{timeliness})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="outletsId" useGeneratedKeys="true">
+        insert into lms.outlets(Outlets_Number, Outlets_Name, Outlets_Belonging, Outlets_Person, Outlets_Phone,
+        Outlets_Province, Outlets_City, Outlets_Region, Outlets_Address, Outlets_Remarks, AddName, ADDTIME, UpdateName,
+        UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.outletsNumber}, #{entity.outletsName}, #{entity.outletsBelonging}, #{entity.outletsPerson},
+            #{entity.outletsPhone}, #{entity.outletsProvince}, #{entity.outletsCity}, #{entity.outletsRegion},
+            #{entity.outletsAddress}, #{entity.outletsRemarks}, #{entity.addname}, #{entity.addtime},
+            #{entity.updatename}, #{entity.updatetime}, #{entity.deletename}, #{entity.deletetime},
+            #{entity.timeliness})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="outletsId" useGeneratedKeys="true">
+        insert into lms.outlets(Outlets_Number, Outlets_Name, Outlets_Belonging, Outlets_Person, Outlets_Phone,
+        Outlets_Province, Outlets_City, Outlets_Region, Outlets_Address, Outlets_Remarks, AddName, ADDTIME, UpdateName,
+        UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.outletsNumber}, #{entity.outletsName}, #{entity.outletsBelonging}, #{entity.outletsPerson},
+            #{entity.outletsPhone}, #{entity.outletsProvince}, #{entity.outletsCity}, #{entity.outletsRegion},
+            #{entity.outletsAddress}, #{entity.outletsRemarks}, #{entity.addname}, #{entity.addtime},
+            #{entity.updatename}, #{entity.updatetime}, #{entity.deletename}, #{entity.deletetime},
+            #{entity.timeliness})
+        </foreach>
+        on duplicate key update
+        Outlets_Number = values(Outlets_Number) , Outlets_Name = values(Outlets_Name) , Outlets_Belonging =
+        values(Outlets_Belonging) , Outlets_Person = values(Outlets_Person) , Outlets_Phone = values(Outlets_Phone) ,
+        Outlets_Province = values(Outlets_Province) , Outlets_City = values(Outlets_City) , Outlets_Region =
+        values(Outlets_Region) , Outlets_Address = values(Outlets_Address) , Outlets_Remarks = values(Outlets_Remarks) ,
+        AddName = values(AddName) , ADDTIME = values(ADDTIME) , UpdateName = values(UpdateName) , UpdateTime =
+        values(UpdateTime) , DeleteName = values(DeleteName) , DeleteTime = values(DeleteTime) , TimeLiness =
+        values(TimeLiness)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update lms.outlets
+        <set>
+            <if test="outletsNumber != null and outletsNumber != ''">
+                Outlets_Number = #{outletsNumber},
+            </if>
+            <if test="outletsName != null and outletsName != ''">
+                Outlets_Name = #{outletsName},
+            </if>
+            <if test="outletsBelonging != null">
+                Outlets_Belonging = #{outletsBelonging},
+            </if>
+            <if test="outletsPerson != null and outletsPerson != ''">
+                Outlets_Person = #{outletsPerson},
+            </if>
+            <if test="outletsPhone != null">
+                Outlets_Phone = #{outletsPhone},
+            </if>
+            <if test="outletsProvince != null and outletsProvince != ''">
+                Outlets_Province = #{outletsProvince},
+            </if>
+            <if test="outletsCity != null and outletsCity != ''">
+                Outlets_City = #{outletsCity},
+            </if>
+            <if test="outletsRegion != null and outletsRegion != ''">
+                Outlets_Region = #{outletsRegion},
+            </if>
+            <if test="outletsAddress != null and outletsAddress != ''">
+                Outlets_Address = #{outletsAddress},
+            </if>
+            <if test="outletsRemarks != null and outletsRemarks != ''">
+                Outlets_Remarks = #{outletsRemarks},
+            </if>
+            <if test="addname != null and addname != ''">
+                AddName = #{addname},
+            </if>
+            <if test="addtime != null">
+                ADDTIME = #{addtime},
+            </if>
+            <if test="updatename != null and updatename != ''">
+                UpdateName = #{updatename},
+            </if>
+            <if test="updatetime != null">
+                UpdateTime = #{updatetime},
+            </if>
+            <if test="deletename != null and deletename != ''">
+                DeleteName = #{deletename},
+            </if>
+            <if test="deletetime != null">
+                DeleteTime = #{deletetime},
+            </if>
+            <if test="timeliness != null">
+                TimeLiness = #{timeliness},
+            </if>
+        </set>
+        where Outlets_Id = #{outletsId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from lms.outlets where Outlets_Id = #{outletsId}
+    </delete>
+
+</mapper>
+
