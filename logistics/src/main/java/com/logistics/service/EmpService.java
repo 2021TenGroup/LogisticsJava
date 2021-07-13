@@ -1,14 +1,25 @@
 package com.logistics.service;
 
 import com.logistics.entity.Emp;
+<<<<<<< HEAD
+=======
+import com.logistics.vo.EmpVo;
+>>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
 
 import java.util.List;
 
 /**
+<<<<<<< HEAD
  * (Emp)表服务接口
  *
  * @author makejava
  * @since 2021-07-13 04:36:28
+=======
+ * (EmpVo)表服务接口
+ *
+ * @author makejava
+ * @since 2021-07-11 16:35:39
+>>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
  */
 public interface EmpService {
 
@@ -53,4 +64,14 @@ public interface EmpService {
      */
     boolean deleteById(Integer empId);
 
+<<<<<<< HEAD
+=======
+    List<EmpVo> selectAllEmps();
+
+    void addEmps(EmpVo empVo);
+
+    int updateEmps(EmpVo empVo);
+
+    int deleteByEmps(EmpVo empVo);
+>>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
 }

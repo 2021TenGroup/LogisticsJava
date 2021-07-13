@@ -1,5 +1,14 @@
 package com.logistics.entity;
 
+<<<<<<< HEAD
+=======
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import java.math.BigDecimal;
+>>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
 import java.util.Date;
 import java.io.Serializable;
 
@@ -7,11 +16,20 @@ import java.io.Serializable;
  * (Outlets)实体类
  *
  * @author makejava
+<<<<<<< HEAD
  * @since 2021-07-13 04:36:31
  */
 public class Outlets implements Serializable {
     private static final long serialVersionUID = -90485114195598503L;
 
+=======
+ * @since 2021-07-11 14:38:02
+ */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Outlets implements Serializable {
+>>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
     private Integer outletsId;
 
     private String outletsNumber;
@@ -48,6 +66,7 @@ public class Outlets implements Serializable {
 
     private Integer timeliness;
 
+<<<<<<< HEAD
 
     public Integer getOutletsId() {
         return outletsId;
@@ -193,4 +212,7 @@ public class Outlets implements Serializable {
         this.timeliness = timeliness;
     }
 
+=======
+    private static final long serialVersionUID = 1L;
+>>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
 }

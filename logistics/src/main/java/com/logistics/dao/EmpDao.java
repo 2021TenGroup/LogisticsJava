@@ -1,16 +1,27 @@
 package com.logistics.dao;
 
 import com.logistics.entity.Emp;
+<<<<<<< HEAD
+=======
+import com.logistics.vo.EmpVo;
+>>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
+<<<<<<< HEAD
  * (Emp)表数据库访问层
  *
  * @author makejava
  * @since 2021-07-13 04:36:28
+=======
+ * (EmpVo)表数据库访问层
+ *
+ * @author makejava
+ * @since 2021-07-11 16:35:38
+>>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
  */
 @Mapper
 public interface EmpDao {
@@ -44,15 +55,26 @@ public interface EmpDao {
     /**
      * 新增数据
      *
+<<<<<<< HEAD
      * @param emp 实例对象
      * @return 影响行数
      */
     int insert(Emp emp);
+=======
+     * @param empVo 实例对象
+     * @return 影响行数
+     */
+    int insert(EmpVo empVo);
+>>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
 
     /**
      * 批量新增数据（MyBatis原生foreach方法）
      *
+<<<<<<< HEAD
      * @param entities List<Emp> 实例对象列表
+=======
+     * @param entities List<EmpVo> 实例对象列表
+>>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
      * @return 影响行数
      */
     int insertBatch(@Param("entities") List<Emp> entities);
@@ -60,7 +82,11 @@ public interface EmpDao {
     /**
      * 批量新增或按主键更新数据（MyBatis原生foreach方法）
      *
+<<<<<<< HEAD
      * @param entities List<Emp> 实例对象列表
+=======
+     * @param entities List<EmpVo> 实例对象列表
+>>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
      * @return 影响行数
      */
     int insertOrUpdateBatch(@Param("entities") List<Emp> entities);
@@ -68,10 +94,17 @@ public interface EmpDao {
     /**
      * 修改数据
      *
+<<<<<<< HEAD
      * @param emp 实例对象
      * @return 影响行数
      */
     int update(Emp emp);
+=======
+     * @param empVo 实例对象
+     * @return 影响行数
+     */
+    int update(EmpVo empVo);
+>>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
 
     /**
      * 通过主键删除数据
@@ -81,5 +114,11 @@ public interface EmpDao {
      */
     int deleteById(Integer empId);
 
+<<<<<<< HEAD
+=======
+    List<EmpVo> selectAllEmps();
+
+    int deleteByEmps(EmpVo empVo);
+>>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
 }
 

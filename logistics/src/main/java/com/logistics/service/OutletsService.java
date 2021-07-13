@@ -1,7 +1,11 @@
 package com.logistics.service;
 
 import com.logistics.entity.Outlets;
+<<<<<<< HEAD
 import org.apache.ibatis.annotations.Mapper;
+=======
+import com.logistics.vo.OutletsVo;
+>>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
 
 import java.util.List;
 
@@ -9,9 +13,14 @@ import java.util.List;
  * (Outlets)表服务接口
  *
  * @author makejava
+<<<<<<< HEAD
  * @since 2021-07-13 04:36:31
  */
 @Mapper
+=======
+ * @since 2021-07-11 14:38:04
+ */
+>>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
 public interface OutletsService {
 
     /**
@@ -55,7 +64,22 @@ public interface OutletsService {
      */
     boolean deleteById(Integer outletsId);
 
+<<<<<<< HEAD
     //根据网点名称 获取网点信息
     Outlets queryByOutletsName(String outletsName);
 
+=======
+    /*
+    * 查询所有
+    * */
+    List<OutletsVo> selectAllOutlets();
+
+    void addOutlets(OutletsVo outletsVo);
+
+    int updateOutlets(OutletsVo outletsVo);
+
+    int delOutletsVo(OutletsVo outletsVo);
+
+    OutletsVo selectOutletsById(int id);
+>>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
 }
