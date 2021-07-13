@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.logistics.dao.OutletsDao">
+
     <resultMap type="com.logistics.vo.OutletsVo" id="OutletsMap">
         <id property="outletsId" column="Outlets_Id" jdbcType="INTEGER"/>
         <result property="outletsNumber" column="Outlets_Number" jdbcType="VARCHAR"/>
@@ -230,6 +231,11 @@
           TimeLiness = #{timeliness}
         where Outlets_Id = #{outletsId}
     </update>
+
+<!--    邓联文 根据网点名称查询网点信息-->
+    <select id="queryByOutletsName" resultType="com.logistics.entity.Outlets">
+        select * from outlets where Outlets_Name = #{outletsName}
+    </select>
 
 </mapper>
 

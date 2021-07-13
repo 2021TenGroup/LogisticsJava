@@ -1,9 +1,11 @@
 package com.logistics.service.impl;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.logistics.dao.FiRechargeDao;
 import com.logistics.entity.FiAdvancCharge;
 import com.logistics.dao.FiAdvancChargeDao;
+import com.logistics.entity.FiRecharge;
 import com.logistics.service.FiAdvancChargeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,70 +16,59 @@ import java.util.List;
  * 预付款表(FiAdvancCharge)表服务实现类
  *
  * @author makejava
- * @since 2021-07-12 17:45:06
+ * @since 2021-07-13 16:39:20
  */
-@Transactional
 @Service("fiAdvancChargeService")
-@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 public class FiAdvancChargeServiceImpl implements FiAdvancChargeService {
-    @Resource
-    private FiAdvancChargeDao fiAdvancChargeDao;
+
+    @Autowired
+    FiAdvancChargeDao fiAdvancChargeDao;
+
+    @Autowired
+    FiRechargeDao fiRechargeDao;
 
     /**
-     * 通过ID查询单条数据
-     *
-     * @param acId 主键
-     * @return 实例对象
+     * 查询所有预付款
      */
     @Override
-    public FiAdvancCharge queryById(Integer acId) {
-        return this.fiAdvancChargeDao.queryById(acId);
+    public List<FiAdvancCharge> findAllAdvance() {
+        List<FiAdvancCharge> list = fiAdvancChargeDao.findAllAdvance();
+        return list;
     }
 
     /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
-     * @return 对象列表
+     * 开账
      */
     @Override
-    public List<FiAdvancCharge> queryAllByLimit(int offset, int limit) {
-        return this.fiAdvancChargeDao.queryAllByLimit(offset, limit);
+    @Transactional
+    public int updateAdvance(FiAdvancCharge fiAdvancCharge) {
+        return fiAdvancChargeDao.updateAdvance(fiAdvancCharge);
     }
 
     /**
-     * 新增数据
-     *
-     * @param fiAdvancCharge 实例对象
-     * @return 实例对象
+     * 充值
      */
     @Override
-    public FiAdvancCharge insert(FiAdvancCharge fiAdvancCharge) {
-        this.fiAdvancChargeDao.insert(fiAdvancCharge);
-        return fiAdvancCharge;
+    @Transactional
+    public void addAdvance(FiRecharge fiRecharge) {
+        fiRecharge.setTimeliness(0);
+        fiRechargeDao.addAdvance(fiRecharge);
+        fiAdvancChargeDao.updateReMoney(fiRecharge.getReNetwork(),fiRecharge.getReMoney());
     }
 
     /**
-     * 修改数据
-     *
-     * @param fiAdvancCharge 实例对象
-     * @return 实例对象
+     * 充值记录
      */
     @Override
-    public FiAdvancCharge update(FiAdvancCharge fiAdvancCharge) {
-        this.fiAdvancChargeDao.update(fiAdvancCharge);
-        return this.queryById(fiAdvancCharge.getAcId());
+    public List<FiRecharge> findAllRecharge() {
+        List<FiRecharge> list = fiRechargeDao.findAllRecharge();
+        return list;
     }
 
-    /**
-     * 通过主键删除数据
-     *
-     * @param acId 主键
-     * @return 是否成功
-     */
+    //邓联文 根据网点ID查询预付款信息
     @Override
-    public boolean deleteById(Integer acId) {
-        return this.fiAdvancChargeDao.deleteById(acId) > 0;
+    public FiAdvancCharge queryByOutletsId(Integer outletsId){
+        return fiAdvancChargeDao.queryByOutletsId(outletsId);
     }
+
 }

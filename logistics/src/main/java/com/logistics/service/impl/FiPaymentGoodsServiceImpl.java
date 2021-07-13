@@ -7,7 +7,10 @@ import com.logistics.dao.OrdersDao;
 import com.logistics.dao.OutletsDao;
 import com.logistics.entity.*;
 import com.logistics.service.DsWaybillEntrtService;
+import com.logistics.service.FiAdvancChargeService;
 import com.logistics.service.FiPaymentGoodsService;
+import com.logistics.service.OrdersService;
+import com.logistics.vo.EmpVo;
 import com.logistics.vo.OutletsVo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +39,8 @@ public class FiPaymentGoodsServiceImpl implements FiPaymentGoodsService {
     private EmpDao empDao;
     @Resource
     private DsWaybillEntrtService dsWaybillEntrtService;
+    @Resource
+    private FiAdvancChargeService fiAdvancChargeService;
 
     /**
      * 通过ID查询单条数据
@@ -122,8 +127,9 @@ public class FiPaymentGoodsServiceImpl implements FiPaymentGoodsService {
 
         fiPaymentGoods.setPgActualMoney(paymentGoods-serviceMoney);   //实发给客户的金额
 
-        Emp emp = empDao.queryById(orders.getEmpId());       //首网点
-        OutletsVo outletsVo = outletsDao.queryById(emp.getOutletsId());
+        System.out.println("orders.getEmpId():"+orders.getEmpId());
+        EmpVo empVo = empDao.queryById(orders.getEmpId());       //首网点
+        OutletsVo outletsVo = outletsDao.queryById(empVo.getOutletsId());
         fiPaymentGoods.setOutletsId1(outletsVo.getOutletsName());
 
         outletsVo = outletsDao.queryById(orders.getOutletsId());  //末网点
@@ -149,12 +155,28 @@ public class FiPaymentGoodsServiceImpl implements FiPaymentGoodsService {
         FiPaymentGoods fiPaymentGoods = fiPaymentGoodsDao.queryByWaybillNumber(dsWaybillEntrt.getWaybillNumber());      //根据运单ID查询代收货款表
         if(fiPaymentGoods != null){
             Integer empID = dsSign.getEmpId();    //获取 运单签收表 员工ID
-            Emp emp = empDao.queryById(empID);
-            fiPaymentGoods.setUserName(emp.getUserName());
+            EmpVo empVo = empDao.queryById(empID);
+            fiPaymentGoods.setUserName(empVo.getUserName());
             fiPaymentGoods.setAddtime(new Date());
+
+            Orders orders = ordersDao.queryById(dsWaybillEntrt.getOId());
+
+            FiAdvancCharge fiAdvancCharge = fiAdvancChargeService.queryByOutletsId(1);       //根据网点ID 获取预付款表信息
+            double oldMoney = fiAdvancCharge.getAcBalance();
+            double money = orders.getPaymentForGoods();        //代收款
+            double newMoney = oldMoney + money;
+            fiAdvancCharge.setAcBalance(newMoney);
+            System.out.println("===========fiAdvancCharge:"+fiAdvancCharge);
+            fiAdvancChargeService.updateAdvance(fiAdvancCharge);    //修改预付款表中的余额
+
+
+
             return fiPaymentGoodsDao.update(fiPaymentGoods);
+
         }
+
         return 0;
+
     }
 
     /**
@@ -163,7 +185,17 @@ public class FiPaymentGoodsServiceImpl implements FiPaymentGoodsService {
      */
     @Override
     public int updateTimeLiness(FiPaymentGoods fiPaymentGoods){
-        return fiPaymentGoodsDao.updateTimeliness(fiPaymentGoods.getPgId());
+
+        String waybillNumber = fiPaymentGoods.getWaybillNumber();
+        FiPaymentGoods fiPaymentGoods1 = fiPaymentGoodsDao.queryByWaybillNumber(waybillNumber);
+
+        FiAdvancCharge fiAdvancCharge = fiAdvancChargeService.queryByOutletsId(1);       //根据网点ID 获取预付款表信息
+        double oldmoney = fiAdvancCharge.getAcBalance();
+        double money = fiPaymentGoods1.getPgActualMoney();       //应发金额
+        double newmoney = oldmoney - money;
+        fiAdvancCharge.setAcBalance(newmoney);
+        fiAdvancChargeService.updateAdvance(fiAdvancCharge);    //修改预付款表中的余额
+        return fiPaymentGoodsDao.updateTimeliness(waybillNumber);
     }
 
 }

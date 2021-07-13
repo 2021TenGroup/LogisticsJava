@@ -66,4 +66,8 @@ public interface OutletsService {
     int delOutletsVo(OutletsVo outletsVo);
 
     OutletsVo selectOutletsById(int id);
+
+    //邓联文 根据网点名称查询网点信息
+    Outlets queryByOutletsName(String outletsName);
+
 }

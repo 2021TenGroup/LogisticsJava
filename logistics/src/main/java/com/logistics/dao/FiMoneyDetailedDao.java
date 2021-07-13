@@ -82,4 +82,3 @@ public interface FiMoneyDetailedDao {
     int deleteById(Integer mdId);
 
 }
-

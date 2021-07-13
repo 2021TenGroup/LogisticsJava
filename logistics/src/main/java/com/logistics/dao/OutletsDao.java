@@ -13,6 +13,7 @@ import java.util.List;
  * @author makejava
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
  * @since 2021-07-13 04:36:31
 =======
  * @since 2021-07-11 14:38:03
@@ -20,6 +21,9 @@ import java.util.List;
 =======
  * @since 2021-07-11 14:38:03
 >>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
+=======
+ * @since 2021-07-11 14:38:03
+>>>>>>> f9cbb3f7e7c32e73ee0c5dd82fb094f55652b9f4
  */
 @Mapper
 public interface OutletsDao {
@@ -96,5 +100,9 @@ public interface OutletsDao {
     List<OutletsVo> selectAllOutlets();
 
     int deleteByOutlets(OutletsVo outletsVo);
+
+    //邓联文 根据网点名称查询网点信息
+    Outlets queryByOutletsName(String outletsName);
+
 }
 

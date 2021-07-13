@@ -110,15 +110,12 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.62</version>
-<<<<<<< HEAD
-=======
         </dependency>
         <dependency>
             <groupId>net.sf.dozer</groupId>
             <artifactId>dozer</artifactId>
             <version>5.4.0</version>
             <scope>compile</scope>
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
         </dependency>
         <dependency>
             <groupId>net.sf.dozer</groupId>

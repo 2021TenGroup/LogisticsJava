@@ -90,7 +90,6 @@ public interface FiPaymentGoodsDao {
      * 点击发放
      * 改变时效性，1则不可以再发放
      */
-    int updateTimeliness(@Param("PgId") Integer PgId);
+    int updateTimeliness(@Param("waybillNumber") String waybillNumber);
 
 }
-

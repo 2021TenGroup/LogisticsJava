@@ -71,4 +71,11 @@ public class OutletsServiceImpl implements OutletsService {
     public OutletsVo selectOutletsById(int id) {
         return outletsDao.queryById(id);
     }
+
+    //邓联文 根据网点名称查询网点信息
+    @Override
+    public Outlets queryByOutletsName(String outletsName){
+        return outletsDao.queryByOutletsName(outletsName);
+    }
+
 }

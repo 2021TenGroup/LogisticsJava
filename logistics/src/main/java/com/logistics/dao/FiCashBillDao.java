@@ -84,4 +84,3 @@ public interface FiCashBillDao {
     FiCashBill queryByWaybillNumber(String waybillNumber);
 
 }
-

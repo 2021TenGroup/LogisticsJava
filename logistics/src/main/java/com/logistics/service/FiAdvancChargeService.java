@@ -1,6 +1,7 @@
 package com.logistics.service;
 
 import com.logistics.entity.FiAdvancCharge;
+import com.logistics.entity.FiRecharge;
 
 import java.util.List;
 
@@ -8,49 +9,31 @@ import java.util.List;
  * 预付款表(FiAdvancCharge)表服务接口
  *
  * @author makejava
- * @since 2021-07-12 17:45:06
+ * @since 2021-07-13 16:39:20
  */
 public interface FiAdvancChargeService {
 
     /**
-     * 通过ID查询单条数据
-     *
-     * @param acId 主键
-     * @return 实例对象
+     * 查询所有预付款
      */
-    FiAdvancCharge queryById(Integer acId);
+    List<FiAdvancCharge> findAllAdvance();
 
     /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
-     * @return 对象列表
+     * 开账
      */
-    List<FiAdvancCharge> queryAllByLimit(int offset, int limit);
+    int updateAdvance(FiAdvancCharge fiAdvancCharge);
 
     /**
-     * 新增数据
-     *
-     * @param fiAdvancCharge 实例对象
-     * @return 实例对象
+     * 充值
      */
-    FiAdvancCharge insert(FiAdvancCharge fiAdvancCharge);
+    void addAdvance(FiRecharge fiRecharge);
 
     /**
-     * 修改数据
-     *
-     * @param fiAdvancCharge 实例对象
-     * @return 实例对象
+     * 充值记录
      */
-    FiAdvancCharge update(FiAdvancCharge fiAdvancCharge);
+    List<FiRecharge> findAllRecharge();
 
-    /**
-     * 通过主键删除数据
-     *
-     * @param acId 主键
-     * @return 是否成功
-     */
-    boolean deleteById(Integer acId);
+    //邓联文 根据网点ID查询预付款信息
+    FiAdvancCharge queryByOutletsId(Integer outletsId);
 
 }

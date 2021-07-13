@@ -35,7 +35,7 @@ public interface EmpDao {
      * @param empId 主键
      * @return 实例对象
      */
-    Emp queryById(Integer empId);
+    EmpVo queryById(Integer empId);
 
     /**
      * 查询指定行数据

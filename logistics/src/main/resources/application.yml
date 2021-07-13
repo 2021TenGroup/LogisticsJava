@@ -34,7 +34,7 @@ mybatis:
   #  全局配置文件
   #  config-location: classpath:mybatis/mybatis-config.xml
   #  sql映射文件
-  mapper-locations: classpath:mapper/*.xml
+  mapper-locations: classpath:/mapper/**/*.xml
   #  写了这个配置就不用写全局配置文件了
   configuration:
     map-underscore-to-camel-case: true
@@ -44,3 +44,4 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countS
+

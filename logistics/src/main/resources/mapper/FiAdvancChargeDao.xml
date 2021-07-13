@@ -16,6 +16,28 @@
         <result property="deletename" column="DeleteName" jdbcType="VARCHAR"/>
         <result property="deletetime" column="DeleteTime" jdbcType="TIMESTAMP"/>
         <result property="timeliness" column="TimeLiness" jdbcType="INTEGER"/>
+
+        <association property="outletsVo" javaType="com.logistics.vo.OutletsVo">
+            <id property="outletsId" column="Outlets_Id"/>
+            <result property="outletsNumber" column="Outlets_Number"/>
+            <result property="outletsName" column="Outlets_Name"/>
+            <result property="outletsBelonging" column="Outlets_Belonging"/>
+            <result property="outletsPerson" column="Outlets_Person"/>
+            <result property="outletsPhone" column="Outlets_Phone"/>
+            <result property="outletsProvince" column="Outlets_Province"/>
+            <result property="outletsCity" column="Outlets_City"/>
+            <result property="outletsRegion" column="Outlets_Region"/>
+            <result property="outletsAddress" column="Outlets_Address"/>
+            <result property="outletsRemarks" column="Outlets_Remarks"/>
+            <result property="addname" column="AddName"/>
+            <result property="addtime" column="AddTime"/>
+            <result property="updatename" column="UpdateName"/>
+            <result property="updatetime" column="UpdateTime"/>
+            <result property="deletename" column="DeleteName"/>
+            <result property="deletetime" column="DeleteTime"/>
+            <result property="timeliness" column="TimeLiness"/>
+        </association>
+
     </resultMap>
 
     <!--查询单个-->
@@ -164,6 +186,71 @@
     <delete id="deleteById">
         delete from lms.fi_advanc_charge where ac_id = #{acId}
     </delete>
+
+
+
+
+    <select id="findAllAdvance" resultMap="FiAdvancChargeMap">
+    SELECT ac.*,o.*
+    FROM fi_advanc_charge ac
+           inner join outlets o on ac.Outlets_Id = o.Outlets_Id
+    WHERE ac.TimeLiness = 0
+  </select>
+
+    <update id="updateAdvance" parameterType="com.logistics.entity.FiAdvancCharge">
+        update fi_advanc_charge
+        <set>
+            <if test="outletsId != null">
+                Outlets_Id = #{outletsId,jdbcType=INTEGER},
+            </if>
+            <if test="acBalance != null">
+                ac_balance = #{acBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="acAlertBalance != null">
+                ac_alert_balance = #{acAlertBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="acCloseBalance != null">
+                ac_close_balance = #{acCloseBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="acState != null">
+                ac_state = #{acState,jdbcType=INTEGER},
+            </if>
+            <if test="addname != null">
+                AddName = #{addname,jdbcType=VARCHAR},
+            </if>
+            <if test="addtime != null">
+                ADDTIME = #{addtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatename != null">
+                UpdateName = #{updatename,jdbcType=VARCHAR},
+            </if>
+            <if test="updatetime != null">
+                UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deletename != null">
+                DeleteName = #{deletename,jdbcType=VARCHAR},
+            </if>
+            <if test="deletetime != null">
+                DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="timeliness != null">
+                TimeLiness = #{timeliness,jdbcType=INTEGER},
+            </if>
+        </set>
+        where ac_id = #{acId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateReMoney">
+    update fi_advanc_charge
+    set ac_balance = #{acBalance} + ac_balance
+    where Outlets_Id = #{outletsId}
+  </update>
+
+<!--    邓联文 根据网点ID查询预付款信息-->
+    <select id="queryByOutletsId" resultType="com.logistics.entity.FiAdvancCharge">
+        select * from fi_advanc_charge ac where Outlets_Id = #{outletsId}
+    </select>
+
 
 </mapper>
 

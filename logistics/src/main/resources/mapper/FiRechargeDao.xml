@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.logistics.dao.FiRechargeDao">
+  <resultMap id="BaseResultMap" type="com.logistics.entity.FiRecharge">
+    <id column="re_id" jdbcType="INTEGER" property="reId" />
+    <result column="Outlets_Id" jdbcType="INTEGER" property="outletsId" />
+    <result column="re_network" jdbcType="INTEGER" property="reNetwork" />
+    <result column="re_type" jdbcType="INTEGER" property="reType" />
+    <result column="re_money" jdbcType="DECIMAL" property="reMoney" />
+    <result column="re_remarks" jdbcType="VARCHAR" property="reRemarks" />
+    <result column="AddName" jdbcType="VARCHAR" property="addname" />
+    <result column="ADDTIME" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="UpdateName" jdbcType="VARCHAR" property="updatename" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeliness" />
+    <result column="Emp_Id" jdbcType="INTEGER" property="empId" />
+
+    <association property="outletsVo" javaType="com.logistics.vo.OutletsVo">
+      <id property="outletsId" column="Outlets_Id"/>
+      <result property="outletsNumber" column="Outlets_Number"/>
+      <result property="outletsName" column="Outlets_Name"/>
+      <result property="outletsBelonging" column="Outlets_Belonging"/>
+      <result property="outletsPerson" column="Outlets_Person"/>
+      <result property="outletsPhone" column="Outlets_Phone"/>
+      <result property="outletsProvince" column="Outlets_Province"/>
+      <result property="outletsCity" column="Outlets_City"/>
+      <result property="outletsRegion" column="Outlets_Region"/>
+      <result property="outletsAddress" column="Outlets_Address"/>
+      <result property="outletsRemarks" column="Outlets_Remarks"/>
+      <result property="addname" column="AddName"/>
+      <result property="addtime" column="AddTime"/>
+      <result property="updatename" column="UpdateName"/>
+      <result property="updatetime" column="UpdateTime"/>
+      <result property="deletename" column="DeleteName"/>
+      <result property="deletetime" column="DeleteTime"/>
+      <result property="timeliness" column="TimeLiness"/>
+    </association>
+
+  </resultMap>
+  <sql id="Base_Column_List">
+    re_id, Outlets_Id, re_network, re_type, re_money, re_remarks, AddName, ADDTIME, UpdateName, 
+    UpdateTime, DeleteName, DeleteTime, TimeLiness, Emp_Id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from fi_recharge
+    where re_id = #{reId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from fi_recharge
+    where re_id = #{reId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="re_id" keyProperty="reId" parameterType="com.logistics.entity.FiRecharge" useGeneratedKeys="true">
+    insert into fi_recharge (Outlets_Id, re_network, re_type,
+                             re_money, re_remarks, AddName,
+                             ADDTIME, UpdateName, UpdateTime,
+                             DeleteName, DeleteTime, TimeLiness,
+                             Emp_Id)
+    values (#{outletsId,jdbcType=INTEGER}, #{reNetwork,jdbcType=INTEGER}, #{reType,jdbcType=INTEGER},
+            #{reMoney,jdbcType=DECIMAL}, #{reRemarks,jdbcType=VARCHAR}, #{addname,jdbcType=VARCHAR},
+            #{addtime,jdbcType=TIMESTAMP}, #{updatename,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP},
+            #{deletename,jdbcType=VARCHAR}, #{deletetime,jdbcType=TIMESTAMP}, #{timeliness,jdbcType=INTEGER},
+            #{empId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="re_id" keyProperty="reId" parameterType="com.logistics.entity.FiRecharge" useGeneratedKeys="true">
+    insert into fi_recharge
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="outletsId != null">
+        Outlets_Id,
+      </if>
+      <if test="reNetwork != null">
+        re_network,
+      </if>
+      <if test="reType != null">
+        re_type,
+      </if>
+      <if test="reMoney != null">
+        re_money,
+      </if>
+      <if test="reRemarks != null">
+        re_remarks,
+      </if>
+      <if test="addname != null">
+        AddName,
+      </if>
+      <if test="addtime != null">
+        ADDTIME,
+      </if>
+      <if test="updatename != null">
+        UpdateName,
+      </if>
+      <if test="updatetime != null">
+        UpdateTime,
+      </if>
+      <if test="deletename != null">
+        DeleteName,
+      </if>
+      <if test="deletetime != null">
+        DeleteTime,
+      </if>
+      <if test="timeliness != null">
+        TimeLiness,
+      </if>
+      <if test="empId != null">
+        Emp_Id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="outletsId != null">
+        #{outletsId,jdbcType=INTEGER},
+      </if>
+      <if test="reNetwork != null">
+        #{reNetwork,jdbcType=INTEGER},
+      </if>
+      <if test="reType != null">
+        #{reType,jdbcType=INTEGER},
+      </if>
+      <if test="reMoney != null">
+        #{reMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="reRemarks != null">
+        #{reRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="addname != null">
+        #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatename != null">
+        #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        #{timeliness,jdbcType=INTEGER},
+      </if>
+      <if test="empId != null">
+        #{empId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.logistics.entity.FiRecharge">
+    update fi_recharge
+    <set>
+      <if test="outletsId != null">
+        Outlets_Id = #{outletsId,jdbcType=INTEGER},
+      </if>
+      <if test="reNetwork != null">
+        re_network = #{reNetwork,jdbcType=INTEGER},
+      </if>
+      <if test="reType != null">
+        re_type = #{reType,jdbcType=INTEGER},
+      </if>
+      <if test="reMoney != null">
+        re_money = #{reMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="reRemarks != null">
+        re_remarks = #{reRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="addname != null">
+        AddName = #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        ADDTIME = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatename != null">
+        UpdateName = #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        DeleteName = #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        TimeLiness = #{timeliness,jdbcType=INTEGER},
+      </if>
+      <if test="empId != null">
+        Emp_Id = #{empId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where re_id = #{reId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.logistics.entity.FiRecharge">
+    update fi_recharge
+    set Outlets_Id = #{outletsId,jdbcType=INTEGER},
+        re_network = #{reNetwork,jdbcType=INTEGER},
+        re_type = #{reType,jdbcType=INTEGER},
+        re_money = #{reMoney,jdbcType=DECIMAL},
+        re_remarks = #{reRemarks,jdbcType=VARCHAR},
+        AddName = #{addname,jdbcType=VARCHAR},
+        ADDTIME = #{addtime,jdbcType=TIMESTAMP},
+        UpdateName = #{updatename,jdbcType=VARCHAR},
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+        DeleteName = #{deletename,jdbcType=VARCHAR},
+        DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+        TimeLiness = #{timeliness,jdbcType=INTEGER},
+        Emp_Id = #{empId,jdbcType=INTEGER}
+    where re_id = #{reId,jdbcType=INTEGER}
+  </update>
+
+  <insert id="addAdvance" keyColumn="re_id" keyProperty="reId" parameterType="com.logistics.entity.FiRecharge" useGeneratedKeys="true">
+    insert into fi_recharge
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="outletsId != null">
+        Outlets_Id,
+      </if>
+      <if test="reNetwork != null">
+        re_network,
+      </if>
+      <if test="reType != null">
+        re_type,
+      </if>
+      <if test="reMoney != null">
+        re_money,
+      </if>
+      <if test="reRemarks != null">
+        re_remarks,
+      </if>
+      <if test="addname != null">
+        AddName,
+      </if>
+      <if test="addtime != null">
+        ADDTIME,
+      </if>
+      <if test="updatename != null">
+        UpdateName,
+      </if>
+      <if test="updatetime != null">
+        UpdateTime,
+      </if>
+      <if test="deletename != null">
+        DeleteName,
+      </if>
+      <if test="deletetime != null">
+        DeleteTime,
+      </if>
+      <if test="timeliness != null">
+        TimeLiness,
+      </if>
+      <if test="empId != null">
+        Emp_Id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="outletsId != null">
+        #{outletsId,jdbcType=INTEGER},
+      </if>
+      <if test="reNetwork != null">
+        #{reNetwork,jdbcType=INTEGER},
+      </if>
+      <if test="reType != null">
+        #{reType,jdbcType=INTEGER},
+      </if>
+      <if test="reMoney != null">
+        #{reMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="reRemarks != null">
+        #{reRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="addname != null">
+        #{addname,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatename != null">
+        #{updatename,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletename != null">
+        #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        #{timeliness,jdbcType=INTEGER},
+      </if>
+      <if test="empId != null">
+        #{empId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="findAllRecharge" resultMap="BaseResultMap">
+    SELECT r.*,o.*
+    FROM fi_recharge r
+           inner join outlets o on r.Outlets_Id = o.Outlets_Id
+    WHERE r.TimeLiness = 0
+  </select>
+</mapper>

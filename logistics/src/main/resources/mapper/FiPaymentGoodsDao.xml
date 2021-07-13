@@ -214,8 +214,7 @@
 
     <!--    点击发放-->
     <update id="updateTimeliness">
-        update lms.fi_payment_goods set TimeLiness = 1  where pg_id = #{PgId}
+        update lms.fi_payment_goods set pg_state = 1  where waybill_number = #{waybillNumber}
     </update>
 
 </mapper>
-

@@ -4,13 +4,14 @@ import com.logistics.entity.FiAdvancCharge;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
  * 预付款表(FiAdvancCharge)表数据库访问层
  *
  * @author makejava
- * @since 2021-07-12 17:45:06
+ * @since 2021-07-13 16:39:20
  */
 @Mapper
 public interface FiAdvancChargeDao {
@@ -80,6 +81,24 @@ public interface FiAdvancChargeDao {
      * @return 影响行数
      */
     int deleteById(Integer acId);
+
+    /**
+     * 查询所有预付款
+     */
+    List<FiAdvancCharge> findAllAdvance();
+
+    /**
+     * 开账
+     */
+    int updateAdvance(FiAdvancCharge fiAdvancCharge);
+
+    /**
+     * 修改账户金额
+     */
+    void updateReMoney(@Param("outletsId") int outletsId,@Param("acBalance") BigDecimal acBalance);
+
+    //邓联文 根据网点ID查询预付款信息
+    FiAdvancCharge queryByOutletsId(Integer outletsId);
 
 }
 
