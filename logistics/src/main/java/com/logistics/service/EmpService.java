@@ -61,5 +61,4 @@ public interface EmpService {
     int updateEmps(EmpVo empVo);
 
     int deleteByEmps(EmpVo empVo);
-
 }

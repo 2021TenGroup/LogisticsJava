@@ -71,5 +71,4 @@ public class OutletsServiceImpl implements OutletsService {
     public OutletsVo selectOutletsById(int id) {
         return outletsDao.queryById(id);
     }
-
 }

@@ -59,5 +59,4 @@ public class Emp implements Serializable {
     private Outlets outlets;
     private PerPosition perPosition;
     private static final long serialVersionUID = 1L;
-
 }

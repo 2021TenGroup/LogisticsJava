@@ -19,7 +19,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Outlets implements Serializable {
-
     private Integer outletsId;
 
     private String outletsNumber;
@@ -57,5 +56,4 @@ public class Outlets implements Serializable {
     private Integer timeliness;
 
     private static final long serialVersionUID = 1L;
-
 }

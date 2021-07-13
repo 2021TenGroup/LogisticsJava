@@ -69,5 +69,4 @@ public class EmpController {
         empService.deleteByEmps(empVo);
         return AjaxResponse.success(empVo);
     }
-
 }

@@ -9,15 +9,21 @@ import java.util.List;
 
 /**
 <<<<<<< HEAD
+<<<<<<< HEAD
  * (Emp)表数据库访问层
  *
  * @author makejava
  * @since 2021-07-13 04:36:28
 =======
+=======
+>>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
  * (EmpVo)表数据库访问层
  *
  * @author makejava
  * @since 2021-07-11 16:35:38
+<<<<<<< HEAD
+>>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
+=======
 >>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
  */
 @Mapper
@@ -92,6 +98,5 @@ public interface EmpDao {
     List<EmpVo> selectAllEmps();
 
     int deleteByEmps(EmpVo empVo);
-
 }
 

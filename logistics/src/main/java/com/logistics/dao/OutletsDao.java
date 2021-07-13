@@ -12,7 +12,11 @@ import java.util.List;
  *
  * @author makejava
 <<<<<<< HEAD
+<<<<<<< HEAD
  * @since 2021-07-13 04:36:31
+=======
+ * @since 2021-07-11 14:38:03
+>>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
 =======
  * @since 2021-07-11 14:38:03
 >>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
@@ -92,6 +96,5 @@ public interface OutletsDao {
     List<OutletsVo> selectAllOutlets();
 
     int deleteByOutlets(OutletsVo outletsVo);
-
 }
 

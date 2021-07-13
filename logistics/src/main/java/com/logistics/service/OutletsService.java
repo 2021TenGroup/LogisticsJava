@@ -66,5 +66,4 @@ public interface OutletsService {
     int delOutletsVo(OutletsVo outletsVo);
 
     OutletsVo selectOutletsById(int id);
-
 }
