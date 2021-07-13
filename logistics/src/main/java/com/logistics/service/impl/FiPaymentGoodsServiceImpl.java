@@ -8,6 +8,7 @@ import com.logistics.dao.OutletsDao;
 import com.logistics.entity.*;
 import com.logistics.service.DsWaybillEntrtService;
 import com.logistics.service.FiPaymentGoodsService;
+import com.logistics.vo.OutletsVo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -122,11 +123,11 @@ public class FiPaymentGoodsServiceImpl implements FiPaymentGoodsService {
         fiPaymentGoods.setPgActualMoney(paymentGoods-serviceMoney);   //实发给客户的金额
 
         Emp emp = empDao.queryById(orders.getEmpId());       //首网点
-        Outlets outlets = outletsDao.queryById(emp.getOutletsId());
-        fiPaymentGoods.setOutletsId1(outlets.getOutletsName());
+        OutletsVo outletsVo = outletsDao.queryById(emp.getOutletsId());
+        fiPaymentGoods.setOutletsId1(outletsVo.getOutletsName());
 
-        outlets = outletsDao.queryById(orders.getOutletsId());  //末网点
-        fiPaymentGoods.setOutletsId2(outlets.getOutletsName());
+        outletsVo = outletsDao.queryById(orders.getOutletsId());  //末网点
+        fiPaymentGoods.setOutletsId2(outletsVo.getOutletsName());
 
         fiPaymentGoods.setPgSender(orders.getSender());   //获取寄件人姓名
 

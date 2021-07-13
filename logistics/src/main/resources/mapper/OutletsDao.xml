@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.logistics.dao.OutletsDao">
-<<<<<<< HEAD
-
-    <resultMap type="com.logistics.entity.Outlets" id="OutletsMap">
-        <result property="outletsId" column="Outlets_Id" jdbcType="INTEGER"/>
-=======
     <resultMap type="com.logistics.vo.OutletsVo" id="OutletsMap">
         <id property="outletsId" column="Outlets_Id" jdbcType="INTEGER"/>
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
         <result property="outletsNumber" column="Outlets_Number" jdbcType="VARCHAR"/>
         <result property="outletsName" column="Outlets_Name" jdbcType="VARCHAR"/>
         <result property="outletsBelonging" column="Outlets_Belonging" jdbcType="INTEGER"/>
@@ -20,11 +14,7 @@
         <result property="outletsAddress" column="Outlets_Address" jdbcType="VARCHAR"/>
         <result property="outletsRemarks" column="Outlets_Remarks" jdbcType="VARCHAR"/>
         <result property="addname" column="AddName" jdbcType="VARCHAR"/>
-<<<<<<< HEAD
-        <result property="addtime" column="ADDTIME" jdbcType="TIMESTAMP"/>
-=======
         <result property="addtime" column="AddTime" jdbcType="TIMESTAMP"/>
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
         <result property="updatename" column="UpdateName" jdbcType="VARCHAR"/>
         <result property="updatetime" column="UpdateTime" jdbcType="TIMESTAMP"/>
         <result property="deletename" column="DeleteName" jdbcType="VARCHAR"/>
@@ -32,12 +22,6 @@
         <result property="timeliness" column="TimeLiness" jdbcType="INTEGER"/>
     </resultMap>
 
-<<<<<<< HEAD
-    <!--查询单个-->
-    <select id="queryById" resultMap="OutletsMap">
-        select
-          Outlets_Id, Outlets_Number, Outlets_Name, Outlets_Belonging, Outlets_Person, Outlets_Phone, Outlets_Province, Outlets_City, Outlets_Region, Outlets_Address, Outlets_Remarks, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
-=======
     <sql id="Base_Column_List">
           Outlets_Id, Outlets_Number, Outlets_Name, Outlets_Belonging, Outlets_Person, Outlets_Phone, Outlets_Province, Outlets_City, Outlets_Region, Outlets_Address, Outlets_Remarks, AddName, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
     </sql>
@@ -54,7 +38,6 @@
     <select id="queryById" resultMap="OutletsMap">
         select
           Outlets_Id, Outlets_Number, Outlets_Name, Outlets_Belonging, Outlets_Person, Outlets_Phone, Outlets_Province, Outlets_City, Outlets_Region, Outlets_Address, Outlets_Remarks, AddName, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
         from lms.outlets
         where Outlets_Id = #{outletsId}
     </select>
@@ -62,11 +45,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="OutletsMap">
         select
-<<<<<<< HEAD
-          Outlets_Id, Outlets_Number, Outlets_Name, Outlets_Belonging, Outlets_Person, Outlets_Phone, Outlets_Province, Outlets_City, Outlets_Region, Outlets_Address, Outlets_Remarks, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
-=======
           Outlets_Id, Outlets_Number, Outlets_Name, Outlets_Belonging, Outlets_Person, Outlets_Phone, Outlets_Province, Outlets_City, Outlets_Region, Outlets_Address, Outlets_Remarks, AddName, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
         from lms.outlets
         limit #{offset}, #{limit}
     </select>
@@ -75,11 +54,7 @@
     <select id="queryAll" resultMap="OutletsMap">
         select
         Outlets_Id, Outlets_Number, Outlets_Name, Outlets_Belonging, Outlets_Person, Outlets_Phone, Outlets_Province,
-<<<<<<< HEAD
-        Outlets_City, Outlets_Region, Outlets_Address, Outlets_Remarks, AddName, ADDTIME, UpdateName, UpdateTime,
-=======
         Outlets_City, Outlets_Region, Outlets_Address, Outlets_Remarks, AddName, AddTime, UpdateName, UpdateTime,
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
         DeleteName, DeleteTime, TimeLiness
         from lms.outlets
         <where>
@@ -120,11 +95,7 @@
                 and AddName = #{addname}
             </if>
             <if test="addtime != null">
-<<<<<<< HEAD
-                and ADDTIME = #{addtime}
-=======
                 and AddTime = #{addtime}
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
             </if>
             <if test="updatename != null and updatename != ''">
                 and UpdateName = #{updatename}
@@ -146,21 +117,13 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="outletsId" useGeneratedKeys="true">
-<<<<<<< HEAD
-        insert into lms.outlets(Outlets_Number, Outlets_Name, Outlets_Belonging, Outlets_Person, Outlets_Phone, Outlets_Province, Outlets_City, Outlets_Region, Outlets_Address, Outlets_Remarks, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
-=======
         insert into lms.outlets(Outlets_Number, Outlets_Name, Outlets_Belonging, Outlets_Person, Outlets_Phone, Outlets_Province, Outlets_City, Outlets_Region, Outlets_Address, Outlets_Remarks, AddName, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
         values (#{outletsNumber}, #{outletsName}, #{outletsBelonging}, #{outletsPerson}, #{outletsPhone}, #{outletsProvince}, #{outletsCity}, #{outletsRegion}, #{outletsAddress}, #{outletsRemarks}, #{addname}, #{addtime}, #{updatename}, #{updatetime}, #{deletename}, #{deletetime}, #{timeliness})
     </insert>
 
     <insert id="insertBatch" keyProperty="outletsId" useGeneratedKeys="true">
         insert into lms.outlets(Outlets_Number, Outlets_Name, Outlets_Belonging, Outlets_Person, Outlets_Phone,
-<<<<<<< HEAD
-        Outlets_Province, Outlets_City, Outlets_Region, Outlets_Address, Outlets_Remarks, AddName, ADDTIME, UpdateName,
-=======
         Outlets_Province, Outlets_City, Outlets_Region, Outlets_Address, Outlets_Remarks, AddName, AddTime, UpdateName,
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
         UpdateTime, DeleteName, DeleteTime, TimeLiness)
         values
         <foreach collection="entities" item="entity" separator=",">
@@ -174,11 +137,7 @@
 
     <insert id="insertOrUpdateBatch" keyProperty="outletsId" useGeneratedKeys="true">
         insert into lms.outlets(Outlets_Number, Outlets_Name, Outlets_Belonging, Outlets_Person, Outlets_Phone,
-<<<<<<< HEAD
-        Outlets_Province, Outlets_City, Outlets_Region, Outlets_Address, Outlets_Remarks, AddName, ADDTIME, UpdateName,
-=======
         Outlets_Province, Outlets_City, Outlets_Region, Outlets_Address, Outlets_Remarks, AddName, AddTime, UpdateName,
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
         UpdateTime, DeleteName, DeleteTime, TimeLiness)
         values
         <foreach collection="entities" item="entity" separator=",">
@@ -193,11 +152,7 @@
         values(Outlets_Belonging) , Outlets_Person = values(Outlets_Person) , Outlets_Phone = values(Outlets_Phone) ,
         Outlets_Province = values(Outlets_Province) , Outlets_City = values(Outlets_City) , Outlets_Region =
         values(Outlets_Region) , Outlets_Address = values(Outlets_Address) , Outlets_Remarks = values(Outlets_Remarks) ,
-<<<<<<< HEAD
-        AddName = values(AddName) , ADDTIME = values(ADDTIME) , UpdateName = values(UpdateName) , UpdateTime =
-=======
         AddName = values(AddName) , AddTime = values(AddTime) , UpdateName = values(UpdateName) , UpdateTime =
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
         values(UpdateTime) , DeleteName = values(DeleteName) , DeleteTime = values(DeleteTime) , TimeLiness =
         values(TimeLiness)
     </insert>
@@ -206,56 +161,21 @@
     <update id="update">
         update lms.outlets
         <set>
-<<<<<<< HEAD
-            <if test="outletsNumber != null and outletsNumber != ''">
-                Outlets_Number = #{outletsNumber},
-            </if>
-            <if test="outletsName != null and outletsName != ''">
-=======
             <if test="outletsNumber != null">
                 Outlets_Number = #{outletsNumber},
             </if>
             <if test="outletsName != null">
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
                 Outlets_Name = #{outletsName},
             </if>
             <if test="outletsBelonging != null">
                 Outlets_Belonging = #{outletsBelonging},
             </if>
-<<<<<<< HEAD
-            <if test="outletsPerson != null and outletsPerson != ''">
-=======
             <if test="outletsPerson != null">
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
                 Outlets_Person = #{outletsPerson},
             </if>
             <if test="outletsPhone != null">
                 Outlets_Phone = #{outletsPhone},
             </if>
-<<<<<<< HEAD
-            <if test="outletsProvince != null and outletsProvince != ''">
-                Outlets_Province = #{outletsProvince},
-            </if>
-            <if test="outletsCity != null and outletsCity != ''">
-                Outlets_City = #{outletsCity},
-            </if>
-            <if test="outletsRegion != null and outletsRegion != ''">
-                Outlets_Region = #{outletsRegion},
-            </if>
-            <if test="outletsAddress != null and outletsAddress != ''">
-                Outlets_Address = #{outletsAddress},
-            </if>
-            <if test="outletsRemarks != null and outletsRemarks != ''">
-                Outlets_Remarks = #{outletsRemarks},
-            </if>
-            <if test="addname != null and addname != ''">
-                AddName = #{addname},
-            </if>
-            <if test="addtime != null">
-                ADDTIME = #{addtime},
-            </if>
-            <if test="updatename != null and updatename != ''">
-=======
             <if test="outletsProvince != null">
                 Outlets_Province = #{outletsProvince},
             </if>
@@ -278,17 +198,12 @@
                 AddTime = #{addtime},
             </if>
             <if test="updatename != null">
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
                 UpdateName = #{updatename},
             </if>
             <if test="updatetime != null">
                 UpdateTime = #{updatetime},
             </if>
-<<<<<<< HEAD
-            <if test="deletename != null and deletename != ''">
-=======
             <if test="deletename != null">
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
                 DeleteName = #{deletename},
             </if>
             <if test="deletetime != null">
@@ -303,16 +218,6 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-<<<<<<< HEAD
-        delete from lms.outlets where Outlets_Id = #{outletsId}
-    </delete>
-
-<!--    根据网点名称 获取网点信息-->
-    <select id="queryByOutletsName">
-        select * from lms.outlets where Outlets_Name = #{outletsName}
-    </select>
-    
-=======
         delete from outlets where Outlets_Id = #{outletsId}
     </delete>
 
@@ -326,6 +231,5 @@
         where Outlets_Id = #{outletsId}
     </update>
 
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
 </mapper>
 

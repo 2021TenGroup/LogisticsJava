@@ -1,21 +1,5 @@
 package com.logistics.controller;
 
-<<<<<<< HEAD
-import com.logistics.entity.Emp;
-import com.logistics.service.EmpService;
-import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
-
-/**
- * (Emp)表控制层
- *
- * @author makejava
- * @since 2021-07-13 04:36:28
- */
-@RestController
-@RequestMapping("emp")
-=======
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.logistics.entity.Emp;
@@ -39,7 +23,6 @@ import java.util.List;
  */
 @RestController
 @Slf4j
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
 public class EmpController {
     /**
      * 服务对象
@@ -47,19 +30,6 @@ public class EmpController {
     @Resource
     private EmpService empService;
 
-<<<<<<< HEAD
-    /**
-     * 通过主键查询单条数据
-     *
-     * @param id 主键
-     * @return 单条数据
-     */
-    @GetMapping("selectOne")
-    public Emp selectOne(Integer id) {
-        return this.empService.queryById(id);
-    }
-
-=======
     @GetMapping("/selectAllEmps")
     public PageInfo<EmpVo> selectAllEmps(@RequestParam("currentPage")int currentPage, @RequestParam("pagesize")int pageSize){
         PageHelper.startPage(currentPage,pageSize);
@@ -100,6 +70,4 @@ public class EmpController {
         return AjaxResponse.success(empVo);
     }
 
-
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
 }

@@ -1,12 +1,5 @@
 package com.logistics.controller;
 
-<<<<<<< HEAD
-import com.logistics.entity.Outlets;
-import com.logistics.service.OutletsService;
-import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
-=======
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.logistics.entity.Outlets;
@@ -20,23 +13,15 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
 
 /**
  * (Outlets)表控制层
  *
  * @author makejava
-<<<<<<< HEAD
- * @since 2021-07-13 04:36:31
- */
-@RestController
-@RequestMapping("outlets")
-=======
  * @since 2021-07-11 14:38:04
  */
 @RestController
 @Slf4j
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
 public class OutletsController {
     /**
      * 服务对象
@@ -44,17 +29,6 @@ public class OutletsController {
     @Resource
     private OutletsService outletsService;
 
-<<<<<<< HEAD
-    /**
-     * 通过主键查询单条数据
-     *
-     * @param id 主键
-     * @return 单条数据
-     */
-    @GetMapping("selectOne")
-    public Outlets selectOne(Integer id) {
-        return this.outletsService.queryById(id);
-=======
     @GetMapping("/selectAllOutlets")
     public PageInfo<OutletsVo> selectAllOutlets(@RequestParam("currentPage")int currentPage, @RequestParam("pagesize")int pageSize){
         PageHelper.startPage(currentPage,pageSize);
@@ -99,7 +73,6 @@ public class OutletsController {
         outletsVo.setTimeliness(1);
         outletsService.delOutletsVo(outletsVo);
         return AjaxResponse.success(outletsVo);
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
     }
 
 }

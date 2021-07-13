@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.logistics.dao.EmpDao">
-<<<<<<< HEAD
-
-    <resultMap type="com.logistics.entity.Emp" id="EmpMap">
-        <result property="empId" column="Emp_Id" jdbcType="INTEGER"/>
-=======
     <resultMap type="com.logistics.vo.EmpVo" id="EmpMap">
         <id property="empId" column="Emp_Id" jdbcType="INTEGER"/>
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
         <result property="positionId" column="Position_Id" jdbcType="INTEGER"/>
         <result property="outletsId" column="Outlets_Id" jdbcType="INTEGER"/>
         <result property="empNumber" column="Emp_number" jdbcType="VARCHAR"/>
@@ -21,24 +15,12 @@
         <result property="fPhotographs" column="F_photographs" jdbcType="VARCHAR"/>
         <result property="empName" column="Emp_Name" jdbcType="VARCHAR"/>
         <result property="addname" column="AddName" jdbcType="VARCHAR"/>
-<<<<<<< HEAD
-        <result property="addtime" column="ADDTIME" jdbcType="TIMESTAMP"/>
-=======
         <result property="addtime" column="AddTime" jdbcType="TIMESTAMP"/>
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
         <result property="updatename" column="UpdateName" jdbcType="VARCHAR"/>
         <result property="updatetime" column="UpdateTime" jdbcType="TIMESTAMP"/>
         <result property="deletename" column="DeleteName" jdbcType="VARCHAR"/>
         <result property="deletetime" column="DeleteTime" jdbcType="TIMESTAMP"/>
         <result property="timeliness" column="TimeLiness" jdbcType="INTEGER"/>
-<<<<<<< HEAD
-    </resultMap>
-
-    <!--查询单个-->
-    <select id="queryById" resultMap="EmpMap">
-        select
-          Emp_Id, Position_Id, Outlets_Id, Emp_number, User_Name, Pass_word, Phone, Identity_cards, Address, Z_photographs, F_photographs, Emp_Name, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
-=======
         <association property="outletsVo" javaType="com.logistics.vo.OutletsVo">
             <id property="outletsId" column="Outlets_Id" jdbcType="INTEGER"/>
             <result property="outletsNumber" column="Outlets_Number" jdbcType="VARCHAR"/>
@@ -94,7 +76,6 @@
     <select id="queryById" resultMap="EmpMap">
         select
           Emp_Id, Position_Id, Outlets_Id, Emp_number, User_Name, Pass_word, Phone, Identity_cards, Address, Z_photographs, F_photographs, Emp_Name, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
         from lms.emp
         where Emp_Id = #{empId}
     </select>
@@ -102,11 +83,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="EmpMap">
         select
-<<<<<<< HEAD
-          Emp_Id, Position_Id, Outlets_Id, Emp_number, User_Name, Pass_word, Phone, Identity_cards, Address, Z_photographs, F_photographs, Emp_Name, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
-=======
           Emp_Id, Position_Id, Outlets_Id, Emp_number, User_Name, Pass_word, Phone, Identity_cards, Address, Z_photographs, F_photographs, Emp_Name, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
         from lms.emp
         limit #{offset}, #{limit}
     </select>
@@ -115,12 +92,7 @@
     <select id="queryAll" resultMap="EmpMap">
         select
         Emp_Id, Position_Id, Outlets_Id, Emp_number, User_Name, Pass_word, Phone, Identity_cards, Address,
-<<<<<<< HEAD
-        Z_photographs, F_photographs, Emp_Name, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime,
-        TimeLiness
-=======
         Z_photographs, F_photographs, Emp_Name, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
         from lms.emp
         <where>
             <if test="empId != null">
@@ -159,16 +131,8 @@
             <if test="empName != null and empName != ''">
                 and Emp_Name = #{empName}
             </if>
-<<<<<<< HEAD
-            <if test="addname != null and addname != ''">
-                and AddName = #{addname}
-            </if>
-            <if test="addtime != null">
-                and ADDTIME = #{addtime}
-=======
             <if test="addtime != null">
                 and AddTime = #{addtime}
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
             </if>
             <if test="updatename != null and updatename != ''">
                 and UpdateName = #{updatename}
@@ -190,69 +154,39 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="empId" useGeneratedKeys="true">
-<<<<<<< HEAD
-        insert into lms.emp(Position_Id, Outlets_Id, Emp_number, User_Name, Pass_word, Phone, Identity_cards, Address, Z_photographs, F_photographs, Emp_Name, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
-=======
         insert into lms.emp(Position_Id, Outlets_Id, Emp_number, User_Name, Pass_word, Phone, Identity_cards, Address, Z_photographs, F_photographs, Emp_Name,AddName, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
         values (#{positionId}, #{outletsId}, #{empNumber}, #{userName}, #{passWord}, #{phone}, #{identityCards}, #{address}, #{zPhotographs}, #{fPhotographs}, #{empName}, #{addname}, #{addtime}, #{updatename}, #{updatetime}, #{deletename}, #{deletetime}, #{timeliness})
     </insert>
 
     <insert id="insertBatch" keyProperty="empId" useGeneratedKeys="true">
         insert into lms.emp(Position_Id, Outlets_Id, Emp_number, User_Name, Pass_word, Phone, Identity_cards, Address,
-<<<<<<< HEAD
-        Z_photographs, F_photographs, Emp_Name, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime,
-        TimeLiness)
-=======
         Z_photographs, F_photographs, Emp_Name, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.positionId}, #{entity.outletsId}, #{entity.empNumber}, #{entity.userName}, #{entity.passWord},
             #{entity.phone}, #{entity.identityCards}, #{entity.address}, #{entity.zPhotographs}, #{entity.fPhotographs},
-<<<<<<< HEAD
-            #{entity.empName}, #{entity.addname}, #{entity.addtime}, #{entity.updatename}, #{entity.updatetime},
-            #{entity.deletename}, #{entity.deletetime}, #{entity.timeliness})
-=======
             #{entity.empName}, #{entity.addtime}, #{entity.updatename}, #{entity.updatetime}, #{entity.deletename},
             #{entity.deletetime}, #{entity.timeliness})
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="empId" useGeneratedKeys="true">
         insert into lms.emp(Position_Id, Outlets_Id, Emp_number, User_Name, Pass_word, Phone, Identity_cards, Address,
-<<<<<<< HEAD
-        Z_photographs, F_photographs, Emp_Name, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime,
-        TimeLiness)
-=======
         Z_photographs, F_photographs, Emp_Name, AddTime, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.positionId}, #{entity.outletsId}, #{entity.empNumber}, #{entity.userName}, #{entity.passWord},
             #{entity.phone}, #{entity.identityCards}, #{entity.address}, #{entity.zPhotographs}, #{entity.fPhotographs},
-<<<<<<< HEAD
-            #{entity.empName}, #{entity.addname}, #{entity.addtime}, #{entity.updatename}, #{entity.updatetime},
-            #{entity.deletename}, #{entity.deletetime}, #{entity.timeliness})
-=======
             #{entity.empName}, #{entity.addtime}, #{entity.updatename}, #{entity.updatetime}, #{entity.deletename},
             #{entity.deletetime}, #{entity.timeliness})
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
         </foreach>
         on duplicate key update
         Position_Id = values(Position_Id) , Outlets_Id = values(Outlets_Id) , Emp_number = values(Emp_number) ,
         User_Name = values(User_Name) , Pass_word = values(Pass_word) , Phone = values(Phone) , Identity_cards =
         values(Identity_cards) , Address = values(Address) , Z_photographs = values(Z_photographs) , F_photographs =
-<<<<<<< HEAD
-        values(F_photographs) , Emp_Name = values(Emp_Name) , AddName = values(AddName) , ADDTIME = values(ADDTIME) ,
-        UpdateName = values(UpdateName) , UpdateTime = values(UpdateTime) , DeleteName = values(DeleteName) , DeleteTime
-        = values(DeleteTime) , TimeLiness = values(TimeLiness)
-=======
         values(F_photographs) , Emp_Name = values(Emp_Name) , AddTime = values(AddTime) , UpdateName =
         values(UpdateName) , UpdateTime = values(UpdateTime) , DeleteName = values(DeleteName) , DeleteTime =
         values(DeleteTime) , TimeLiness = values(TimeLiness)
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
     </insert>
 
     <!--通过主键修改数据-->
@@ -292,16 +226,8 @@
             <if test="empName != null and empName != ''">
                 Emp_Name = #{empName},
             </if>
-<<<<<<< HEAD
-            <if test="addname != null and addname != ''">
-                AddName = #{addname},
-            </if>
-            <if test="addtime != null">
-                ADDTIME = #{addtime},
-=======
             <if test="addtime != null">
                 AddTime = #{addtime},
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
             </if>
             <if test="updatename != null and updatename != ''">
                 UpdateName = #{updatename},
@@ -327,8 +253,6 @@
         delete from lms.emp where Emp_Id = #{empId}
     </delete>
 
-<<<<<<< HEAD
-=======
     <!--修改删除人与时效性-->
     <update id="deleteByEmps" parameterType="com.logistics.entity.Emp">
         update emp
@@ -339,6 +263,5 @@
         where Emp_Id = #{empId}
     </update>
 
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
 </mapper>
 

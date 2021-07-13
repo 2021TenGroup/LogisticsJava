@@ -8,8 +8,6 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: Root!!2018
-<<<<<<< HEAD
-=======
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       # 配置测试查询语句
@@ -32,7 +30,6 @@ spring:
       filters: stat,wall,log4j2
       # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
->>>>>>> 2cc712e36903caa7b2d926bd87cb08cddaac9df3
 mybatis:
   #  全局配置文件
   #  config-location: classpath:mybatis/mybatis-config.xml
