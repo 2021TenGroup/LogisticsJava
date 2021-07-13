@@ -7,7 +7,7 @@
         <result property="waybillNumber" column="waybill_number" jdbcType="VARCHAR"/>
         <result property="cbMoney" column="cb_money" jdbcType="NUMERIC"/>
         <result property="cbState" column="cb_state" jdbcType="INTEGER"/>
-        <result property="cb_FreightType" column="cb__freight_type" jdbcType="INTEGER"/>
+        <result property="cbFreightType" column="cb_freight_type" jdbcType="INTEGER"/>
         <result property="cbDeliverType" column="cb_deliver_type" jdbcType="INTEGER"/>
         <result property="addname" column="AddName" jdbcType="VARCHAR"/>
         <result property="addtime" column="ADDTIME" jdbcType="TIMESTAMP"/>
@@ -21,7 +21,7 @@
     <!--查询单个-->
     <select id="queryById" resultMap="FiCashBillMap">
         select
-          cb_id, waybill_number, cb_money, cb_state, cb__freight_type, cb_deliver_type, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+          cb_id, waybill_number, cb_money, cb_state, cb_freight_type, cb_deliver_type, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
         from lms.fi_cash_bill
         where cb_id = #{cbId}
     </select>
@@ -29,7 +29,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="FiCashBillMap">
         select
-          cb_id, waybill_number, cb_money, cb_state, cb__freight_type, cb_deliver_type, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
+          cb_id, waybill_number, cb_money, cb_state, cb_freight_type, cb_deliver_type, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness
         from lms.fi_cash_bill
         limit #{offset}, #{limit}
     </select>
@@ -37,7 +37,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="FiCashBillMap">
         select
-        cb_id, waybill_number, cb_money, cb_state, cb__freight_type, cb_deliver_type, AddName, ADDTIME, UpdateName,
+        cb_id, waybill_number, cb_money, cb_state, cb_freight_type, cb_deliver_type, AddName, ADDTIME, UpdateName,
         UpdateTime, DeleteName, DeleteTime, TimeLiness
         from lms.fi_cash_bill
         <where>
@@ -53,8 +53,8 @@
             <if test="cbState != null">
                 and cb_state = #{cbState}
             </if>
-            <if test="cb_FreightType != null">
-                and cb__freight_type = #{cb_FreightType}
+            <if test="cbFreightType != null">
+                and cb_freight_type = #{cbFreightType}
             </if>
             <if test="cbDeliverType != null">
                 and cb_deliver_type = #{cbDeliverType}
@@ -85,46 +85,52 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="cbId" useGeneratedKeys="true">
-        insert into lms.fi_cash_bill(cb_state, cb__freight_type, cb_deliver_type, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
-        values (#{cbState}, #{cb_FreightType}, #{cbDeliverType}, #{addname}, #{addtime}, #{updatename}, #{updatetime}, #{deletename}, #{deletetime}, #{timeliness})
+        insert into lms.fi_cash_bill(waybill_number, cb_money, cb_state, cb_freight_type, cb_deliver_type, AddName, ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        values (#{waybillNumber}, #{cbMoney}, #{cbState}, #{cbFreightType}, #{cbDeliverType}, #{addname}, #{addtime}, #{updatename}, #{updatetime}, #{deletename}, #{deletetime}, #{timeliness})
     </insert>
 
     <insert id="insertBatch" keyProperty="cbId" useGeneratedKeys="true">
-        insert into lms.fi_cash_bill(cb_state, cb__freight_type, cb_deliver_type, AddName, ADDTIME, UpdateName,
-        UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        insert into lms.fi_cash_bill(waybill_number, cb_money, cb_state, cb_freight_type, cb_deliver_type, AddName,
+        ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.cbState}, #{entity.cb_FreightType}, #{entity.cbDeliverType}, #{entity.addname}, #{entity.addtime},
-            #{entity.updatename}, #{entity.updatetime}, #{entity.deletename}, #{entity.deletetime},
-            #{entity.timeliness})
+            (#{entity.waybillNumber}, #{entity.cbMoney}, #{entity.cbState}, #{entity.cbFreightType},
+            #{entity.cbDeliverType}, #{entity.addname}, #{entity.addtime}, #{entity.updatename}, #{entity.updatetime},
+            #{entity.deletename}, #{entity.deletetime}, #{entity.timeliness})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="cbId" useGeneratedKeys="true">
-        insert into lms.fi_cash_bill(cb_state, cb__freight_type, cb_deliver_type, AddName, ADDTIME, UpdateName,
-        UpdateTime, DeleteName, DeleteTime, TimeLiness)
+        insert into lms.fi_cash_bill(waybill_number, cb_money, cb_state, cb_freight_type, cb_deliver_type, AddName,
+        ADDTIME, UpdateName, UpdateTime, DeleteName, DeleteTime, TimeLiness)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.cbState}, #{entity.cb_FreightType}, #{entity.cbDeliverType}, #{entity.addname}, #{entity.addtime},
-            #{entity.updatename}, #{entity.updatetime}, #{entity.deletename}, #{entity.deletetime},
-            #{entity.timeliness})
+            (#{entity.waybillNumber}, #{entity.cbMoney}, #{entity.cbState}, #{entity.cbFreightType},
+            #{entity.cbDeliverType}, #{entity.addname}, #{entity.addtime}, #{entity.updatename}, #{entity.updatetime},
+            #{entity.deletename}, #{entity.deletetime}, #{entity.timeliness})
         </foreach>
         on duplicate key update
-        cb_state = values(cb_state) , cb__freight_type = values(cb__freight_type) , cb_deliver_type =
-        values(cb_deliver_type) , AddName = values(AddName) , ADDTIME = values(ADDTIME) , UpdateName =
-        values(UpdateName) , UpdateTime = values(UpdateTime) , DeleteName = values(DeleteName) , DeleteTime =
-        values(DeleteTime) , TimeLiness = values(TimeLiness)
+        waybill_number = values(waybill_number) , cb_money = values(cb_money) , cb_state = values(cb_state) ,
+        cb_freight_type = values(cb_freight_type) , cb_deliver_type = values(cb_deliver_type) , AddName =
+        values(AddName) , ADDTIME = values(ADDTIME) , UpdateName = values(UpdateName) , UpdateTime = values(UpdateTime)
+        , DeleteName = values(DeleteName) , DeleteTime = values(DeleteTime) , TimeLiness = values(TimeLiness)
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
         update lms.fi_cash_bill
         <set>
+            <if test="waybillNumber != null and waybillNumber != ''">
+                waybill_number = #{waybillNumber},
+            </if>
+            <if test="cbMoney != null">
+                cb_money = #{cbMoney},
+            </if>
             <if test="cbState != null">
                 cb_state = #{cbState},
             </if>
-            <if test="cb_FreightType != null">
-                cb__freight_type = #{cb_FreightType},
+            <if test="cbFreightType != null">
+                cb_freight_type = #{cbFreightType},
             </if>
             <if test="cbDeliverType != null">
                 cb_deliver_type = #{cbDeliverType},
@@ -158,6 +164,11 @@
     <delete id="deleteById">
         delete from lms.fi_cash_bill where cb_id = #{cbId}
     </delete>
+
+<!--    根据运单编号查询-->
+    <select id="queryByWaybillNumber" resultType="com.logistics.entity.FiCashBill">
+        select * from lms.fi_cash_bill where waybill_number = #{waybillNumber}
+    </select>
 
 </mapper>
 

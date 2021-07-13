@@ -2,8 +2,11 @@ package com.logistics.service.impl;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.logistics.dao.FiCashBillDao;
+import com.logistics.entity.DsWaybillEntrt;
 import com.logistics.entity.FiCashBill;
+import com.logistics.entity.Orders;
 import com.logistics.service.FiCashBillService;
+import com.logistics.service.OrdersService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +26,8 @@ import java.util.List;
 public class FiCashBillServiceImpl implements FiCashBillService {
     @Resource
     private FiCashBillDao fiCashBillDao;
+    @Resource
+    private OrdersService ordersService;
 
     /**
      * 通过ID查询单条数据
@@ -92,45 +97,48 @@ public class FiCashBillServiceImpl implements FiCashBillService {
     /**
      * 运单录入时，添加运费帐单表
      */
-/*    public int addFiCashBill(DsWaybillEntrt dsWaybillEntrtEntity){      //运单表Entity
+    @Override
+    public int addFiCashBill(DsWaybillEntrt dsWaybillEntrtEntity){      //运单表Entity
         Integer oid = dsWaybillEntrtEntity.getOId();      //获取订单ID
-        OrderService orderService = new OrderService();
-        Order order = orderService.queryById(oid);      //查询出订单实体类
+        Orders orders = ordersService.queryById(oid);      //查询出订单实体类
         FiCashBill fiCashBill = new FiCashBill();
 
-        Integer waybillId = dsWaybillEntrtEntity.getWaybillId();    //获取 运单录入表 运单编号
-        fiCashBill.setWaybillId(waybillId);
+        fiCashBill.setWaybillNumber(dsWaybillEntrtEntity.getWaybillNumber());   //插入运单编号
 
-        Double money = order.getFreight();  // 获取订单表 运费金额
+        Double money = orders.getFreight();  // 获取订单表 运费金额
         fiCashBill.setCbMoney(money);
 
-        String state = orderService.getPaymentMethod(); //收取状态
-        if (state.equals("0")) {        //寄付
-            fiCashBill.setCbState(1);     //收取状态：已收取
+        Integer state = orders.getPaymentMethod(); //收取状态
+        if (state == 0) {        //寄付
+            fiCashBill.setCbState(0);     //收取状态：已收取
             fiCashBill.setCbDeliverType(0);       //类型：寄付
             fiCashBill.setAddtime(new Date());
         }else {     //到付
-            fiCashBill.setCbState(0);     //收取状态：未收取
+            fiCashBill.setCbState(1);     //收取状态：未收取
             fiCashBill.setCbDeliverType(1);       //类型：到付
         }
 
-       return fiCashBillDao.insert(fiCashBill);
+        fiCashBill.setCbFreightType(0);
+        System.out.println(fiCashBill.toString());
 
-    }*/
+       return fiCashBillDao.insert(fiCashBill);
+    }
 
     /**
      * 当签收之后，改变收取状态
      * @param dsWaybillEntrtEntity
      * @return
      */
-/*    public int updateCashBillState(DsWaybillEntrt dsWaybillEntrtEntity){
+    @Override
+    public int updateCashBillState(DsWaybillEntrt dsWaybillEntrtEntity){
         String waybillNumber = dsWaybillEntrtEntity.getWaybillNumber();    //获取 运单录入表 运单编号
         FiCashBill fiCashBill = fiCashBillDao.queryByWaybillNumber(waybillNumber);
         fiCashBill.setCbState(1);
         if(fiCashBill.getCbDeliverType() == 1){
             fiCashBill.setAddtime(new Date());  //如果该订单是到付的话，则添加收取时间
         }
+        fiCashBill.setCbState(0);
         return fiCashBillDao.update(fiCashBill);
-    }*/
+    }
 
 }

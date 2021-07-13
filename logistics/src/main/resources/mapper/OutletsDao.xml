@@ -210,5 +210,10 @@
         delete from lms.outlets where Outlets_Id = #{outletsId}
     </delete>
 
+<!--    根据网点名称 获取网点信息-->
+    <select id="queryByOutletsName">
+        select * from lms.outlets where Outlets_Name = #{outletsName}
+    </select>
+    
 </mapper>
 

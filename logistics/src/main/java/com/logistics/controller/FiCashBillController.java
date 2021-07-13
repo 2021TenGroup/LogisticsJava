@@ -2,6 +2,7 @@ package com.logistics.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.logistics.entity.DsWaybillEntrt;
 import com.logistics.entity.FiCashBill;
 import com.logistics.entity.FiPaymentGoods;
 import com.logistics.entity.result.Result;
@@ -47,6 +48,25 @@ public class FiCashBillController {
         List<FiCashBill> list = fiCashBillService.queryAll(null);
         PageInfo<FiCashBill> pageInfo = new PageInfo<>(list);
         return pageInfo;
+    }
+
+    /**
+     * 添加数据
+     */
+    @PostMapping("/addFiCashBill/{oId}")
+    public int addFiCashBill(@PathVariable("oId") Integer oId ,@RequestBody DsWaybillEntrt dsWaybillEntrt){
+        System.out.println("dsWaybillEntrt.getOId():"+oId);
+        System.out.println("dsWaybillEntrt.getWaybillNumber():"+dsWaybillEntrt.getWaybillNumber());
+        dsWaybillEntrt.setOId(oId);
+        return fiCashBillService.addFiCashBill(dsWaybillEntrt);
+    }
+
+    /**
+     * 运单签收
+     */
+    @PutMapping("/updateCashBillState")
+    public int updateCashBillState(@RequestBody DsWaybillEntrt dsWaybillEntrtEntity){
+        return fiCashBillService.updateCashBillState(dsWaybillEntrtEntity);
     }
 
 }

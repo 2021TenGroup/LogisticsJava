@@ -76,4 +76,10 @@ public class OutletsServiceImpl implements OutletsService {
     public boolean deleteById(Integer outletsId) {
         return this.outletsDao.deleteById(outletsId) > 0;
     }
+
+    @Override
+    public Outlets queryByOutletsName(String outletsName){
+        return outletsDao.queryByOutletsName(outletsName);
+    }
+
 }

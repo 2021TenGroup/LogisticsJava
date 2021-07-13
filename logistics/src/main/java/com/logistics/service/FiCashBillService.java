@@ -1,5 +1,6 @@
 package com.logistics.service;
 
+import com.logistics.entity.DsWaybillEntrt;
 import com.logistics.entity.FiCashBill;
 
 import java.util.List;
@@ -58,11 +59,11 @@ public interface FiCashBillService {
     /**
      * 运单录入时，添加运费帐单表
      */
-//    int addFiCashBill(DsWaybillEntrt dsWaybillEntrtEntity);
+    int addFiCashBill(DsWaybillEntrt dsWaybillEntrtEntity);
 
     /**
      * 当签收之后，改变收取状态
      */
-//    int updateCashBillState(DsWaybillEntrt dsWaybillEntrtEntity);
+    int updateCashBillState(DsWaybillEntrt dsWaybillEntrtEntity);
 
 }
