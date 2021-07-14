@@ -131,9 +131,9 @@ public class FiMoneyDetailedServiceImpl implements FiMoneyDetailedService {
         Outlets outlets = outletsService.queryByOutletsName(outletsName);       //根据网点名称 获取网点信息
         Integer outletsId = outlets.getOutletsId();
         double money = 0;
-        //（0：录入 1：入库）
+        //（0：派送 1：录单）
         if(type == 0){
-            Types types = typesService.queryByTypesName("入库");
+            Types types = typesService.queryByTypesName("派送");
             money = types.getTypeMoney();    //获取其收取的金额
             fiMoneyDetailed.setMdType(0);       //插入类型
             fiMoneyDetailed.setMdDetails("收取维护费");

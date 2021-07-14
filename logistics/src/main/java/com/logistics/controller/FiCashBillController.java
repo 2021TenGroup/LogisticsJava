@@ -66,6 +66,7 @@ public class FiCashBillController {
      */
     @PutMapping("/updateCashBillState")
     public int updateCashBillState(@RequestBody DsWaybillEntrt dsWaybillEntrtEntity){
+        System.out.println(dsWaybillEntrtEntity.toString());
         return fiCashBillService.updateCashBillState(dsWaybillEntrtEntity);
     }
 

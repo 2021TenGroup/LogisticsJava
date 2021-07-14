@@ -1,5 +1,8 @@
 package com.logistics.entity;
 
+import lombok.Data;
+import lombok.ToString;
+
 import java.io.Serializable;
 
 /**
@@ -8,6 +11,8 @@ import java.io.Serializable;
  * @author makejava
  * @since 2021-07-13 05:31:30
  */
+@Data
+@ToString
 public class DsWaybillEntrt implements Serializable {
     private static final long serialVersionUID = -80895337692864668L;
 

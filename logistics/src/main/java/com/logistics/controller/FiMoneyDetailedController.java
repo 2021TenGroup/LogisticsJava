@@ -52,6 +52,7 @@ public class FiMoneyDetailedController {
      */
     @PostMapping("/addFiMD")
     public int addFiMD(@RequestBody AddFiMdEntity addFiMdEntity){
+        System.out.println(addFiMdEntity.toString());
         return fiMoneyDetailedService.addFiMD(addFiMdEntity);
     }
 

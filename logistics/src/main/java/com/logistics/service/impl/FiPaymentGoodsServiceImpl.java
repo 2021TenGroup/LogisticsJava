@@ -174,8 +174,6 @@ public class FiPaymentGoodsServiceImpl implements FiPaymentGoodsService {
             System.out.println("===========fiAdvancCharge:"+fiAdvancCharge);
             fiAdvancChargeService.updateAdvance(fiAdvancCharge);    //修改预付款表中的余额
 
-
-
             return fiPaymentGoodsDao.update(fiPaymentGoods);
 
         }

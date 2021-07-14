@@ -3,8 +3,10 @@ package com.logistics.service.impl;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.logistics.dao.FiCashBillDao;
 import com.logistics.entity.DsWaybillEntrt;
+import com.logistics.entity.FiAdvancCharge;
 import com.logistics.entity.FiCashBill;
 import com.logistics.entity.Orders;
+import com.logistics.service.FiAdvancChargeService;
 import com.logistics.service.FiCashBillService;
 import com.logistics.service.OrdersService;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,8 @@ public class FiCashBillServiceImpl implements FiCashBillService {
     private FiCashBillDao fiCashBillDao;
     @Resource
     private OrdersService ordersService;
+    @Resource
+    private FiAdvancChargeService fiAdvancChargeService;
 
     /**
      * 通过ID查询单条数据
@@ -143,6 +147,12 @@ public class FiCashBillServiceImpl implements FiCashBillService {
         if(fiCashBill.getCbDeliverType() == 1){
             fiCashBill.setAddtime(new Date());  //如果该订单是到付的话，则添加收取时间
         }
+
+        FiAdvancCharge fiAdvancCharge = fiAdvancChargeService.queryByOutletsId(1);       //根据网点ID 获取预付款表信息
+        double money = fiCashBill.getCbMoney();
+        fiAdvancCharge.setAcBalance(fiAdvancCharge.getAcBalance() + money);
+        fiAdvancChargeService.updateAdvance(fiAdvancCharge);    //修改预付款表中的余额
+
         fiCashBill.setCbState(0);
         return fiCashBillDao.update(fiCashBill);
     }

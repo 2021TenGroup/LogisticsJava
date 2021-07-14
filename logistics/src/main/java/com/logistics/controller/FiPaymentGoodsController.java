@@ -57,6 +57,7 @@ public class FiPaymentGoodsController {
     @PostMapping("/addFiPG/{oId}")
     public void addFiPG(@PathVariable("oId") Integer oid, @RequestBody DsWaybillEntrt dsWaybillEntrt){
         dsWaybillEntrt.setOId(oid);
+        System.out.println(dsWaybillEntrt.toString());
         fiPaymentGoodsService.addFiPG(dsWaybillEntrt);
     }
 
